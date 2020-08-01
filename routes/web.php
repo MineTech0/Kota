@@ -30,7 +30,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/note', 'NoteController@getNote');
     
-    Route::get('groups', 'GroupController@index')->name('groups');
+    Route::get('/groups', 'GroupController@index')->name('groups');
+    
+    Route::get('/management', 'ManagementController@index')->name('management');
 
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
