@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-                <x-panel heading='Työkalut'>
+                <x-panel header='Työkalut'>
                     <button type="button" class="btn btn-primary">
                         <a style="color:white;" href="uIlmoitus.php">Uusi ilmoitus</a></button>
                     <button type="button" class="btn btn-primary">
@@ -19,7 +19,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                <x-panel heading='Palaute'>
+                <x-panel header='Palaute'>
                     <table class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
                     <thead>
@@ -31,11 +31,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($feedback as $item)
                         <tr>
-                            @foreach ($feedback as $item)
-                                
-                            @endforeach
-                        <td>{{ $item==null ? $item->users->name : 'Anonyymi' }}</td>
+                        <td>{{ $item->user != null ? $item->user->name : 'Anonyymi' }}</td>
                             <td class="open" data-id="{{$item->id}}"><a style="cursor:pointer">{{$item->heading}}</a></td>
                             <td>
                                 @if ($item->attachment != null)
@@ -48,16 +46,13 @@
                             </td>
                             <td>{{ date('d/m/Y', strtotime($item->created_at))}}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 </x-panel>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Lomakkeet</div>
-                    <div class="panel-body">
-                    </div>
-                </div>
+            <x-panel header='Lomakkeet'/>
             </div>
         </div>
     </div>
@@ -67,7 +62,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                <x-panel heading='Käyttäjät'>
+                <x-panel header='Käyttäjät'>
                     <table id='clist' class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
                     <thead>
@@ -87,18 +82,11 @@
                             <td>{{$index +1}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td><?php echo htmlentities(ucfirst($result->role));?></td>
-                            <td><?php 
-                                if ($result->status == 1){
-                                    echo htmlentities('Kyllä');
-                                }
-                                else{
-                                    echo 'Ei';
-                                }
-                                ;?></td>
+                            <td>@foreach ($user->roles as $role)
+                                {{ucfirst($role->name)}}<br>
+                            @endforeach</td>
+                            <td>Kyllä</td>
                         </tr>
-                        <?php $cnt=$cnt+1; }} ?>
-
                     </tbody>
                 </table>
                 </x-panel>

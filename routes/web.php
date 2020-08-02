@@ -36,4 +36,5 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
+    Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
 });
