@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/files', 'FileController@index')->name('files');
     Route::get('/files/{file}/token/{token}', 'FileController@download');
 
-    Route::post('/note', 'NoteController@getNote');
+    Route::get('/notes/create', 'NoteController@create')->name('notes.create');
+    Route::post('/notes', 'NoteController@store')->name('notes.store');
+    Route::get('/notes/{note}', 'NoteController@show');
     
     Route::get('/groups', 'GroupController@index')->name('groups');
     
@@ -37,4 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
     Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
+    Route::get('/feedback/{feedback}', 'FeedbackController@show');
 });

@@ -43,20 +43,13 @@
 
 @section('script')
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     $('.open').on('click', function (e) {
-        $('#NoteModal').load('/note', {
-            id: $(e.target).data("id")
-        }, function () {
+        $('#NoteModal').load('/notes/'+$(e.target).data("id")
+        ,function () {
             $('#NoteModal').modal({
                 show: true
             });
         });
     });
-
 </script>
 @endsection

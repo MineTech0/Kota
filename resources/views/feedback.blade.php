@@ -5,12 +5,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-                @if(session()->has('message'))
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
+
                 <h2>Anna palautetta</h2>
                 <x-panel header='Uusi palaute'>
                     @if($errors->any())
@@ -22,7 +17,13 @@
                             </ul>
                         </div>
                     @endif
-                    
+                    @if(session()->has('message'))
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+
 
                     <form action="/feedback" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -34,8 +35,8 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="file">Liite</label>
-                                <input type="file" class="form-control-file" name="attachment" id="attachment" placeholder=""
-                                    value="{{ old('file') }}">
+                                <input type="file" class="form-control-file" name="attachment" id="attachment"
+                                    placeholder="" value="{{ old('file') }}">
                             </div>
                         </div>
                         <div class="form-row">
@@ -47,8 +48,8 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                    <input type="checkbox" class="form-check-input " id="anonym" name="anonym">
-                                    <label class="form-check-label" for="exampleCheck1">Haluan lähettää anonyyminä</label>
+                                <input type="checkbox" class="form-check-input " id="anonym" name="anonym">
+                                <label class="form-check-label" for="exampleCheck1">Haluan lähettää anonyyminä</label>
                             </div>
                         </div>
                         <div class="form-group">

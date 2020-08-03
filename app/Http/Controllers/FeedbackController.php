@@ -61,7 +61,7 @@ class FeedbackController extends Controller
      */
     public function show(Feedback $feedback)
     {
-        //
+        return view('components.modal', ['heading' => $feedback->heading,'name'=>$feedback->user !==null ? $feedback->user->name : 'Anonyymi' ,'text'=> $feedback->description]);
     }
 
     /**

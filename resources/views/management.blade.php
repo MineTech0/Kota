@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <x-panel header='Työkalut'>
                     <button type="button" class="btn btn-primary">
-                        <a style="color:white;" href="uIlmoitus.php">Uusi ilmoitus</a></button>
+                        <a style="color:white;" href="{{route('notes.create')}}">Uusi ilmoitus</a></button>
                     <button type="button" class="btn btn-primary">
                         <a style="color:white;" href="kutsu.php">Kutsu käyttäjiä</a></button>
                 </x-panel>
@@ -20,6 +20,7 @@
         <div class="row">
             <div class="col-md-6">
                 <x-panel header='Palaute'>
+                    <div class="table-responsive">
                     <table class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
                     <thead>
@@ -34,12 +35,11 @@
                         @foreach ($feedback as $item)
                         <tr>
                         <td>{{ $item->user != null ? $item->user->name : 'Anonyymi' }}</td>
-                            <td class="open" data-id="{{$item->id}}"><a style="cursor:pointer">{{$item->heading}}</a></td>
+                            <td><a class="open"  data-id="{{$item->id}}" style="cursor:pointer;color:#37a6c4"">{{$item->heading}}</a></td>
                             <td>
                                 @if ($item->attachment != null)
                                 <a class="btn btn-primary btn-sm" target="_blank"
-                                href="/feedback/{{$item->id}}/attachment">Lataa
-                                liite</a>
+                                href="/feedback/{{$item->id}}/attachment">Lataa liite</a>
                                 @else
                                 Ei liitettä
                                 @endif
@@ -49,6 +49,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                    </div>
                 </x-panel>
             </div>
             <div class="col-md-6">
@@ -63,6 +64,7 @@
         <div class="row">
             <div class="col-md-6">
                 <x-panel header='Käyttäjät'>
+                    <div class="table-responsive">
                     <table id='clist' class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
                     <thead>
@@ -89,9 +91,23 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
                 </x-panel>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="FeedbackModal" tabindex="-1" role="dialog" aria-hidden="true">
+@endsection
+@section('script')
+<script>
+    $('.open').on('click', function (e) {
+        $('#FeedbackModal').load('/feedback/'+$(e.target).data("id")
+        ,function () {
+            $('#FeedbackModal').modal({
+                show: true
+            });
+        });
+    });
+</script>
 @endsection
