@@ -1,5 +1,5 @@
 <div class="ptp-dark brand clearfix">
-    ><a href="{{route('home')}}">
+    <a href="{{route('home')}}">
         <h4 class="pull-left text-white text-uppercase" style="margin:20px 0px 0px 20px">PTP Johtajat</h4>
     </a>
     <span class="menu-btn"><i class="fa fa-bars"></i></span>
