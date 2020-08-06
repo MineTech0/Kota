@@ -6,7 +6,7 @@
     <ul class="ts-profile-nav">
 
         <li class="ptp-light ts-account">
-            <a> Tili <i class="fa fa-angle-down hidden-side"></i></a>
+            <a> {{ Auth::user()->name }} <i class="fa fa-angle-down hidden-side"></i></a>
             <ul>
                 <li><a href="/password/reset">Vaihda salasana</a></li>
                 <li>

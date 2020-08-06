@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/home');
 });
-
+Route::get('/register', function () {
+    return abort(404);
+});
 Auth::routes();
 
 //Guarded routes
@@ -40,4 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/feedback', 'FeedbackController@store');
     Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
     Route::get('/feedback/{feedback}', 'FeedbackController@show');
+
+    Route::get('/invite', 'InviteController@create')->name('create.invite');
+    Route::post('/invite', 'InviteController@store')->name('store.invite');
 });
+
+Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
