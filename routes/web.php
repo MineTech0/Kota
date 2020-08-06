@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/home');
 });
-
+Route::get('/register', function () {
+    return abort(404);
+});
 Auth::routes();
 
 //Guarded routes
