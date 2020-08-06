@@ -8,7 +8,7 @@
                     <button type="button" class="btn btn-primary">
                         <a style="color:white;" href="{{route('notes.create')}}">Uusi ilmoitus</a></button>
                     <button type="button" class="btn btn-primary">
-                        <a style="color:white;" href="kutsu.php">Kutsu käyttäjiä</a></button>
+                        <a style="color:white;" href="{{route('create.invite')}}">Kutsu käyttäjiä</a></button>
                 </x-panel>
             </div>
         </div>
@@ -73,22 +73,21 @@
                             <th>Nimi</th>
                             <th>Sähköposti</th>
                             <th>Rooli</th>
-                            <th>Varmistettu</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($users as $index => $user)
                         <tr>
-                            @foreach ($users as $index => $user)
                                 
-                            @endforeach
+                            
                             <td>{{$index +1}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>@foreach ($user->roles as $role)
                                 {{ucfirst($role->name)}}<br>
                             @endforeach</td>
-                            <td>Kyllä</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 </div>

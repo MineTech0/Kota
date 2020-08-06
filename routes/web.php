@@ -40,4 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/feedback', 'FeedbackController@store');
     Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
     Route::get('/feedback/{feedback}', 'FeedbackController@show');
+
+    Route::get('/invite', 'InviteController@create')->name('create.invite');
+    Route::post('/invite', 'InviteController@store')->name('store.invite');
 });
+
+Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
