@@ -46,9 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/invite', 'InviteController@create')->name('create.invite');
     Route::post('/invite', 'InviteController@store')->name('store.invite');
 
-    Route::get('/equipment', 'EquipmentController@create')->name('create.equipment');
-    Route::post('/equipment', 'EquipmentController@store')->name('store.equipment');
     Route::get('/equipment/{equipment}', 'EquipmentController@show')->name('show.equipment');
+    
+    Route::get('/loan', 'LoanController@create')->name('create.loan');
+    Route::get('/loan/{loan}', 'LoanController@show')->name('show.loan');
+    Route::post('/loan', 'LoanController@store')->name('store.loan');
 });
 
 Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
