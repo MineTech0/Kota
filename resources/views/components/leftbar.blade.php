@@ -11,7 +11,7 @@
     <li><a href="{{route('groups')}}"><i class="fa fa-users"></i> &nbsp;Ryhmät</a>
     </li>
     </li>
-    <li><a href="lainaus.php"><i class="fa fa-users"></i> &nbsp;Lainaus</a>
+    <li><a href="{{route('create.equipment')}}"><i class="fa fa-users"></i> &nbsp;Lainaus</a>
     </li>
     @can('access_management')
     <li><a href="{{route('management')}}"><i class="fa fa-clipboard"></i> &nbsp;Hallinto</a>    
