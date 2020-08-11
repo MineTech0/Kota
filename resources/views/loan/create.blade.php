@@ -14,6 +14,7 @@
                             <th>Nimi</th>
                             <th>Sarjanumero</th>
                             <th>Kunto</th>
+                            <th>Määrä</th>
                             <th>Laina-aika</th>
                             <th>Tiedot</th>
                             <th></th>
@@ -22,14 +23,17 @@
                     <tbody>
                         @foreach($equipment as $index => $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->name }} {!! $item->quantity == 0 ? '<span
+                                        class="badge badge-info">Lainassa</span>' : '' !!}</td>
                                 <td>{{ $item->serial }}</td>
                                 <td>{{ $item->form }}</td>
+                                <td>{{ $item->quantity }}</td>
                                 <td>{{ $item->loan_time == 0 ? 'Ei rajoitettu' : $item->loan_time }}
                                 </td>
                                 <td>{{ $item->info }}</td>
-                                <td><button data-id='{{ $item->id }}'
-                                        class="btn btn-primary btn-sm addBtn">Lainaa</button></td>
+                                <td><button data-id='{{ $item->id }}' class="btn btn-primary btn-sm addBtn"
+                                        {{ $item->quantity == 0 ? 'disabled' : '' }}>Lainaa</button>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -58,8 +62,8 @@
                                     <tr>
                                         <th>Nimi</th>
                                         <th>Määrä</th>
-                                        <th>Laina päivä</th>
-                                        <th>Palautus päivä</th>
+                                        <th>Lainapäivä</th>
+                                        <th>Palautuspäivä</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -126,15 +130,28 @@
                             <th>Sarjanumero</th>
                             <th>Määrä</th>
                             <th>Paikka</th>
-                            <th>Laina päivä</th>
-                            <th>Palautus päivä</th>
+                            <th>Lainapäivä</th>
+                            <th>Viimeinen palautuspäivä</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($own_loans as $loan)
                             <tr>
-                                <td>{{ $loan->equipment->name }}</td>
+                                <td>{{ $loan->equipment->name }}
+                                    @if($loan->state==0)
+                                        <span class="badge badge-primary">Hyväksytty</span>
+                                    @elseif($loan->state==1)
+                                        <span class="badge badge-info">Odottaa hyväksyntää</span>
+                                    @elseif($loan->state==2)
+                                        <span class="badge badge-success">Hyväksytty</span>
+                                    @else
+                                        <span class="badge badge-warning">Ei hyväksytty</span>
+                                    @endif
+
+
+
+                                </td>
                                 <td>{{ $loan->equipment->serial }}</td>
                                 <td>{{ $loan->quantity }}</td>
                                 <td>{{ $loan->equipment->location }}</td>
@@ -160,7 +177,7 @@
             e.preventDefault();
             let id = $(this).data('id');
             $(this).prop('disabled', true);
-            $.get("/equipment/" + id)
+            $.get("/equipment/available/" + id)
                 .done(function (data) {
                     let loanDays = data.loan_time == 0 ? 7 : data.loan_time
                     let Today = moment().format('YYYY-MM-DD');
@@ -224,6 +241,32 @@
                 });
             });
         });
+        $(document).on('click', '.returnBtn', function (e) {
+                    let id = $(this).data('id');
+                    console.log('fired');
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                        $.ajax({
+                            url: '/loan/' + id,
+                            type: 'DELETE',
+                            success: function (result) {
+                                $('.returnInfo').html('Palautettu');
+                                $('.returnInfo').addClass('alert-success');
+                                $('.returnInfo').show();
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000);
+                            },
+                            error: function (xhr, Status, error) {
+                                $('.returnInfo').html(Status);
+                                $('.returnInfo').addClass('alert-danger');
+                                $('.returnInfo').show();
+                            }
+                        });
+                    });
 
     </script>
     @endsection

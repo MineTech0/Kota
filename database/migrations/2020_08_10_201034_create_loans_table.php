@@ -21,6 +21,7 @@ class CreateLoansTable extends Migration
             $table->integer('quantity');
             $table->text('desc');
             $table->string('reason');
+            $table->integer('state'); // 0: partio tapahtumaan, 1: odottaa, 2: hyväksytty, 3: ei hyväksytty
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

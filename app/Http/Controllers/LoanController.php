@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Equipment;
-use App\Http\Requests\LoanStoreRequest;
 use App\Loan;
+use App\Equipment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoanStoreRequest;
+use App\Queries\AvailableLoans;
 
 class LoanController extends Controller
 {
@@ -14,7 +15,7 @@ class LoanController extends Controller
     {
         
         return view('loan.create',[
-            'equipment'=> Equipment::all(),
+            'equipment'=> AvailableLoans::get(),
             'own_loans' => Loan::where('user_id',Auth::id())->with('equipment')->get()
          ]);
     }
@@ -23,6 +24,14 @@ class LoanController extends Controller
     {
         $data = $request->validated();
 
+        if($data['reason']=='Partio tapahtumaan'){
+            $state = 0;
+            $message = 'Laina lisätty';
+        }
+        else{
+            $state = 1;
+            $message = 'Laina pyyntö lähetetty';
+        }
         foreach ($data['items'] as $item) {
             Loan::create([
                 'user_id'=> Auth::id(),
@@ -31,13 +40,18 @@ class LoanController extends Controller
                 'loan_date'=> $item['loanDate'] ,
                 'return_date'=>$item['returnDate'] ,
                 'quantity'=>$item['quantity'] ,
-                'equipment_id'=> $item['id']
+                'equipment_id'=> $item['id'],
+                'state'=> $state,
                 ]);
             }
-        return redirect()->back()->with('message', 'Laina lisätty');
+        return redirect()->back()->with('message', $message);
     }
     public function show(Loan $loan)
     {
         return view('components.modal_info',['loan'=> $loan]);
+    }
+    public function destroy(Loan $loan)
+    {
+        $loan->delete();
     }
 }

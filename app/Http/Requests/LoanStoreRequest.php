@@ -25,11 +25,22 @@ class LoanStoreRequest extends FormRequest
     {
         return [
             'items' => 'required|array|min:1',
-            'items.*.id' => 'required|integer',
+            'items.*.id' => 'required|integer|unique:loans,equipment_id',
             'items.*.loanDate' => 'required|date',
             'items.*.returnDate' => 'required|date',
             'description'=> 'required',
             'reason' => 'required'
         ];
     }
+    /**
+ * Get the error messages for the defined validation rules.
+ *
+ * @return array
+ */
+public function messages()
+{
+    return [
+        'items.required' => 'Ainakin yksi laina vaaditaan'
+    ];
+}
 }

@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Equipment;
 use Illuminate\Http\Request;
+use App\Queries\AvailableLoans;
 
 class EquipmentController extends Controller
 {
 
-    public function show(Equipment $equipment)
+    public function show($id)
     {
+        $equipment = AvailableLoans::getOne($id);
+
         return response()->json([
             'name' => $equipment->name,
             'id' => $equipment->id,
