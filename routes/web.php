@@ -45,6 +45,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/invite', 'InviteController@create')->name('create.invite');
     Route::post('/invite', 'InviteController@store')->name('store.invite');
+
+    Route::get('/equipment/available/{id}', 'EquipmentController@show')->name('show.equipment');
+    
+    Route::get('/loan', 'LoanController@create')->name('create.loan');
+    Route::get('/loan/accept/{loan}', 'LoanController@accept')->name('show.loan');
+    Route::get('/loan/{loan}', 'LoanController@show')->name('show.loan');
+    Route::post('/loan', 'LoanController@store')->name('store.loan');
+    Route::delete('/loan/{loan}', 'LoanController@destroy')->name('delete.loan');
+    Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
 });
 
 Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
