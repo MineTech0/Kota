@@ -13,8 +13,12 @@ class AvailableLoans
         {
             if($loans->contains('equipment_id',$item->id))
             {
-                $loan = $loans->firstWhere('equipment_id',$item->id);
-                $item->quantity -= $loan->quantity;
+                $loans->each(function($loan) use ($item){
+                    if($loan->equipment_id == $item->id )
+                    {
+                        $item->quantity -= $loan->state == 3 ? 0 : $loan->quantity;//Hylättyä hakemusta ei lasketa mukaan vaan se on mukana lainattavissa 
+                    }
+                });
                 return $item;
             }
             else
@@ -22,6 +26,7 @@ class AvailableLoans
                 return $item;
             }
         });
+
         return $available;
     }
     public static function getOne($id)
@@ -30,7 +35,7 @@ class AvailableLoans
         $loan = Loan::where('equipment_id',$id)->first();
         if($loan != null)
         {
-            $item->quantity -= $loan->quantity;
+            $item->quantity -= $loan->state == 3 ? 0 : $loan->quantity;
             return $item;
         }
         else

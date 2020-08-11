@@ -3,6 +3,21 @@
 <script src="{{ asset('js/moment.min.js') }}"></script>
 @endsection
 @section('content')
+@if($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+@if(session()->has('message'))
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ session()->get('message') }}
+</div>
+@endif
 <div class="row">
     <div class="col-md-6">
         <x-panel header='Varusteet'>
@@ -23,11 +38,11 @@
                     <tbody>
                         @foreach($equipment as $index => $item)
                             <tr>
-                                <td>{{ $item->name }} {!! $item->quantity == 0 ? '<span
-                                        class="badge badge-info">Lainassa</span>' : '' !!}</td>
+                                <td>{{ $item->name }}</td>
                                 <td>{{ $item->serial }}</td>
                                 <td>{{ $item->form }}</td>
-                                <td>{{ $item->quantity }}</td>
+                                <td>{!! $item->quantity == 0 ? '<span
+                                    class="badge badge-info">Lainassa</span>' : $item->quantity !!}</td>
                                 <td>{{ $item->loan_time == 0 ? 'Ei rajoitettu' : $item->loan_time }}
                                 </td>
                                 <td>{{ $item->info }}</td>
@@ -99,21 +114,6 @@
 
             </form>
             <div id="info">
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session()->has('message'))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        {{ session()->get('message') }}
-                    </div>
-                @endif
             </div>
         </x-panel>
     </div>
@@ -243,6 +243,8 @@
         });
         $(document).on('click', '.returnBtn', function (e) {
                     let id = $(this).data('id');
+                    let message = $(this).data('message');
+
                     console.log('fired');
                     $.ajaxSetup({
                         headers: {
@@ -253,7 +255,7 @@
                             url: '/loan/' + id,
                             type: 'DELETE',
                             success: function (result) {
-                                $('.returnInfo').html('Palautettu');
+                                $('.returnInfo').html(message);
                                 $('.returnInfo').addClass('alert-success');
                                 $('.returnInfo').show();
                                 setTimeout(function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\QuantityLeft;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoanStoreRequest extends FormRequest
@@ -25,7 +26,7 @@ class LoanStoreRequest extends FormRequest
     {
         return [
             'items' => 'required|array|min:1',
-            'items.*.id' => 'required|integer|unique:loans,equipment_id',
+            'items.*.id' => ['required','integer', new QuantityLeft],
             'items.*.loanDate' => 'required|date',
             'items.*.returnDate' => 'required|date',
             'description'=> 'required',

@@ -1,22 +1,19 @@
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title" id="exampleModalLongTitle">{{ $loan->equipment->name }} laina
-                @if($loan->state==0)
-                    <span class="badge badge-primary">Hyväksytty</span>
-                @elseif($loan->state==1)
-                    <span class="badge badge-info">Odottaa hyväksyntää</span>
-                @elseif($loan->state==2)
-                    <span class="badge badge-success">Hyväksytty</span>
-                @else
-                    <span class="badge badge-warning">Ei hyväksytty</span>
-                @endif</h2>
+            <h2 class="modal-title" id="exampleModalLongTitle">{{ $loan->equipment->name }} laina</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
         </div>
         <div class="modal-body">
-          
+          <div class="alert returnInfo" style="display: none">Palautettu</div>
+            <div class="form-group row">
+                <label  class="col-sm-3 col-form-label">Lainaaja: </label>
+                <div class="col-sm-8">
+                    <input class="form-control"  placeholder="{{ $loan->user->name }}" disabled>
+                </div>
+            </div>
             <div class="form-group row">
                 <label  class="col-sm-3 col-form-label">Varuste: </label>
                 <div class="col-sm-8">
@@ -72,18 +69,13 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-8">
-                    @if ($loan->state==1)
-                        <button type="button" class="btn btn-primary btn-block returnBtn" data-id="{{$loan->id}}" data-message="Poistettu">Poista</button >
-                    @elseif($loan->state == 3)
-                        <button type="button" class="btn btn-primary btn-block returnBtn" data-id="{{$loan->id}}" data-message="Poistettu">Poista</button >
-                    @else 
-                        <button type="button" class="btn btn-primary btn-block returnBtn" data-id="{{$loan->id}}" data-message="Palautettu">Palauta</button >
-                    @endif
-                
+                <div class="col-sm-4">
+                <button type="button" class="btn btn-success btn-block acceptBtn" data-id="{{$loan->id}}" data-state="2">Hyväksy laina</button >
+                </div>
+                <div class="col-sm-4">
+                <button type="button" class="btn btn-danger btn-block acceptBtn" data-id="{{$loan->id}}" data-state="3">Hylkää laina</button >
                 </div>
             </div>
-            <div class="alert returnInfo" style="display: none"></div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>

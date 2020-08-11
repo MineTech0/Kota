@@ -49,9 +49,26 @@ class LoanController extends Controller
     public function show(Loan $loan)
     {
         return view('components.modal_info',['loan'=> $loan]);
+        
     }
     public function destroy(Loan $loan)
     {
-        $loan->delete();
+        if($loan->user_id == Auth::id())
+        {
+            $loan->delete();
+        }
+    }
+    public function update(Loan $loan, Request $request)
+    {
+        $loan->state = $request['state'];
+        $loan->save();
+        return response(200);
+    }
+    public function accept(Loan $loan)  
+    {
+        if($loan->state == 1)
+        {
+            return view('components.modal_loan',['loan'=> $loan]);
+        }
     }
 }
