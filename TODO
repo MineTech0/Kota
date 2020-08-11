@@ -1,11 +1,19 @@
 
 Lainaus:
-  ✔ Lisää palautus @done(20-08-11 16:40)
-  ✔ Lisää hallinto sivulle hyväksyntä @started(20-08-11 20:36) @done(20-08-11 21:38) @lasted(1h2m58s)
   ☐ Sähköposti hyväksytystä lainasta
-  ✔ Poista hylätyt lainat @done(20-08-11 21:52)
-  ✔ Varmista että varustetta on vielä jäljellä @done(20-08-11 22:09)
-  ✔ Oikeudet poistaa vain oma laina @done(20-08-11 22:10)
   ☐ Tarkista saako lainata
-  ✔ FIX määrä ei päivity oikein @done(20-08-12 01:38)
+Deploy:
+  ☐ Tee production versio
+  ☐ Cloonaa sivustolle 
+  ☐ composer install
+  ☐ copy env
+  ☐ MySql setup
+  ☐ Artisan up
 
+Archive:
+  ✔ Lisää palautus @done(20-08-11 16:40) @project(Lainaus)
+  ✔ Lisää hallinto sivulle hyväksyntä @started(20-08-11 20:36) @done(20-08-11 21:38) @lasted(1h2m58s) @project(Lainaus)
+  ✔ Poista hylätyt lainat @done(20-08-11 21:52) @project(Lainaus)
+  ✔ Varmista että varustetta on vielä jäljellä @done(20-08-11 22:09) @project(Lainaus)
+  ✔ Oikeudet poistaa vain oma laina @done(20-08-11 22:10) @project(Lainaus)
+  ✔ FIX määrä ei päivity oikein @done(20-08-12 01:38) @project(Lainaus)
