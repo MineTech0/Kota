@@ -45,7 +45,7 @@ class InviteController extends Controller
             'token' => $token,
             'url'=> $url
         ]);
-
+        
         Mail::to($email)->send(new InviteCreated($invite));
             
         }

@@ -4,6 +4,15 @@ Lainaus:
   ☐ Tarkista saako lainata
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
+  
+Add:
+  ☐ Roolien lisääminen
+  ☐ Roolien muokkaaminen
+  
+Fix:
+  ☐ Jos kutsun lähettäminen epäonnistuu poista kutsu tiedokannasta
+  ☐ Kutusn lähetäjä muu kuin webmaster
+  ☐ Poista täyte tekstit
 
 
 
