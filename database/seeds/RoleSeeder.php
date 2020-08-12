@@ -30,7 +30,7 @@ class RoleSeeder extends Seeder
         $role->givePermissionTo(Permission::all());
 
         User::where('name','Niilo Kurki')->get()
-                ->assingRole(['super-admin']);
+                ->assignRole(['super-admin']);
 
     }
 }
