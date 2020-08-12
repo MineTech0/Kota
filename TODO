@@ -4,15 +4,17 @@ Lainaus:
   ☐ Tarkista saako lainata
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
-  
+
 Add:
-  ☐ Roolien lisääminen
-  ☐ Roolien muokkaaminen
+  ✔ Roolien lisääminen @done(20-08-12 15:19)
+  ✔ Roolien muokkaaminen @done(20-08-12 16:04)
   
 Fix:
   ☐ Jos kutsun lähettäminen epäonnistuu poista kutsu tiedokannasta
-  ☐ Kutusn lähetäjä muu kuin webmaster
-  ☐ Poista täyte tekstit
+  ✔ Super-adminta ei voi muokata @done(20-08-12 16:04)
+  ☐ Permission to change role
+  ✔ Kutusn lähetäjä muu kuin webmaster @done(20-08-12 13:44)
+  ✔ Poista täyte tekstit @done(20-08-12 13:42)
 
 
 

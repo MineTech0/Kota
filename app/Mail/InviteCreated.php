@@ -30,7 +30,7 @@ class InviteCreated extends Mailable
      */
     public function build()
     {
-        return $this->from('webmaster@tammipartio.com')
+        return $this->from('PTPjohtajat@tammipartio.fi')
                     ->subject('Kutsu PTP:n johtajien nettisivuille')
                     ->markdown('emails.invite');
     }

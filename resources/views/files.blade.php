@@ -57,7 +57,7 @@
             <div class="col-md-6">
                 <x-panel header='Tiedostot'>
                     <div class="selCon">
-                        <select id="kategoria" class="selectpicker " title="Kategoria" data-width="45vw">
+                        <select id="kategoria" class="selectpicker " title="Kategoria" data-width="100%">
                             <option>Kaikki</option>
                             <option>Leirikirje</option>
                             <option>Asiakirja</option>
@@ -79,7 +79,7 @@
             </div>
             <div class="col-md-6">
                 <x-panel header='Lomakkeet'>
-                    Lomakkeet
+                    <p class="text-muted">Coming soon...</p>
                 </x-panel>
             </div>
 

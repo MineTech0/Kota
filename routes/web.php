@@ -22,6 +22,8 @@ Route::get('/register', function () {
 });
 Auth::routes();
 
+//register route
+Route::get('/user/create/{token}', 'UserController@create')->name('create.user')->middleware('signed');
 //Guarded routes
 Route::middleware('auth')->group(function () {
 
@@ -54,6 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/loan', 'LoanController@store')->name('store.loan');
     Route::delete('/loan/{loan}', 'LoanController@destroy')->name('delete.loan');
     Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
+
+    Route::delete('/user/{user}/role/{role}', 'UserController@destroyRole')->name('deleteRole.user')->middleware('can:access_management');
+    Route::get('/user/{user}', 'UserController@show')->name('show.user')->middleware('can:access_management');
+    Route::patch('/user/{id}', 'UserController@update')->name('update.user')->middleware('can:access_management');
 });
 
-Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
