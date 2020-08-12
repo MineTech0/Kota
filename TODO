@@ -2,15 +2,26 @@
 Lainaus:
   ☐ Sähköposti hyväksytystä lainasta
   ☐ Tarkista saako lainata
-Deploy:
-  ☐ Tee production versio
-  ☐ Cloonaa sivustolle 
-  ☐ composer install
-  ☐ copy env
-  ☐ MySql setup
-  ☐ Artisan up
+Tiedostot:
+  ☐ Kategoriat omaan taulukkoon
 
+
+
+
+
+
+
+
+
+
+  
 Archive:
+  ✔ Tee production versio @done(20-08-12 11:32) @project(Deploy)
+  ✔ Cloonaa sivustolle @done(20-08-12 11:32) @project(Deploy)
+  ✔ composer install @done(20-08-12 11:32) @project(Deploy)
+  ✔ copy env @done(20-08-12 11:32) @project(Deploy)
+  ✔ MySql setup @done(20-08-12 11:32) @project(Deploy)
+  ✔ Artisan up @done(20-08-12 11:32) @project(Deploy)
   ✔ Lisää palautus @done(20-08-11 16:40) @project(Lainaus)
   ✔ Lisää hallinto sivulle hyväksyntä @started(20-08-11 20:36) @done(20-08-11 21:38) @lasted(1h2m58s) @project(Lainaus)
   ✔ Poista hylätyt lainat @done(20-08-11 21:52) @project(Lainaus)
