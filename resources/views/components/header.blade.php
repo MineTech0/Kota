@@ -1,12 +1,12 @@
 <div class="ptp-dark brand clearfix">
-    ><a href="{{route('home')}}">
+    <a href="{{route('home')}}">
         <h4 class="pull-left text-white text-uppercase" style="margin:20px 0px 0px 20px">PTP Johtajat</h4>
     </a>
     <span class="menu-btn"><i class="fa fa-bars"></i></span>
     <ul class="ts-profile-nav">
 
         <li class="ptp-light ts-account">
-            <a> Tili <i class="fa fa-angle-down hidden-side"></i></a>
+            <a> {{ Auth::user()->name }} <i class="fa fa-angle-down hidden-side"></i></a>
             <ul>
                 <li><a href="/password/reset">Vaihda salasana</a></li>
                 <li>

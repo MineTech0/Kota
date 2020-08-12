@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FeedbackController extends Controller
 {
@@ -60,7 +61,7 @@ class FeedbackController extends Controller
      */
     public function show(Feedback $feedback)
     {
-        //
+        return view('components.modal', ['heading' => $feedback->heading,'name'=>$feedback->user !==null ? $feedback->user->name : 'Anonyymi' ,'text'=> $feedback->description]);
     }
 
     /**
@@ -74,17 +75,6 @@ class FeedbackController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Feedback  $feedback
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Feedback $feedback)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -95,5 +85,9 @@ class FeedbackController extends Controller
     public function destroy(Feedback $feedback)
     {
         //
+    }
+    public function attachment(Feedback $feedback)
+    {
+        return Storage::download($feedback->attachment, 'Liite_'.$feedback->id.'.'.substr(strrchr($feedback->attachment,'.'),1));
     }
 }

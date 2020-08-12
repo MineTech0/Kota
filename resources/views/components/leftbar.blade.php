@@ -11,9 +11,11 @@
     <li><a href="{{route('groups')}}"><i class="fa fa-users"></i> &nbsp;Ryhmät</a>
     </li>
     </li>
-    <li><a href="lainaus.php"><i class="fa fa-users"></i> &nbsp;Lainaus</a>
+    <li><a href="{{route('create.loan')}}"><i class="fa fa-users"></i> &nbsp;Lainaus</a>
     </li>
-    <li><a href="hallinto.php"><i class="fa fa-clipboard"></i> &nbsp;Hallinto</a>    
+    @can('access_management')
+    <li><a href="{{route('management')}}"><i class="fa fa-clipboard"></i> &nbsp;Hallinto</a>    
     </li>
+    @endcan
     </ul>
 </nav>

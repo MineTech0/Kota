@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/home');
 });
-
+Route::get('/register', function () {
+    return abort(404);
+});
 Auth::routes();
 
 //Guarded routes
@@ -28,10 +30,30 @@ Route::middleware('auth')->group(function () {
     Route::get('/files', 'FileController@index')->name('files');
     Route::get('/files/{file}/token/{token}', 'FileController@download');
 
-    Route::post('/note', 'NoteController@getNote');
+    Route::get('/notes/create', 'NoteController@create')->name('notes.create');
+    Route::post('/notes', 'NoteController@store')->name('notes.store');
+    Route::get('/notes/{note}', 'NoteController@show');
     
-    Route::get('groups', 'GroupController@index')->name('groups');
+    Route::get('/groups', 'GroupController@index')->name('groups');
+    
+    Route::get('/management', 'ManagementController@index')->name('management');
 
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
+    Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
+    Route::get('/feedback/{feedback}', 'FeedbackController@show');
+
+    Route::get('/invite', 'InviteController@create')->name('create.invite');
+    Route::post('/invite', 'InviteController@store')->name('store.invite');
+
+    Route::get('/equipment/available/{id}', 'EquipmentController@show')->name('show.equipment');
+    
+    Route::get('/loan', 'LoanController@create')->name('create.loan');
+    Route::get('/loan/accept/{loan}', 'LoanController@accept')->name('show.loan');
+    Route::get('/loan/{loan}', 'LoanController@show')->name('show.loan');
+    Route::post('/loan', 'LoanController@store')->name('store.loan');
+    Route::delete('/loan/{loan}', 'LoanController@destroy')->name('delete.loan');
+    Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
 });
+
+Route::get('/user/{token}', 'UserController@create')->name('create.user')->middleware('signed');
