@@ -1,6 +1,6 @@
 
 // Variables
-@import 'variables';
+//@import 'variables';
 
 // Bootstrap
 @import "~bootswatch/dist/sandstone/variables";
@@ -9,7 +9,7 @@
 @import "~bootstrap-select/sass/bootstrap-select.scss";
 
 //fontAwesome
-$fa-font-path:"../webfonts";
+$fa-font-path: "../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/brands';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
