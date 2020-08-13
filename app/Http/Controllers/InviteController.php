@@ -47,6 +47,7 @@ class InviteController extends Controller
         ]);
 
         Mail::to($email)->send(new InviteCreated($invite));
+        
             
         }
     return redirect()

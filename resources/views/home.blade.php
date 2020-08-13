@@ -7,12 +7,17 @@
             <div class="col-md-12">
                 <x-Panel header='Tiedotteet'>
                     @foreach($data as $item)
-                        <h5 style="background:#ededed;padding:20px;">&nbsp;&nbsp;
-                            <b
-                                class="text-primary">{{ $item->created_at->format('d/m/Y') }}</b>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a  class="open" style="cursor:pointer; color:#37a6c4"
-                                data-id='{{ $item->id }}'>{{ $item->heading }}</b></a></h5>
+                    <h5 style="background:#ededed;padding:20px; ">&nbsp;&nbsp;
+                        <div style="display: inline-block">
+                            <b class="text-primary">{{ $item->created_at->format('d/m/Y') }}</b>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div style="display: inline-flex; max-width:30%;" >
+                            <a class="open" style="cursor:pointer; color:#37a6c4"  data-id='{{ $item->id }}'>{{ $item->heading }}</b></a>
+                        
+                        </div>
+                    </h5>  
+
                     @endforeach
 
                 </x-Panel>
@@ -26,12 +31,12 @@
         <div class="row">
             <div class="col-md-6">
                 <x-Panel header='Ohjeet'>
-                    MOI
+                    <p class="text-muted">Viellä tyhjää</p>
                 </x-Panel>
             </div>
             <div class="col-md-6">
                 <x-Panel header='Lomakkeet'>
-                    Lomakkeet
+                    <p class="text-muted">Ehkä joku päivä</p>
                 </x-Panel>
             </div>
         </div>
