@@ -2,9 +2,17 @@
 Lainaus:
   ☐ Sähköposti hyväksytystä lainasta
   ☐ Tarkista saako lainata
+  ☐ Kategoriat ja niiden kanssa suodattaminen
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
-
+Tiedostot:
+  ☐ Mahdollisuus litätä tiedostoja
+  ☐ Tiedostojen muokkaus
+Tiedotteet:
+  ☐ Mahdollisuud muokata julkaistuja tiedotteita
+  ☐ Tiedotteiden poistaminen
+Ryhmät:
+  ☐ Yhteystieto popup
 Add:
   ✔ Roolien lisääminen @done(20-08-12 15:19)
   ✔ Roolien muokkaaminen @done(20-08-12 16:04)
