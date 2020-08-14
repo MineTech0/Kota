@@ -7,14 +7,11 @@ use Illuminate\Contracts\Validation\Rule;
 
 class QuantityLeft implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    
+
+    public function __construct($request)
     {
-        //
+        
     }
 
     /**
@@ -26,7 +23,9 @@ class QuantityLeft implements Rule
      */
     public function passes($attribute, $value)
     {
-        return AvailableLoans::getOne($value)->quantity > 0;
+        $index = explode('.', $attribute)[1];
+        $quantity = request()->input("items.{$index}.quantity");
+        return AvailableLoans::getOne($value)->quantity - $quantity >= 0;
     }
 
     /**
