@@ -3,7 +3,7 @@
 @section('head')
 <style>
     .single {
-        padding: 30px 15px 0px;
+        padding: 0px 15px 0px;
         background: #fcfcfc;
         margin-top: 25px;
         display: block;
@@ -69,7 +69,7 @@
                         <ul class="list-unstyled">
                             @foreach($files as $file)
                         <li><a class="link" href="/files/{{ $file->id }}/token/{{$token}}">{{ $file->name }}<span
-                                            class="pull-right">{{ $file->kategory }}</span></a>
+                                            class="float-right">{{ $file->kategory }}</span></a>
                                 </li>
                             @endforeach
 
@@ -82,7 +82,19 @@
                     <p class="text-muted">Coming soon...</p>
                 </x-panel>
             </div>
-
+            
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <x-panel header='Linkit'>
+                    <div class="single">
+                        <ul>  
+                            <li><a class="link" href="https://drive.google.com/drive/folders/14i2nhAvwth1i-_7x1GNNFEreSM2hEEIv?usp=sharing" target="blank">PJN pöytäkirjat<span class="float-right">Kansio</span></a></li>
+                        </ul>
+                    </div>
+                </x-panel>
+            </div>
         </div>
     </div>
 </div>
