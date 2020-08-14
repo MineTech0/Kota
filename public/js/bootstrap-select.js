@@ -384,7 +384,7 @@
       var drop =
           '<div class="btn-group bootstrap-select' + multiple + inputGroup + '">' +
           '<button type="button" class="' + this.options.styleBase + ' dropdown-toggle" data-toggle="dropdown"' + autofocus + '>' +
-          '<span class="filter-option pull-left"></span>&nbsp;' +
+          '<span class="filter-option float-left"></span>&nbsp;' +
           '<span class="caret"></span>' +
           '</button>' +
           '<div class="dropdown-menu open">' +
