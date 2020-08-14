@@ -49,7 +49,7 @@
                     <tbody>
                         @foreach ($feedback as $item)
                         <tr>
-                        <td>{{ $item->loan != null ? $item->loan->name : 'Anonyymi' }}</td>
+                        <td>{{ $item->user_id != null ? $item->user->name : 'Anonyymi' }}</td>
                             <td><a class="open"  data-id="{{$item->id}}" style="cursor:pointer;color:#37a6c4"">{{$item->heading}}</a></td>
                             <td>
                                 @if ($item->attachment != null)
