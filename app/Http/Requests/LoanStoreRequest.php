@@ -26,7 +26,7 @@ class LoanStoreRequest extends FormRequest
     {
         return [
             'items' => 'required|array|min:1',
-            'items.*.id' => ['required','integer', new QuantityLeft],
+            'items.*.id' => ['required','integer', new QuantityLeft($this)],
             'items.*.loanDate' => 'required|date',
             'items.*.returnDate' => 'required|date',
             'description'=> 'required',
