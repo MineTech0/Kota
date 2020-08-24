@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('head')
 <script src="{{ asset('js/moment.min.js') }}"></script>
+<style>
+</style>
 @endsection
 @section('content')
 @if($errors->any())
@@ -19,8 +21,64 @@
 </div>
 @endif
 <div class="row">
+    <div class="col-md-12">
+        
+            <x-panel header="Ohjeet">
+                <p>Tammipartion varusteita voidaan lainata aktiivisille johtajille, joko partio tapahtumaan tai omaan käyttöön. 
+                    Varusteita lainatessa pitää ottaa huomioon, että palauttaa varusteen hyvässä kunnossa takaisin eli käytännössä sellaisessa kunnossa kuin lainatessa.
+                </p>
+                <div class="alert alert-info">
+                    <a href="{{$guide_url}}" target="_blank">Katso pappilan ohje lainaamisesta</a>
+                  </div>
+                <div class="row">
+                    
+                    <div class="col-md-5">
+                        <h2 class="pb-2">Lainaaminen:</h2>
+                        <div class="alert alert-light">
+                          1. Valitse haluamasi varusteet osion <a href="#equipment">Varusteet</a> listasta. Paina nappia lainaa.
+                        </div>
+                        <div class="alert alert-light">
+                          2. Valitsemasi varusteet ilmestyy osion <a href="#newLoan">Uusi laina</a> listaan. Valitse haluamasi lainapäivä, palautuspäivä ja määrä.
+                        </div>
+                        <div class="alert alert-light">
+                          3. Kirjoita kuvaus lainasta. Esimerkiksi miksi lainaa ja mihin.
+                        </div>
+                        <div class="alert alert-light">
+                          4. Valitse lainan tyyppi kohdasta "Mihin".
+                        </div>
+                        <div class="alert alert-light">
+                          5. Jos lomake ei ilmoita virheista voi lähettää lainan ja painaa nappia "Lainaa".
+                        </div>
+                        <div class="alert alert-light">
+                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja mistä varusteen löytää.
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-5">
+                        <h2 class="pb-2">Palautus:</h2>
+                        <div class="alert alert-light">
+                          1. Mene kohtaa <a href="#ownLoans">Omat lainat</a> ja paina "Avaa tiedot".
+                        </div>
+                        <div class="alert alert-light">
+                          2. Näytölle avautuu ikkuna missä on tietoa lainasta.
+                        </div>
+                        <div class="alert alert-light">
+                          3. Palauttaaksesi varusteen paina "Palauta" nappia.
+                        </div>
+                        <div class="alert alert-light">
+                          4. Lainasi on nyt palautettu ja se on poistunut <a href="#ownLoans">Omat lainat</a> osiosta.
+                        </div>
+                    </div>
+                </div>
+            </x-panel>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <x-panel header='Varusteet'>
+            <a name="equipment" class="anchor"></a>
             <div class="table-responsive">
                 <table id='loanTable' class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
@@ -58,6 +116,7 @@
     </div>
     <div class="col-md-6">
         <x-panel header='Uusi laina'>
+            <a name="newLoan" class="anchor"></a>
             <form action="{{ route('store.loan') }}" class="form-horizontal" method="POST"
                 enctype="multipart/form-data" id="loanForm">
                 @csrf
@@ -121,6 +180,7 @@
 <div class="row mt-5">
     <div class="col-md-6">
         <x-panel header='Omat lainat'>
+            <a name="ownLoans" class="anchor"></a>
             <div class="table-responsive">
                 <table id='OwnLoansTable' class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
@@ -245,7 +305,6 @@
                     let id = $(this).data('id');
                     let message = $(this).data('message');
 
-                    console.log('fired');
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

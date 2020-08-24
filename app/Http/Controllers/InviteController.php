@@ -6,6 +6,7 @@ use App\Invite;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,7 +21,10 @@ class InviteController extends Controller
 
     public function create()
     {
-        return view('invite.create');
+        
+        return view('invite.create',[
+            'invites' => Invite::whereNotIn('email', DB::table('users')->pluck('email'))->get()
+        ]);
     }
 
     public function store(Request $request)

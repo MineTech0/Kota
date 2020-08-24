@@ -21,9 +21,13 @@
             <div class="col-md-12">
                 <x-panel header='Työkalut'>
                     <button type="button" class="btn btn-primary">
-                        <a style="color:white;" href="{{route('notes.create')}}">Uusi ilmoitus</a></button>
+                        <a style="color:white;" href="{{route('notes.create')}}">Uusi tiedote</a></button>
+                    <button type="button" class="btn btn-primary">
+                        <a style="color:white;" href="{{route('notes.index')}}">Muokkaa tiedotteita</a></button>
                     <button type="button" class="btn btn-primary">
                         <a style="color:white;" href="{{route('create.invite')}}">Kutsu käyttäjiä</a></button>
+                    <button type="button" class="btn btn-primary">
+                        <a style="color:white;" href="{{route('index.equipment')}}">Varusteet</a></button>
                 </x-panel>
             </div>
         </div>

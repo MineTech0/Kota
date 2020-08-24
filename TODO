@@ -1,18 +1,25 @@
 
 Lainaus:
-  ☐ Sähköposti hyväksytystä lainasta
+  ✔ Sähköposti hyväksytystä lainasta @done(20-08-19 20:29)
   ☐ Tarkista saako lainata
   ☐ Kategoriat ja niiden kanssa suodattaminen
+  ✔ Infoa siitä mistä omat laina löytää ja miten järjestelmä toimii @done(20-08-18 22:41)
+  ☐ Jos laina palautetaan myöhässä 3 kertaa ei saa enää lainata
+  ☐ fixaa confusing routet
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
-Tiedostot:
-  ☐ Mahdollisuus litätä tiedostoja
+  ☐ Mahdollisuus lisätä tiedostoja
   ☐ Tiedostojen muokkaus
 Tiedotteet:
-  ☐ Mahdollisuud muokata julkaistuja tiedotteita
-  ☐ Tiedotteiden poistaminen
+  ✔ Mahdollisuud muokata julkaistuja tiedotteita @done(20-08-20 14:53)
+  ✔ Tiedotteiden poistaminen @done(20-08-20 14:53)
 Ryhmät:
-  ☐ Yhteystieto popup
+  ✔ Yhteystieto popup @started(20-08-20 20:37) @done(20-08-20 21:21) @lasted(44m17s)
+Varusteet:
+  ✔ Varusteet sivu @done(20-08-20 19:45)
+Pestit:
+  ☐ Tee pestit sivu
+  ☐ Pestien vastaavien yhteystiedot
 Add:
   ✔ Roolien lisääminen @done(20-08-12 15:19)
   ✔ Roolien muokkaaminen @done(20-08-12 16:04)
@@ -23,15 +30,6 @@ Fix:
   ☐ Permission to change role
   ✔ Kutusn lähetäjä muu kuin webmaster @done(20-08-12 13:44)
   ✔ Poista täyte tekstit @done(20-08-12 13:42)
-
-
-
-
-
-
-
-
-
 
   
 Archive:

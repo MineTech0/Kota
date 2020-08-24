@@ -32,33 +32,51 @@ Route::middleware('auth')->group(function () {
     Route::get('/files', 'FileController@index')->name('files');
     Route::get('/files/{file}/token/{token}', 'FileController@download');
 
-    Route::get('/notes/create', 'NoteController@create')->name('notes.create');
-    Route::post('/notes', 'NoteController@store')->name('notes.store');
+    Route::get('/notes/create', 'NoteController@create')->name('notes.create')->middleware('can:access_management');
     Route::get('/notes/{note}', 'NoteController@show');
     
     Route::get('/groups', 'GroupController@index')->name('groups');
-    
-    Route::get('/management', 'ManagementController@index')->name('management');
 
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
-    Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
-    Route::get('/feedback/{feedback}', 'FeedbackController@show');
-
-    Route::get('/invite', 'InviteController@create')->name('create.invite');
-    Route::post('/invite', 'InviteController@store')->name('store.invite');
 
     Route::get('/equipment/available/{id}', 'EquipmentController@show')->name('show.equipment');
     
     Route::get('/loan', 'LoanController@create')->name('create.loan');
-    Route::get('/loan/accept/{loan}', 'LoanController@accept')->name('show.loan');
     Route::get('/loan/{loan}', 'LoanController@show')->name('show.loan');
     Route::post('/loan', 'LoanController@store')->name('store.loan');
     Route::delete('/loan/{loan}', 'LoanController@destroy')->name('delete.loan');
-    Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
 
-    Route::delete('/user/{user}/role/{role}', 'UserController@destroyRole')->name('deleteRole.user')->middleware('can:access_management');
-    Route::get('/user/{user}', 'UserController@show')->name('show.user')->middleware('can:access_management');
-    Route::patch('/user/{id}', 'UserController@update')->name('update.user')->middleware('can:access_management');
+    Route::get('/contact/group/{group}', 'GroupController@contact')->name('group.contact');
+
+    //managenent routes
+    Route::middleware('can:access_management')->group(function () { 
+
+        Route::get('/management', 'ManagementController@index')->name('management');
+
+        Route::get('/invite', 'InviteController@create')->name('create.invite');
+        Route::post('/invite', 'InviteController@store')->name('store.invite');
+
+        Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
+        Route::get('/feedback/{feedback}', 'FeedbackController@show');
+
+        Route::get('/user/{user}', 'UserController@show')->name('show.user');
+        Route::delete('/user/{user}/role/{role}', 'UserController@destroyRole')->name('deleteRole.user');
+        Route::patch('/user/{id}', 'UserController@update')->name('update.user');
+
+        Route::get('/equipment', 'EquipmentController@index')->name('index.equipment');
+
+        
+        Route::get('/notes', 'NoteController@index')->name('notes.index');
+        Route::get('/notes/{note}/edit', 'NoteController@edit')->name('notes.edit');
+        Route::put('/notes/{note}', 'NoteController@update');
+        Route::delete('/notes/{note}', 'NoteController@destroy');
+        Route::post('/notes', 'NoteController@store')->name('notes.store');
+
+        Route::get('/loan/accept/{loan}', 'LoanController@accept');
+        Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
+    
+        
+    });
 });
 

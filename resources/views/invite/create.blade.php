@@ -86,6 +86,37 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <x-panel header='Lähetetyt kutsut'>
+                    <div class="table-responsive">
+                    <table id='clist' class="display table table-striped table-bordered table-hover" cellspacing="0"
+                    width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sähköposti</th>
+                            <th>Päivämäärä</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($invites as $index => $invite)
+                        <tr> 
+                            <td>{{$index +1}}</td>
+                            <td>{{$invite->email}}</td>
+                            <td>{{$invite->created_at->diffForHumans()}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+                </x-panel>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
 <script type="text/javascript">
