@@ -4,8 +4,8 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-                <h2>Uusi ilmoitus</h2>
-                <x-panel header='Uusi ilmoitus'>
+                <h2>Uusi tiedote</h2>
+                <x-panel header='Uusi tiedote'>
                     @if($errors->any())
                         @foreach($errors->all() as $error)
                             <div class="alert alert-warning" role="alert">

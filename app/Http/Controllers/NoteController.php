@@ -35,4 +35,35 @@ class NoteController extends Controller
     ]);
     return redirect()->back()->with('message', 'Ilmoitus julkaistu');
    }
+   public function index()
+   {
+       return view('note.index',[
+           'notes'=> Note::all()
+       ]);
+   }
+   public function edit(Note $note)
+   {
+       return response()->json([
+           'heading' => $note->heading,
+           'text'=> $note->text
+       ]);
+   }
+   public function update(Note $note, Request $request)
+   {
+    $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required|max:500'
+    ]);
+        $note->heading = $request['title'];
+        $note->text = $request['description'];
+        $note->save();
+
+        return redirect()->back()->with('message', 'Tallennettu');
+
+   }
+   public function destroy(Note $note)
+   {
+       $note->delete();
+       return response(200);
+   }
 }
