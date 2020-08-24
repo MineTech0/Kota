@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-md-6">
                 <x-Panel header='Ohjeet'>
-                    <p class="text-muted">Viellä tyhjää</p>
+                    <p class="text-muted">Vielä tyhjää</p>
                 </x-Panel>
             </div>
             <div class="col-md-6">

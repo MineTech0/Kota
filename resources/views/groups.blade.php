@@ -14,6 +14,7 @@
                             <th>Kokouspäivä</th>
                             <th>Aika</th>
                             <th>Kokoontuu</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -26,6 +27,7 @@
                                 <td>{{ $group->day }}</td>
                                 <td>{{ date('H:i',strtotime($group->time)) }}</td>
                                 <td>{{ $group->repeat }}</td>
+                                <td><button data-id='{{$group->id}}' class="btn btn-primary btn-sm contactBtn">Ota yhteyttä</button></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -34,5 +36,20 @@
         </x-panel>
     </div>
 </div>
-
+<div class="modal fade" id="contactModal" aria-hidden="true"></div>
+@endsection
+@section('script')
+    <script>
+       $(document).on('click', '.contactBtn', function (e) {
+        $('#contactModal').load('/contact/group/'+$(this).data("id")
+        ,function (responseText, textStatus, req) {
+            if(textStatus != 'error'){
+                $('#contactModal').modal({
+                    show: true
+                });
+            }
+        });
+    });
+    </script>
+    
 @endsection
