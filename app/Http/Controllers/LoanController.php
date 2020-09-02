@@ -27,7 +27,7 @@ class LoanController extends Controller
     {
         $data = $request->validated();
 
-        if($data['reason']=='Partio tapahtumaan'){
+        if($data['reason']=='Partiotapahtumaan'){
             $state = 0;
             $message = 'Laina lisätty';
         }
