@@ -4,6 +4,8 @@ Lainaus:
   ☐ Kategoriat ja niiden kanssa suodattaminen
   ☐ Jos laina palautetaan myöhässä 3 kertaa ei saa enää lainata
   ☐ fixaa confusing routet
+  ☐ Partiotapahtumaan yhteen kaikissa kohdissa
+  ☐ Huollon omatili ja lainaus
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
   ☐ Mahdollisuus lisätä tiedostoja
@@ -17,10 +19,16 @@ Fix:
 
 Ryhmät:
   ☐ Yhteystiedot popup
+  ☐ Ikäkausi
 Tiedotteet:
   ☐ Html editor 
   ☐ Tallenna html tiedotteita
   ☐ Näytä html tiedotteet
+  ☐ Sähköposti uudesta tiedotteesta(ehkä)
+Chatbox:
+  ☐ Chatti
+  ☐ yleiset ilmoitus 
+  ☐ Voi poistaa
 
 Archive:
   ✔ Sähköposti hyväksytystä lainasta @done(20-08-19 20:29) @project(Lainaus)

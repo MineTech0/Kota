@@ -5,5 +5,5 @@ Rekisteröidy alla olevasta napista:
 Rekisteröidy  
 @endcomponent
 Terveisin,<br>
-Webmaster, Piikkiön tammipartio
+Piikkiön Tammipartio
 @endcomponent

@@ -14,6 +14,7 @@
                             <th>Kokouspäivä</th>
                             <th>Aika</th>
                             <th>Kokoontuu</th>
+                            <th>Ikäkausi</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -27,6 +28,7 @@
                                 <td>{{ $group->day }}</td>
                                 <td>{{ date('H:i',strtotime($group->time)) }}</td>
                                 <td>{{ $group->repeat }}</td>
+                                <td>{{ $group->age }}</td>
                                 <td>
                                     @if ($group->contact)
                                     <button data-id='{{$group->id}}' class="btn btn-primary btn-sm contactBtn">Ota yhteyttä</button>

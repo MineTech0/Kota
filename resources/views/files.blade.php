@@ -90,7 +90,7 @@
                 <x-panel header='Linkit'>
                     <div class="single">
                         <ul>  
-                            <li><a class="link" href="https://drive.google.com/drive/folders/14i2nhAvwth1i-_7x1GNNFEreSM2hEEIv?usp=sharing" target="blank">PJN pöytäkirjat<span class="float-right">Kansio</span></a></li>
+                            <li><a class="link" href="https://drive.google.com/drive/folders/14i2nhAvwth1i-_7x1GNNFEreSM2hEEIv?usp=sharing" target="blank">PJN-koukousten pöytäkirjat<span class="float-right">Kansio</span></a></li>
                         </ul>
                     </div>
                 </x-panel>
