@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input " id="anonym" name="anonym">
-                                <label class="form-check-label" for="exampleCheck1">Haluan lähettää anonyyminä</label>
+                                <label class="form-check-label" for="exampleCheck1">Haluan lähettää nimettömänä</label>
                             </div>
                         </div>
                         <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Invite;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class InviteController extends Controller
 {
@@ -49,8 +51,13 @@ class InviteController extends Controller
             'token' => $token,
             'url'=> $url
         ]);
-
-        Mail::to($email)->send(new InviteCreated($invite));
+            try {
+                Mail::to($email)->send(new InviteCreated($invite));
+            } catch (Exception $e) {
+                $invite->delete();
+                $message = $e->getMessage();
+                return redirect()->back()->withErrors(["Sending failed"=>$message]);
+            }
         
             
         }

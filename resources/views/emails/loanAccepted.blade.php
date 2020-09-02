@@ -14,5 +14,5 @@
 @endcomponent
 
 Terveisin,<br>
-{{ config('app.name') }}
+PTP Johtajat
 @endcomponent
