@@ -24,8 +24,8 @@
     <div class="col-md-12">
         
             <x-panel header="Ohjeet">
-                <p>Tammipartion varusteita voidaan lainata aktiivisille johtajille, joko partio tapahtumaan tai omaan käyttöön. 
-                    Varusteita lainatessa pitää ottaa huomioon, että palauttaa varusteen hyvässä kunnossa takaisin eli käytännössä sellaisessa kunnossa kuin lainatessa.
+                <p>Tammipartion varusteita voidaan lainata aktiivisille johtajille, joko partiotapahtumaan tai omaan käyttöön. 
+                    Varusteita lainatessa pitää ottaa huomioon, että palauttaa varusteen hyvässä kunnossa takaisin eli käytännössä sellaisessa kunnossa kuin ne olivat lainatessa.
                 </p>
                 <div class="alert alert-info">
                     <a href="{{$guide_url}}" target="_blank">Katso pappilan ohje lainaamisesta</a>
@@ -38,19 +38,19 @@
                           1. Valitse haluamasi varusteet osion <a href="#equipment">Varusteet</a> listasta. Paina nappia lainaa.
                         </div>
                         <div class="alert alert-light">
-                          2. Valitsemasi varusteet ilmestyy osion <a href="#newLoan">Uusi laina</a> listaan. Valitse haluamasi lainapäivä, palautuspäivä ja määrä.
+                          2. Valitsemasi varusteet ilmestyvät osion <a href="#newLoan">Uusi laina</a> listaan. Valitse haluamasi lainapäivä, palautuspäivä ja määrä.
                         </div>
                         <div class="alert alert-light">
-                          3. Kirjoita kuvaus lainasta. Esimerkiksi miksi lainaa ja mihin.
+                          3. Kirjoita kuvaus lainasta. Esimerkiksi miksi lainaat ja mihin.
                         </div>
                         <div class="alert alert-light">
                           4. Valitse lainan tyyppi kohdasta "Mihin".
                         </div>
                         <div class="alert alert-light">
-                          5. Jos lomake ei ilmoita virheista voi lähettää lainan ja painaa nappia "Lainaa".
+                          5. Jos lomake ei ilmoita virheista, voit lähettää lainahakemuksen painamalla nappia "Lainaa".
                         </div>
                         <div class="alert alert-light">
-                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja mistä varusteen löytää.
+                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja missä varustetta säilytetään.
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -62,7 +62,7 @@
                           1. Mene kohtaa <a href="#ownLoans">Omat lainat</a> ja paina "Avaa tiedot".
                         </div>
                         <div class="alert alert-light">
-                          2. Näytölle avautuu ikkuna missä on tietoa lainasta.
+                          2. Näytölle avautuu ikkuna, jossa on tietoa lainasta.
                         </div>
                         <div class="alert alert-light">
                           3. Palauttaaksesi varusteen paina "Palauta" nappia.
@@ -154,7 +154,7 @@
                     <div class="col">
                         <label for="description">Kuvaus</label><span style="color:red">*</span>
                         <textarea class="form-control  form-control-lg" name="description" id="description" rows="5"
-                            placeholder="Lainauksen syy ja perustelut"
+                            placeholder="Miksi lainaat ja mihin tarkoitukseen?"
                             value="{{ old('description') }}" required></textarea>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
                 <div class="form-group">
                     <label for="">Mihin</label><span style="color:red">*</span>
                     <select class="form-control" name="reason" id="reason">
-                        <option>Partio tapahtumaan</option>
+                        <option>Partiotapahtumaan</option>
                         <option>Omaan käyttöön</option>
                     </select>
                 </div>
@@ -280,8 +280,8 @@
             let name = $(this).data('name');
             let value = $(this).val();
             if (value > quantity) {
-                $('#info').append('<div class="alert alert-danger" role="alert" data-id="' + id + '">' +
-                    quantity + ' on suurin määrä mitä varustetta ' + name + ' voi lainata</div>')
+                $('#info').append('<div class="alert alert-danger" role="alert" data-id="' + id + '">Varustetta ' + name + ' voi lainata enintään '+
+                    quantity+' kappaletta.</div>')
             } else {
                 $('#info').find('div[data-id="' + id + '"]').remove();
             }

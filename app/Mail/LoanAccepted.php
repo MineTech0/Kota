@@ -32,7 +32,7 @@ class LoanAccepted extends Mailable
     public function build()
     {
         return $this->from('PTPjohtajat@tammipartio.fi')
-                    ->subject('Laina hakemuksesi on hyväksytty')
+                    ->subject('Lainahakemuksesi on hyväksytty')
                     ->markdown('emails.loanAccepted');
     }
 }

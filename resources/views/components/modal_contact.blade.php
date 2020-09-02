@@ -10,13 +10,13 @@
         <div class="form-group row">
             <label  class="col-sm-3 col-form-label">Puhelinnumero: </label>
             <div class="col-sm-8">
-                <input class="form-control"  placeholder="{{ $contact->number }}" readonly>
+              <a class="form-control" href="tel:{{ $contact->number }}">{{ $contact->number }}</a>
             </div>
         </div>
         <div class="form-group row">
             <label  class="col-sm-3 col-form-label">Sähköposti: </label>
             <div class="col-sm-8">
-                <input class="form-control"  placeholder="{{ $contact->email }}" readonly>
+              <a class="form-control" href="mailto:{{ $contact->email }}">{{ $contact->email }}</a>
             </div>
         </div>
       </div>
