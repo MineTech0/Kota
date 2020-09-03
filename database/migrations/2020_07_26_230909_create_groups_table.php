@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration
             $table->string('name');
             $table->string('leaders');
             $table->char('day',2);
-            $table->time('time');
+            $table->string('time');
             $table->string('repeat');
             $table->timestamps();
         });
