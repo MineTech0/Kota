@@ -1,5 +1,6 @@
 
 Lainaus:
+  ☐ Tee testit
   ☐ Tarkista saako lainata
   ☐ Kategoriat ja niiden kanssa suodattaminen
   ☐ Jos laina palautetaan myöhässä 3 kertaa ei saa enää lainata
@@ -19,7 +20,7 @@ Fix:
 
 Ryhmät:
   ☐ Yhteystiedot popup
-  ☐ Ikäkausi
+  ✔ Ikäkausi @done(20-09-02 18:07)
 Tiedotteet:
   ☐ Html editor 
   ☐ Tallenna html tiedotteita
@@ -28,7 +29,10 @@ Tiedotteet:
 Chatbox:
   ☐ Chatti
   ☐ yleiset ilmoitus 
-  ☐ Voi poistaa
+  ☐ poistuu kun on vastattu
+Varauslista:
+  ☐ Keittiön varauslista
+
 
 Archive:
   ✔ Sähköposti hyväksytystä lainasta @done(20-08-19 20:29) @project(Lainaus)
