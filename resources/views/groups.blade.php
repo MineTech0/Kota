@@ -26,7 +26,7 @@
                                 <td>{!! str_replace(',', '<br />', $group->leaders) !!}
                                 </td>
                                 <td>{{ $group->day }}</td>
-                                <td>{{ date('H:i',strtotime($group->time)) }}</td>
+                                <td>{{ $group->time }}</td>
                                 <td>{{ $group->repeat }}</td>
                                 <td>{{ $group->age }}</td>
                                 <td>

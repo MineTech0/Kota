@@ -10,7 +10,7 @@
         <div class="form-group row">
             <label  class="col-sm-3 col-form-label">Puhelinnumero: </label>
             <div class="col-sm-8">
-              <a class="form-control" href="tel:{{ $contact->number }}">{{ $contact->number }}</a>
+              <a class="form-control" href="tel:{{'+358'. $contact->number }}">{{ '+358'.$contact->number }}</a>
             </div>
         </div>
         <div class="form-group row">
