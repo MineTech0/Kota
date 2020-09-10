@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/user/{id}', 'UserController@update')->name('update.user');
 
         Route::get('/equipment', 'EquipmentController@index')->name('index.equipment');
+        Route::get('/equipment/create', 'EquipmentController@create')->name('create.equipment');
 
         
         Route::get('/notes', 'NoteController@index')->name('notes.index');

@@ -7,6 +7,10 @@ Lainaus:
   ☐ fixaa confusing routet
   ☐ Partiotapahtumaan yhteen kaikissa kohdissa
   ☐ Huollon omatili ja lainaus
+Varusteet:
+  ☐ Varusteiden lisäys
+  ☐ Varusteiden lisäys kuvalla
+  ☐ Kuvien näyttäminen varusteiden tiedoissa
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
   ☐ Mahdollisuus lisätä tiedostoja
@@ -19,7 +23,7 @@ Fix:
   ☐ Permission to change role
 
 Ryhmät:
-  ☐ Yhteystiedot popup
+  ✔ Yhteystiedot popup @started(20-09-10 19:17) @done(20-09-10 19:17) @lasted(14s)
   ✔ Ikäkausi @done(20-09-02 18:07)
 Tiedotteet:
   ☐ Html editor 
