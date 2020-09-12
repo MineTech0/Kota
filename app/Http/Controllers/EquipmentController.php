@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Equipment;
 use App\Loan;
+use App\Equipment;
 use Illuminate\Http\Request;
 use App\Queries\AvailableLoans;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\StoreEquipment;
 
 class EquipmentController extends Controller
 {
 
-    public function show($id)
+    public function available($id)
     {
         $equipment = AvailableLoans::getOne($id);
 
@@ -28,8 +30,35 @@ class EquipmentController extends Controller
             'loans'=>Loan::with('equipment')->where('state','=',0)->orWhere('state','=',2)->get()
         ]);
     }
-}
-public function create()
-{
-    return view('equipment.create');
+    public function create()
+    {
+        return view('equipment.create');
+    }
+    public function store(StoreEquipment $request)
+    {
+        $validated = $request->validated();
+        $validated['picture'] = $request->hasFile('picture') ? $request->file('picture')->store('equipment', ['disk' => 'public']) : null;
+        Equipment::create($validated);
+
+        return redirect()->back()->with('message', 'Varuste lisätty');
+    }
+    public function edit(Equipment $equipment)
+    {
+        return view('equipment.edit',['equipment' => $equipment]);
+    }
+    public function update(StoreEquipment $request, Equipment $equipment )
+    {
+        $validated = $request->validated();
+        if($request->hasFile('picture')){
+            $validated['picture'] =  $request->file('picture')->store('equipment', ['disk' => 'public']);
+            File::delete($equipment->picture);
+        }
+        else {
+            $validated['picture']= null;
+        }
+
+        $equipment->update($validated);
+
+        return redirect()->back()->with('message', 'Varuste tallennettu');
+    }
 }

@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
 
-    Route::get('/equipment/available/{id}', 'EquipmentController@show')->name('show.equipment');
+    Route::get('/equipment/available/{id}', 'EquipmentController@available')->name('available.equipment');
     
     Route::get('/loan', 'LoanController@create')->name('create.loan');
     Route::get('/loan/{loan}', 'LoanController@show')->name('show.loan');
@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/equipment', 'EquipmentController@index')->name('index.equipment');
         Route::get('/equipment/create', 'EquipmentController@create')->name('create.equipment');
+        Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('edit.equipment');
+        Route::post('/equipment', 'EquipmentController@store')->name('store.equipment');
+        Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('update.equipment');
 
         
         Route::get('/notes', 'NoteController@index')->name('notes.index');

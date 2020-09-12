@@ -14,6 +14,8 @@
                             <th>Paikka</th>
                             <th>Määrä</th>
                             <th>Info</th>
+                            <th>Kuva</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -26,11 +28,19 @@
                                 <td>{{ $item->location }}</td>
                                 <td>{{ $item->quantity }}</td>
                                 <td>{{ $item->info }}</td>
+                                @if ($item->picture)
+                                <td><a href="storage/{{ $item->picture }}" target="_blank">Avaa kuva</a> </td>
+                                    
+                                @else
+                                    <td></td>
+                                @endif
+                                <td><a href="{{route('edit.equipment',$item->id)}}">Muokkaa</a></td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+        <a href="{{route('create.equipment')}}" ><button class="btn btn-primary btn-lg mt-3">Lisää uusi</button></a>
         </x-panel>
     </div>
 </div>

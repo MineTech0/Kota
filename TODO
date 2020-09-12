@@ -7,10 +7,13 @@ Lainaus:
   ☐ fixaa confusing routet
   ☐ Partiotapahtumaan yhteen kaikissa kohdissa
   ☐ Huollon omatili ja lainaus
+  ☐ Ilmoita sähköpostilla 2 päivää ennen kuin laina menee umpeen
+  ☐ Laina automaattisesti hylätään jos sen päivä on yli palautuspäivän
+  ☐ Menneisyydestä alkaen ei voi lainata
 Varusteet:
-  ☐ Varusteiden lisäys
-  ☐ Varusteiden lisäys kuvalla
-  ☐ Kuvien näyttäminen varusteiden tiedoissa
+  ✔ Varusteiden lisäys @done(20-09-12 19:46)
+  ✔ Varusteiden lisäys kuvalla @done(20-09-12 19:46)
+  ✔ Kuvien näyttäminen varusteiden tiedoissa @done(20-09-12 19:46)
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
   ☐ Mahdollisuus lisätä tiedostoja
