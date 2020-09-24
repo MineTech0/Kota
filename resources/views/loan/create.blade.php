@@ -50,7 +50,7 @@
                           5. Jos lomake ei ilmoita virheista, voit lähettää lainahakemuksen painamalla nappia "Lainaa".
                         </div>
                         <div class="alert alert-light">
-                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja missä varustetta säilytetään. <b>Muista tarkistaa varustetta hakiessasi, että lainaamasi varusteen sarjanumero on sama, kuin olet lainahakemuksessa.</b> 
+                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja missä varustetta säilytetään. <b>Muista tarkistaa varustetta hakiessasi, että lainaamasi varusteen sarjanumero on sama kuin lainahakemuksessa.</b> 
                         </div>
                     </div>
                     <div class="col-md-2">
