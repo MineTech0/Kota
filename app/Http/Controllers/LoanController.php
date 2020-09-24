@@ -25,6 +25,7 @@ class LoanController extends Controller
 
     public function store(LoanStoreRequest $request)
     {
+        dd($request);
         $data = $request->validated();
 
         if($data['reason']=='Partiotapahtumaan'){

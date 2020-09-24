@@ -65,7 +65,11 @@
                     <tbody>
                         @foreach($loans as $loan)
                             <tr>
-                                <td>{{ $loan->equipment->name }}</td>
+                                <td>{{ $loan->equipment->name }}
+                                    @if($loan->return_date < Carbon\Carbon::now()->format('d/m/Y'))
+                                    <span class="badge badge-danger">Myöhässä</span>
+                                    @endif
+                                </td>
                                 <td>{{ $loan->equipment->serial }}</td>
                                 <td>{{ $loan->quantity }}</td>
                                 <td>{{ $loan->user->name }}</td>

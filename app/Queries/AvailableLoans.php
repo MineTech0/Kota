@@ -7,7 +7,7 @@ class AvailableLoans
 {
     public static function get()
     {
-        $equipment = Equipment::with('loan')->get();
+        $equipment = Equipment::with('loan')->where('form','!=','rikki')->get();
         $loans = Loan::all();
         $available = $equipment->map(function ($item) use ($loans)
         {
