@@ -50,7 +50,7 @@
                           5. Jos lomake ei ilmoita virheista, voit lähettää lainahakemuksen painamalla nappia "Lainaa".
                         </div>
                         <div class="alert alert-light">
-                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja missä varustetta säilytetään.
+                          6. Lainaamasi varusteet näkyvät osiosta <a href="#ownLoans">Omat lainat</a>. Sieltä voit tarkistaa onko laina hyväksytty ja missä varustetta säilytetään. <b>Muista tarkistaa varustetta hakiessasi, että lainaamasi varusteen sarjanumero on sama kuin lainahakemuksessa.</b> 
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -199,12 +199,15 @@
                         @foreach($own_loans as $loan)
                             <tr>
                                 <td>{{ $loan->equipment->name }}
-                                    @if($loan->state==0)
+                                    @if($loan->return_date < Carbon\Carbon::now()->format('d/m/Y'))
+                                        <span class="badge badge-danger">Myöhässä</span>
+                                    @elseif($loan->state==0)
                                         <span class="badge badge-primary">Hyväksytty</span>
                                     @elseif($loan->state==1)
                                         <span class="badge badge-info">Odottaa hyväksyntää</span>
                                     @elseif($loan->state==2)
-                                        <span class="badge badge-success">Hyväksytty</span>
+                                    <span class="badge badge-success">Hyväksytty</span>
+                                    
                                     @else
                                         <span class="badge badge-warning">Ei hyväksytty</span>
                                     @endif

@@ -29,8 +29,5 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
 
-        $user = User::where('name','Niilo Kurki')->first();
-        $user->assignRole(['super-admin']);
-
     }
 }
