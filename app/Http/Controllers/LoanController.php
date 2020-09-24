@@ -25,6 +25,7 @@ class LoanController extends Controller
 
     public function store(LoanStoreRequest $request)
     {
+        dd($request);
         $data = $request->validated();
 
         if($data['reason']=='Partiotapahtumaan'){
@@ -51,7 +52,7 @@ class LoanController extends Controller
     }
     public function show(Loan $loan)
     {
-        return view('components.modal_info',['loan'=> $loan]);
+        return view('components.modal_loan_info',['loan'=> $loan]);
         
     }
     public function destroy(Loan $loan)

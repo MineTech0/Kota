@@ -13,7 +13,7 @@ class ManagementController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:access_management');
+       // $this->middleware('can:access_management');
     }
 
     public function index()

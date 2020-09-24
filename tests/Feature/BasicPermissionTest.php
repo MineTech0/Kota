@@ -2,17 +2,21 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BasicPermissionTest extends TestCase
 {
 
     public function test_Management_Route_Access_Without_Authentication()
     {
-        $response = $this->get('/management');
+        $user = factory(User::class)->create();
 
-        $response->assertStatus(401);
+         $response = $this->actingAs($user)
+                         ->get('/management');
+
+        $response->assertStatus(403);
     }
 }

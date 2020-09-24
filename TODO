@@ -5,12 +5,19 @@ Lainaus:
   ☐ Kategoriat ja niiden kanssa suodattaminen
   ☐ Jos laina palautetaan myöhässä 3 kertaa ei saa enää lainata
   ☐ fixaa confusing routet
-  ☐ Partiotapahtumaan yhteen kaikissa kohdissa
+  ✔ Partiotapahtumaan yhteen kaikissa kohdissa @done(20-09-16 20:38)
   ☐ Huollon omatili ja lainaus
+  ☐ Ilmoita sähköpostilla 2 päivää ennen kuin laina menee umpeen
+  ☐ Hyväksyttävä Laina automaattisesti hylätään jos sen päivä on yli palautuspäivän
+  ✔ Menneisyydestä alkaen ei voi lainata @started(20-09-24 14:23) @done(20-09-24 14:32) @lasted(9m22s)
+  ✔ Rikkinäisiä varusteita ei voi lainata @started(20-09-23 14:17) @done(20-09-23 14:20) @lasted(3m20s)
+  ✔ Lainapäivän pitää olla ennen kuin palautuspäivä @started(20-09-23 14:17) @done(20-09-23 14:17) @lasted(29s)
+  ✔ Korjaa ohjeeseen että tarkista sarjanumero @done(20-09-16 20:35)
 Varusteet:
-  ☐ Varusteiden lisäys
-  ☐ Varusteiden lisäys kuvalla
-  ☐ Kuvien näyttäminen varusteiden tiedoissa
+  ✔ Varusteiden lisäys @done(20-09-12 19:46)
+  ✔ Varusteiden lisäys kuvalla @done(20-09-12 19:46)
+  ✔ Kuvien näyttäminen varusteiden tiedoissa @done(20-09-12 19:46)
+  ☐ Lajittele nimen mukaan
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
   ☐ Mahdollisuus lisätä tiedostoja
@@ -36,6 +43,9 @@ Chatbox:
   ☐ poistuu kun on vastattu
 Varauslista:
   ☐ Keittiön varauslista
+Kokousaika suunnitelija:
+  ☐ Toteutus
+  ☐ Jakaminen
 
 
 Archive:

@@ -16,7 +16,11 @@
                 </button>
         </div>
         <div class="modal-body">
-          
+            @if ($loan->equipment->picture)
+            <div class="form-group row">
+            <img src="storage/{{ $loan->equipment->picture }}" class="img-thumbnail rounded mx-auto d-block" width="200"> 
+            </div>
+            @endif
             <div class="form-group row">
                 <label  class="col-sm-3 col-form-label">Varuste: </label>
                 <div class="col-sm-8">
