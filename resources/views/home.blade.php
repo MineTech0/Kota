@@ -35,8 +35,23 @@
                 </x-Panel>
             </div>
             <div class="col-md-6">
-                <x-Panel header='Lomakkeet'>
-                    <p class="text-muted">Ehkä joku päivä</p>
+                <x-Panel header='Keittiön varauslista'>
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if(session()->has('message'))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
+                    <x-kitchen-booking-form/>
                 </x-Panel>
             </div>
         </div>

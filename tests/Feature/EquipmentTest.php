@@ -52,17 +52,5 @@ class EquipmentTest extends TestCase
         $response->assertStatus(200);
         $user->delete();
     }
-    public function test_create_equipment_route()
-    {
-
-        $user = factory(User::class)->create();
-        $user->givePermissionTo('access_management');
-
-        $response = $this->actingAs($user)
-                         ->get('/equipment/create');
-
-        $response->assertStatus(200);
-        $user->delete();
-    }
 
 }

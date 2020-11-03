@@ -43,7 +43,7 @@ class InviteController extends Controller
         } 
         while (Invite::where('token', $token)->first());
 
-        $url = URL::temporarySignedRoute('create.user', now()->addDay(), [
+        $url = URL::temporarySignedRoute('create.user', now()->addWeek(), [
             'token' => $token
         ]);
         $invite = Invite::create([
@@ -63,6 +63,27 @@ class InviteController extends Controller
         }
     return redirect()
         ->back()->with('message','Kutsut lähetetty');
+    }
+
+
+    //resend the invitation
+    public function reSend(Invite $invite)
+    {
+
+        $url = URL::temporarySignedRoute('create.user', now()->addWeek(), [
+            'token' => $invite->token
+        ]);
+        $invite->url = $url;
+        $invite->save();
+        try {
+            Mail::to($invite->email)->send(new InviteCreated($invite));
+        } catch (Exception $e) {
+            $invite->delete();
+            $message = $e->getMessage();
+            return redirect()->back()->withErrors(["Sending failed"=>$message]);
+        }
+        return redirect()
+        ->back()->with('message','Kutsu uudelleen lähetetty');
     }
 
 }
