@@ -99,6 +99,7 @@
                             <th>#</th>
                             <th>Sähköposti</th>
                             <th>Päivämäärä</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,7 +107,16 @@
                         <tr> 
                             <td>{{$index +1}}</td>
                             <td>{{$invite->email}}</td>
-                            <td>{{$invite->created_at->diffForHumans()}}</td>
+                            <td>{{$invite->updated_at->diffForHumans()}}
+                                @if ($invite->updated_at->diffInDays(now())>=7)
+                                <span class="badge badge-warning">Vanhentunut</span>
+                                @endif
+                            </td>
+                            <td>
+                            @if ($invite->updated_at->diffInDays(now())>=7)
+                            <a class='resendLink'data-id='{{$invite->id}}' style="cursor:pointer;color:#37a6c4"">Lähetä uudestaan</a>
+                            @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -116,6 +126,11 @@
             </div>
         </div>
     </div>
+
+    <form id="resendForm" action="" method="POST" style="display: none;">
+        @csrf
+        @method('Patch')
+    </form>
 </div>
 @endsection
 @section('script')
@@ -143,7 +158,11 @@
         })
 
 
-
+        $(document).on('click', '.resendLink', function (e) {
+                    let id = $(this).data('id');
+                    console.log('send', id)
+                    $('#resendForm').attr('action', `invite/${id}`).submit();
+                    });
     });
 
 </script>

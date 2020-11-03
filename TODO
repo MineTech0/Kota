@@ -32,6 +32,7 @@ Fix:
 Ryhmät:
   ✔ Yhteystiedot popup @started(20-09-10 19:17) @done(20-09-10 19:17) @lasted(14s)
   ✔ Ikäkausi @done(20-09-02 18:07)
+  ☐ Ryhmien muokkaus hallituksel
 Tiedotteet:
   ☐ Html editor 
   ☐ Tallenna html tiedotteita
@@ -42,10 +43,13 @@ Chatbox:
   ☐ yleiset ilmoitus 
   ☐ poistuu kun on vastattu
 Varauslista:
-  ☐ Keittiön varauslista
+  ✔ Keittiön varauslista @done(20-09-28 20:54)
 Kokousaika suunnitelija:
   ☐ Toteutus
   ☐ Jakaminen
+Kutsut:
+  ✔ Viikko aikaa rekisteröityä @done(20-09-29 13:35)
+  ✔ Kutsujen uudelleen lähettäminen @done(20-10-01 13:11)
 
 
 Archive:

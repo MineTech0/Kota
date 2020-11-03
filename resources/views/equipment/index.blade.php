@@ -66,7 +66,7 @@
                         @foreach($loans as $loan)
                             <tr>
                                 <td>{{ $loan->equipment->name }}
-                                    @if($loan->return_date < Carbon\Carbon::now()->format('d/m/Y'))
+                                    @if(Carbon\Carbon::createFromFormat('d/m/Y',$loan->return_date)->lt(Carbon\Carbon::now()))
                                     <span class="badge badge-danger">Myöhässä</span>
                                     @endif
                                 </td>

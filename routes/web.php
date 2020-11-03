@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/contact/group/{group}', 'GroupController@contact')->name('group.contact');
 
+    Route::post('/kitchenBooking', 'KitchenBookingController@store')->name('kitchenBooking.store');
+
     //managenent routes
     Route::middleware('can:access_management')->group(function () { 
 
@@ -56,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/invite', 'InviteController@create')->name('create.invite');
         Route::post('/invite', 'InviteController@store')->name('store.invite');
+        Route::patch('/invite/{invite}', 'InviteController@reSend')->name('resend.invite');
 
         Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
         Route::get('/feedback/{feedback}', 'FeedbackController@show');
