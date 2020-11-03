@@ -5,18 +5,10 @@ Lainaus:
   ☐ Kategoriat ja niiden kanssa suodattaminen
   ☐ Jos laina palautetaan myöhässä 3 kertaa ei saa enää lainata
   ☐ fixaa confusing routet
-  ✔ Partiotapahtumaan yhteen kaikissa kohdissa @done(20-09-16 20:38)
   ☐ Huollon omatili ja lainaus
   ☐ Ilmoita sähköpostilla 2 päivää ennen kuin laina menee umpeen
   ☐ Hyväksyttävä Laina automaattisesti hylätään jos sen päivä on yli palautuspäivän
-  ✔ Menneisyydestä alkaen ei voi lainata @started(20-09-24 14:23) @done(20-09-24 14:32) @lasted(9m22s)
-  ✔ Rikkinäisiä varusteita ei voi lainata @started(20-09-23 14:17) @done(20-09-23 14:20) @lasted(3m20s)
-  ✔ Lainapäivän pitää olla ennen kuin palautuspäivä @started(20-09-23 14:17) @done(20-09-23 14:17) @lasted(29s)
-  ✔ Korjaa ohjeeseen että tarkista sarjanumero @done(20-09-16 20:35)
 Varusteet:
-  ✔ Varusteiden lisäys @done(20-09-12 19:46)
-  ✔ Varusteiden lisäys kuvalla @done(20-09-12 19:46)
-  ✔ Kuvien näyttäminen varusteiden tiedoissa @done(20-09-12 19:46)
   ☐ Lajittele nimen mukaan
 Tiedostot:
   ☐ Kategoriat omaan taulukkoon
@@ -30,8 +22,6 @@ Fix:
   ☐ Permission to change role
 
 Ryhmät:
-  ✔ Yhteystiedot popup @started(20-09-10 19:17) @done(20-09-10 19:17) @lasted(14s)
-  ✔ Ikäkausi @done(20-09-02 18:07)
   ☐ Ryhmien muokkaus hallituksel
 Tiedotteet:
   ☐ Html editor 
@@ -42,17 +32,29 @@ Chatbox:
   ☐ Chatti
   ☐ yleiset ilmoitus 
   ☐ poistuu kun on vastattu
-Varauslista:
-  ✔ Keittiön varauslista @done(20-09-28 20:54)
 Kokousaika suunnitelija:
   ☐ Toteutus
   ☐ Jakaminen
+Keittiön varaus:
+  ☐ Lisää poisto mahdollisuus
+  ☐ Tee oma validator
 Kutsut:
-  ✔ Viikko aikaa rekisteröityä @done(20-09-29 13:35)
-  ✔ Kutsujen uudelleen lähettäminen @done(20-10-01 13:11)
-
+  ☐ Muokkaa nimistä isolla alkukirjaimella alkavia 
 
 Archive:
+  ✔ Partiotapahtumaan yhteen kaikissa kohdissa @done(20-09-16 20:38) @project(Lainaus)
+  ✔ Menneisyydestä alkaen ei voi lainata @started(20-09-24 14:23) @done(20-09-24 14:32) @lasted(9m22s) @project(Lainaus)
+  ✔ Rikkinäisiä varusteita ei voi lainata @started(20-09-23 14:17) @done(20-09-23 14:20) @lasted(3m20s) @project(Lainaus)
+  ✔ Lainapäivän pitää olla ennen kuin palautuspäivä @started(20-09-23 14:17) @done(20-09-23 14:17) @lasted(29s) @project(Lainaus)
+  ✔ Korjaa ohjeeseen että tarkista sarjanumero @done(20-09-16 20:35) @project(Lainaus)
+  ✔ Varusteiden lisäys @done(20-09-12 19:46) @project(Varusteet)
+  ✔ Varusteiden lisäys kuvalla @done(20-09-12 19:46) @project(Varusteet)
+  ✔ Kuvien näyttäminen varusteiden tiedoissa @done(20-09-12 19:46) @project(Varusteet)
+  ✔ Yhteystiedot popup @started(20-09-10 19:17) @done(20-09-10 19:17) @lasted(14s) @project(Ryhmät)
+  ✔ Ikäkausi @done(20-09-02 18:07) @project(Ryhmät)
+  ✔ Keittiön varauslista @done(20-09-28 20:54) @project(Varauslista)
+  ✔ Viikko aikaa rekisteröityä @done(20-09-29 13:35) @project(Kutsut)
+  ✔ Kutsujen uudelleen lähettäminen @done(20-10-01 13:11) @project(Kutsut)
   ✔ Sähköposti hyväksytystä lainasta @done(20-08-19 20:29) @project(Lainaus)
   ✔ Infoa siitä mistä omat laina löytää ja miten järjestelmä toimii @done(20-08-18 22:41) @project(Lainaus)
   ✔ Mahdollisuud muokata julkaistuja tiedotteita @done(20-08-20 14:53) @project(Tiedotteet)
