@@ -10,4 +10,8 @@ class Group extends Model
     {
         return $this->hasOne(Contact::class);
     }
+    public function getTimeAttribute($value)
+    {
+        return str_replace('.',':',$value);
+    }
 }

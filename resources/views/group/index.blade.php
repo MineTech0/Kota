@@ -34,6 +34,14 @@
                                     <button data-id='{{$group->id}}' class="btn btn-primary btn-sm contactBtn">Ota yhteyttä</button>
                                     @endif
                                 </td>
+                                <td>
+                                    @can('access_management')
+                                    <button class="btn btn-primary btn-sm editBtn">
+                                        <a style="color:white;" href='{{route('edit.group',$group->id)}}'>Muokkaa</a>
+                                    </button>
+                                        
+                                    @endcan
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

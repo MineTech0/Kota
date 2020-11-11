@@ -73,7 +73,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/equipment', 'EquipmentController@store')->name('store.equipment');
         Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('update.equipment');
 
-        
+        Route::get('/groups/{group}/edit','GroupController@edit')->name('edit.group');
+        Route::put('/groups/{group}','GroupController@update')->name('update.group');
+
         Route::get('/notes', 'NoteController@index')->name('notes.index');
         Route::get('/notes/{note}/edit', 'NoteController@edit')->name('notes.edit');
         Route::put('/notes/{note}', 'NoteController@update');
