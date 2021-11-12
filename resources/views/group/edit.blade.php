@@ -76,7 +76,7 @@
                                 @foreach(explode(',', $group->leaders) as $leader) 
                                 <div class="mb-2">
                                     <input type="text" name="LeaderList[]" id="leader_list" class="form-control"
-                                        value="{{$leader}}" required>
+                                        value="{{$leader}}">
                                     </input>
                                 </div>
                                 @endforeach
@@ -90,8 +90,13 @@
 
 
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <button class="btn btn-primary" name="submit" type="submit">Tallenna</button>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <button class="btn btn-primary" name="submit" type="submit">Tallenna</button>
+                                </div>
+                                <div class="col-sm-1 mt-1">
+                                    <button class="btn btn-danger" name="delete" type="button">Poista ryhmä</button>
+                                </div>
                             </div>
                         </div>
 
@@ -110,7 +115,7 @@
     $(add_button).click(function (e) { //on add input button click
         e.preventDefault();
         $(wrapper).append(
-            '<div class="mb-2"><input type="text" name="LeaderList[]" id="leader_list" class="form-control" required></input></div>'
+            '<div class="mb-2"><input type="text" name="LeaderList[]" id="leader_list" class="form-control"></input></div>'
             ); //add input box
     });
 
