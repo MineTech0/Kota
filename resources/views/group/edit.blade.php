@@ -94,9 +94,11 @@
                                 <div class="col-sm-1">
                                     <button class="btn btn-primary" name="submit" type="submit">Tallenna</button>
                                 </div>
-                                <div class="col-sm-1 mt-1">
-                                    <button class="btn btn-danger" name="delete" type="button">Poista ryhmä</button>
-                                </div>
+                                    <div class="col-sm-1 mt-1">
+                                        <button class="btn btn-danger" id="delete" type="submit">Poista ryhmä</button>
+                                    </div>
+                                
+                              
                             </div>
                         </div>
 
@@ -123,6 +125,13 @@
         e.preventDefault();
         $(this).parents('.cont').remove();
     })
+
+    $('#delete').click(function(e){
+        e.preventDefault() // Don't post the form, unless confirmed
+        if (confirm('Haluatko varmasti poistaa ryhmän?')) {
+            // Post the form
+        }
+    });
 
 </script>
 @endsection
