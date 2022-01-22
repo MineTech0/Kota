@@ -1,17 +1,26 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\KitchenBooking;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-$factory->define(KitchenBooking::class, function (Faker $faker) {
-    $startTime = now()->format('Y-m-d\TH:i');
-    $endTime = now()->addHour()->format('Y-m-d\TH:i');
-    return [
-        'user_id' => 1,
-        'group_name' => $faker->word(),
-        'start_time' => $startTime,
-        'end_time' => $endTime
-    ];
-});
+class KitchenBookingFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $startTime = now()->format('Y-m-d\TH:i');
+        $endTime = now()->addHour()->format('Y-m-d\TH:i');
+        return [
+            'user_id' => 1,
+            'group_name' => $this->faker->word(),
+            'start_time' => $startTime,
+            'end_time' => $endTime
+        ];
+    }
+}
