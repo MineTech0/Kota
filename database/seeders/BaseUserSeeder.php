@@ -17,13 +17,16 @@ class BaseUserSeeder extends Seeder
         $managementUser = User::factory()->create([
             'email' => 'management@email.com',
         ]);
+        
 
         $managementUser->assignRole('management');
+        $managementUser->save();
 
         $adminUser = User::factory()->create([
             'email' => 'admin@email.com',
         ]);
 
         $adminUser->assignRole('super-admin');
+        $adminUser->save();
     }
 }
