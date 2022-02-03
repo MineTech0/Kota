@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Group;
+use Database\Factories\GroupFactory;
 use Illuminate\Database\Seeder;
 
 class GroupSeeder extends Seeder
@@ -13,6 +15,6 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Group::factory()->count(10)->hasContact(1)->create();
     }
 }
