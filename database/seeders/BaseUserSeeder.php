@@ -14,6 +14,10 @@ class BaseUserSeeder extends Seeder
      */
     public function run()
     {
+        User::factory()->create([
+            'email' => 'user@email.com',
+        ]);
+
         $managementUser = User::factory()->create([
             'email' => 'management@email.com',
         ]);
