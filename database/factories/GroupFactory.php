@@ -17,7 +17,7 @@ class GroupFactory extends Factory
         $weekdays = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
         $ages = ['Sudenpennut, 1v', 'Sudenpennut, 2v', 'Seikkailijat, 1v', 'Seikkailijat, 2v', 'Seikkailijat, 3v', 'Tarpojat, 1v', 'Tarpojat, 2v', 'Tarpojat, 3v'];
         $leaders = array();
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < rand(1,6); $i++) {
             $leaders[] = $this->faker->name();
         }
         return [
