@@ -21,7 +21,6 @@
                             <th>Aika</th>
                             <th>Kokoontuu</th>
                             <th>Ikäkausi</th>
-                            <th></th>
                         </tr>
                     </thead>
 
@@ -40,14 +39,14 @@
                                     <button data-id='{{$group->id}}' class="btn btn-primary btn-sm contactBtn">Ota yhteyttä</button>
                                     @endif
                                 </td>
+                                @can('access_management')
                                 <td>
-                                    @can('access_management')
                                     <button class="btn btn-primary btn-sm editBtn">
                                         <a style="color:white;" href='{{route('edit.group',$group->id)}}'>Muokkaa</a>
                                     </button>
                                         
-                                    @endcan
                                 </td>
+                                    @endcan
                             </tr>
                         @endforeach
                     </tbody>
