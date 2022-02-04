@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Group;
+use App\Http\Requests\UpdateGroupRequest;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -29,4 +30,26 @@ class GroupController extends Controller
     {
         return view('group.edit',['group'=> $group,'weekDays'=>['Ma','Ti','Ke','To','Pe','La','Su']]);
     }
+
+    public function update(Group $group, UpdateGroupRequest $request)
+    {
+        $validated = $request->validated();
+
+         $group->name = $validated['group_name'];
+         $group->day = $validated['meeting_day'];
+         $group->time = $validated['meeting_start'] . '-'. $validated['meeting_end'] ;
+         $group->repeat = $validated['repeat'];
+         $group->age = $validated['age'];
+         $group->leaders = implode(',',array_filter($validated['leader_list']));
+         $group->save();
+ 
+         return redirect()->route('groups')->with('message', 'Ryhmä tallennettu');
+ 
+    }
+    public function destroy(Group $group)
+   {
+       $group->contact()->delete();
+       $group->delete();
+       return redirect()->route('groups')->with('message', 'Ryhmä poistettu');
+   }
 }

@@ -3,6 +3,12 @@
 
 <div class="row">
     <div class="col-md-12">
+        @if(session()->has('message'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ session()->get('message') }}
+        </div>
+    @endif
         <x-panel header="Ryhmät">
             <div class="table-responsive">
                 <table id="clist" class="display table table-striped table-bordered table-hover" cellspacing="0"

@@ -75,7 +75,7 @@
                             <div class="col-sm-4" id='LeaderListWrapper'>
                                 @foreach(explode(',', $group->leaders) as $leader) 
                                 <div class="mb-2">
-                                    <input type="text" name="LeaderList[]" id="leader_list" class="form-control"
+                                    <input type="text" name="leader_list[]" id="leader_list" class="form-control"
                                         value="{{$leader}}">
                                     </input>
                                 </div>
@@ -95,7 +95,7 @@
                                     <button class="btn btn-primary" name="submit" type="submit">Tallenna</button>
                                 </div>
                                     <div class="col-sm-1 mt-1">
-                                        <button class="btn btn-danger" id="delete" type="submit">Poista ryhmä</button>
+                                        <button class="btn btn-danger" id="delete" type="button">Poista ryhmä</button>
                                     </div>
                                 
                               
@@ -109,6 +109,10 @@
         </x-panel>
     </div>
 </div>
+<form id="deleteForm" action="/groups/{{$group->id}}" method="post" style="display: none;">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection
 @section('script')
 <script>
@@ -117,19 +121,14 @@
     $(add_button).click(function (e) { //on add input button click
         e.preventDefault();
         $(wrapper).append(
-            '<div class="mb-2"><input type="text" name="LeaderList[]" id="leader_list" class="form-control"></input></div>'
+            '<div class="mb-2"><input type="text" name="leader_list[]" id="leader_list" class="form-control"></input></div>'
             ); //add input box
     });
-
-    $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-        e.preventDefault();
-        $(this).parents('.cont').remove();
-    })
 
     $('#delete').click(function(e){
         e.preventDefault() // Don't post the form, unless confirmed
         if (confirm('Haluatko varmasti poistaa ryhmän?')) {
-            // Post the form
+            $('#deleteForm').submit()
         }
     });
 

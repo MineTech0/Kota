@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/groups/{group}/edit','GroupController@edit')->name('edit.group');
         Route::put('/groups/{group}','GroupController@update')->name('update.group');
+        Route::delete('/groups/{group}','GroupController@destroy')->name('destroy.group');
 
         Route::get('/notes', 'NoteController@index')->name('notes.index');
         Route::get('/notes/{note}/edit', 'NoteController@edit')->name('notes.edit');
