@@ -24,7 +24,8 @@ Fix:
   ☐ Permission to change role
 
 Ryhmät:
-  ☐ Ryhmien muokkaus hallituksel
+  ✔ Ryhmien muokkaus hallituksel @done(22-02-04 23:50)
+  ☐ Ryhmien muokkaus lomake mobile version korjaus
 Tiedotteet:
   ☐ Html editor 
   ☐ Tallenna html tiedotteita
