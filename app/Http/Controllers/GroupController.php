@@ -15,13 +15,18 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return view('groups',['groups'=> Group::all()]);
+        return view('group.index',['groups'=> Group::all()]);
     }
 
     public function contact($id)
     {
+        
         return view('components.modal_contact',[
             'contact'=>Contact::where('group_id',$id)->firstOrFail()
         ]);
+    }
+    public function edit(Group $group)
+    {
+        return view('group.edit',['group'=> $group,'weekDays'=>['Ma','Ti','Ke','To','Pe','La','Su']]);
     }
 }
