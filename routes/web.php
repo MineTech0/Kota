@@ -73,6 +73,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/equipment', 'EquipmentController@store')->name('store.equipment');
         Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('update.equipment');
 
+        Route::post('/groups', 'GroupController@store')->name('store.group');
+        Route::get('/groups/create', 'GroupController@create')->name('create.group');
         Route::get('/groups/{group}/edit','GroupController@edit')->name('edit.group');
         Route::put('/groups/{group}','GroupController@update')->name('update.group');
         Route::delete('/groups/{group}','GroupController@destroy')->name('destroy.group');
