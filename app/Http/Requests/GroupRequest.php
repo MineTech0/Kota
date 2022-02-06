@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateGroupRequest extends FormRequest
+class GroupRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,8 +31,31 @@ class UpdateGroupRequest extends FormRequest
             'repeat' => 'string|required',
             'age' => 'string|required',
             'leader_list' => 'required|array|min:1',
-            'leader_list.*' => 'string|nullable'
+            'leader_list.*' => 'string'
 
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'leader_list' => array_filter($this->leader_list),
+        ]);
+    }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'leader_list.required' => 'Vähintään yksi johtaja vaaditaan',
         ];
     }
 }

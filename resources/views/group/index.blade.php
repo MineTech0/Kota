@@ -10,6 +10,11 @@
         </div>
     @endif
         <x-panel header="Ryhmät">
+            @can('access_management')
+            <button class="btn btn-primary btn-sm editBtn">
+                <a style="color:white;" href='{{route('create.group')}}'>Uusi ryhmä</a>
+            </button>
+            @endcan
             <div class="table-responsive">
                 <table id="clist" class="display table table-striped table-bordered table-hover" cellspacing="0"
                     width="100%">
@@ -52,6 +57,7 @@
                     </tbody>
                 </table>
             </div>
+           
         </x-panel>
     </div>
 </div>
