@@ -40,7 +40,7 @@ class GroupController extends Controller
         $group->time = $validated['meeting_start'] . '-' . $validated['meeting_end'];
         $group->repeat = $validated['repeat'];
         $group->age = $validated['age'];
-        $group->leaders = implode(',', array_filter($validated['leader_list']));
+        $group->leaders = implode(',', $validated['leader_list']);
         $group->save();
 
         return redirect()->route('groups')->with('message', 'Ryhmä tallennettu');
@@ -65,7 +65,7 @@ class GroupController extends Controller
             'time' => $validated['meeting_start'] . '-' . $validated['meeting_end'],
             'repeat' => $validated['repeat'],
             'age' => $validated['age'],
-            'leaders' => implode(',', array_filter($validated['leader_list']))
+            'leaders' => implode(',',$validated['leader_list'])
         ]);
         return redirect()->route('groups')->with('message', 'Uusi ryhmä luotu');
     }
