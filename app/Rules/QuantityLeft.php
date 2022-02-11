@@ -25,7 +25,12 @@ class QuantityLeft implements Rule
     {
         $index = explode('.', $attribute)[1];
         $quantity = request()->input("items.{$index}.quantity");
-        return AvailableLoans::getOne($value)->quantity - $quantity >= 0;
+        $availableItem = AvailableLoans::getOne($value);
+        if ($availableItem == null)
+        {
+            return false;
+        }
+        return $availableItem->quantity - $quantity >= 0;
     }
 
     /**
