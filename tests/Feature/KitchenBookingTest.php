@@ -79,7 +79,7 @@ class KitchenBookingTest extends TestCase
         //Create mock data
         $startTime = Carbon::now();
         $endTime = now()->addHour();
-        $bookings = factory(KitchenBooking::class)->create([
+        $bookings = KitchenBooking::factory()->create([
             'start_time' => $startTime->format('Y-m-d\TH:i'),
             'end_time' => $endTime->format('Y-m-d\TH:i'),
         ]);

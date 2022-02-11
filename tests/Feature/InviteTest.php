@@ -24,7 +24,7 @@ class InviteTest extends TestCase
         $this->RefreshTable('invites');
         Mail::fake();
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo('access_management');
 
         $email = 'MOikka6@moi.fi';

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Equipment;
 use App\User;
 use Carbon\Carbon;
 use Tests\TestCase;
@@ -12,6 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class LoanValidationTest extends TestCase
 {
   use DatabaseTransactions;
+  use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -19,8 +21,8 @@ class LoanValidationTest extends TestCase
      */
     public function test_if_returdate_before_loandate_gives_error()
     {
-        $user = User::find(1);
-
+      $user = User::factory()->create();
+      $equipment = Equipment::factory()->create();
         $response = $this
                     ->actingAs($user)
                     ->call('POST', 
@@ -29,21 +31,23 @@ class LoanValidationTest extends TestCase
       "loaner" => "Niilo Kurki",
       "items" => [
         "item1" =>[
-          "id" => '55',
+          "id" => $equipment->id,
           "quantity" => '1',
-          "loanDate" => Carbon::today(),
-          "returnDate" => Carbon::today()->subDays(7),
+          "loanDate" =>Carbon::today()->addDays(7) ,
+          "returnDate" => Carbon::today()->addDay(),
         ],
         ],
       "description" => "k",
       "reason" => "Partiotapahtumaan"
     ]);
+
     $response->assertSessionHasErrors(['items.item1.loanDate'=> 'Lainapäivän pitää olla ennen palautuspäivää']);
     }
 
     public function test_if_loandate_in_past_gives_error()
     {
-        $user = User::find(1);
+      $user = User::factory()->create();
+      $equipment = Equipment::factory()->create();
 
         $response = $this
                     ->actingAs($user)
@@ -53,7 +57,7 @@ class LoanValidationTest extends TestCase
       "loaner" => "Niilo Kurki",
       "items" => [
         "item1" =>[
-          "id" => '55',
+          "id" => $equipment->id,
           "quantity" => '1',
           "loanDate" => Carbon::today()->subDays(7),
           "returnDate" => Carbon::today()->addDay(),
@@ -66,7 +70,8 @@ class LoanValidationTest extends TestCase
     }
     public function test_if_returndate_in_past_gives_error()
     {
-        $user = User::find(1);
+      $user = User::factory()->create();
+      $equipment = Equipment::factory()->create();
 
         $response = $this
                     ->actingAs($user)
@@ -76,7 +81,7 @@ class LoanValidationTest extends TestCase
       "loaner" => "Niilo Kurki",
       "items" => [
         "item1" =>[
-          "id" => '55',
+          "id" => $equipment->id,
           "quantity" => '1',
           "loanDate" => Carbon::today(),
           "returnDate" => Carbon::today()->subDays(7),
