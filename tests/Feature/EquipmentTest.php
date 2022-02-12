@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class EquipmentTest extends TestCase
 {
-    use RefreshDatabase;
    
     public function test_equipment_routes_when_user_has_management_permission()
     {
