@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Equipment;
 use App\Queries\AvailableLoans;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -23,6 +24,7 @@ class QuantityLeft implements Rule
      */
     public function passes($attribute, $value)
     {
+        $this->itemId = $value;
         $index = explode('.', $attribute)[1];
         $quantity = request()->input("items.{$index}.quantity");
         $availableItem = AvailableLoans::getOne($value);
@@ -40,6 +42,11 @@ class QuantityLeft implements Rule
      */
     public function message()
     {
-        return ':attribute ei ole enää jäljellä';
+        $item = Equipment::find($this->itemId);
+        $name = optional($item)->name;
+        if($name == null) {
+            return "Varustetta ei ole";
+        }
+        return "Varustetta {$name} ei ole enää jäljellä";
     }
 }
