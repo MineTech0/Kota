@@ -26,7 +26,7 @@ class GroupRequest extends FormRequest
         return [
             'group_name' => 'required|string',
             'meeting_day' => 'in:Ma,Ti,Ke,To,Pe,La,Su|required',
-            'meeting_start' => 'required|date_format:H:i',
+            'meeting_start' => 'required|date_format:H:i|before:meeting_end',
             'meeting_end' => 'required|date_format:H:i',
             'repeat' => 'string|required',
             'age' => 'string|required',
