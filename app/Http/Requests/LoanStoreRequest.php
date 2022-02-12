@@ -26,7 +26,7 @@ class LoanStoreRequest extends FormRequest
     {
         return [
             'items' => 'required|array|min:1',
-            'items.*.id' => ['required','integer', new QuantityLeft($this)],
+            'items.*.id' => ['required','integer','exists:equipment,id', new QuantityLeft($this)],
             'items.*.loanDate' => 'required|date|before:items.*.returnDate|after_or_equal:Today',
             'items.*.returnDate' => 'required|date|after:Today',
             'description'=> 'required',
@@ -42,6 +42,7 @@ public function messages()
 {
     return [
         'items.required' => 'Ainakin yksi laina vaaditaan',
+        'items.*.id.exists' => 'Varustetta ei ole',
         'items.*.loanDate.before' => 'Lainapäivän pitää olla ennen palautuspäivää',
         'items.*.loanDate.after_or_equal' => 'Lainapäivä ei saa olla menneisyydessä',
         'items.*.returnDate.after' => 'Palautuspäivä ei saa olla menneisyydessä taikka tänään',
