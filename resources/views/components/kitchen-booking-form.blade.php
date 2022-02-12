@@ -16,8 +16,8 @@
         @foreach ($bookings as $item)
         <tr>
             <td>{{$item->group_name}}</td>
-            <td>{{$item->start_time}}</td>
-            <td>{{$item->end_time}}</td>
+            <td>{{Carbon\Carbon::parse($item->start_time)->format('d.m.Y \K\l\o H:i')}}</td>
+            <td>{{Carbon\Carbon::parse($item->end_time)->format('d.m.Y \K\l\o H:i')}}</td>
         </tr>
             
         @endforeach

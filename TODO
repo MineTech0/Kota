@@ -9,7 +9,7 @@ Lainaus:
   ☐ Ilmoita sähköpostilla 2 päivää ennen kuin laina menee umpeen
   ☐ Hyväksyttävä Laina automaattisesti hylätään jos sen päivä on yli palautuspäivän
   ☐ Ilmoittaa käyttöliittymässä lainapäivien virheet
-  ☐ Ilmoita hallitukselle hyväksyttävistä lainoista
+  ☐ Ilmoita hallitukselle hyväksyttävistä lainoista sähköpostilla
 Varusteet:
   ☐ Lajittele nimen mukaan
 Tiedostot:
@@ -22,6 +22,7 @@ Pestit:
   
 Fix:
   ☐ Permission to change role
+  ☐ Vaihda testien find user to create user
 
 Ryhmät:
   ✔ Ryhmien muokkaus hallituksel @done(22-02-04 23:50)
