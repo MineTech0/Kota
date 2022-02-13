@@ -18,6 +18,7 @@
 ## Tietoa sovelluksesta
 
 Intranetti mahdollistaa turvallisen tiedonjaon lippukunnan johtajistolle. Siellä pystyy myös hyödyntämään lippukunnan tarjoamia palveluita kuten varusteiden lainaamista.
+
 Ominaisuuksiin kuuluu:
 * Ryhmien tiedot
 * Yleiset tiedotteet
