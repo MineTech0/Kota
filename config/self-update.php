@@ -39,8 +39,8 @@ return [
     'repository_types' => [
         'github' => [
             'type' => 'github',
-            'repository_vendor' => env('SELF_UPDATER_REPO_VENDOR', ''),
-            'repository_name' => env('SELF_UPDATER_REPO_NAME', ''),
+            'repository_vendor' => env('SELF_UPDATER_REPO_VENDOR', 'MineTech0'),
+            'repository_name' => env('SELF_UPDATER_REPO_NAME', 'Kota'),
             'repository_url' => 'https://github.com/MineTech0/Kota.git',
             'download_path' => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
             'private_access_token' => env('SELF_UPDATER_GITHUB_PRIVATE_ACCESS_TOKEN', ''),
@@ -133,14 +133,18 @@ return [
 
     'artisan_commands' => [
         'pre_update' => [
-            //'command:signature' => [
-            //    'class' => Command class
-            //    'params' => []
-            //]
+            'update:preTasks' => [
+               'class' => \App\Console\Commands\PreUpdateTasks::class,
+               'params' => []
+            ],
         ],
         'post_update' => [
-
+                'update:postTasks' => [
+                   'class' => \App\Console\Commands\PostUpdateTasks::class,
+                   'params' => []
+                ],
+            
         ],
-    ],
+    ]
 
 ];

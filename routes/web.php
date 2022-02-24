@@ -88,7 +88,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/loan/accept/{loan}', 'LoanController@accept');
         Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
     
-        
+        Route::get('/update','UpdateController@index')->name('index.update');
+        Route::post('/update','UpdateController@update')->name('update.update');
     });
 });
 
