@@ -1,7 +1,7 @@
 @component('mail::message')
-# Laina hyväksytty
+# Laina  {{ $loan->state == 2 ? 'hyväksytty' : 'hylätty' }}
 
-## Lainahakemuksesi varusteesta {{$loan->equipment->name}} on hyväksytty!
+## Lainahakemuksesi varusteesta {{$loan->equipment->name}} on {{ $loan->state == 2 ? 'hyväksytty' : 'hylätty' }}!
 
 @component('mail::table')
 | Varuste      | Paikka   | Määrä     | Laina-aika |

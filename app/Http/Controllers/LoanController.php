@@ -63,10 +63,17 @@ class LoanController extends Controller
     }
     public function update(Loan $loan, Request $request)
     {
-        $loan->state = $request['state']; // 0: partio tapahtumaan, 1: odottaa, 2: hyväksytty, 3: ei hyväksytty
-        Mail::to($loan->user->email)->send(new LoanAccepted($loan));
+        if($loan->user_id == Auth::id())
+        {
+            return response('Omaa lainaa ei voi hyväksyä',401);
+        }
+        $state = $request['state'];// 0: partio tapahtumaan, 1: odottaa, 2: hyväksytty, 3: ei hyväksytty
+        $loan->state = $state; 
         $loan->save();
-        return response(200);
+
+        Mail::to($loan->user->email)->send(new LoanAccepted($loan));
+        return response('Lainan hyväksyminen onnistui', 200);
+        
     }
     public function accept(Loan $loan)  
     {

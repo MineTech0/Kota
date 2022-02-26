@@ -194,7 +194,7 @@
                                 }, 2000);
                             },
                             error: function (xhr, Status, error) {
-                                $('.returnInfo').html(Status);
+                                $('.returnInfo').html(xhr.responseText);
                                 $('.returnInfo').addClass('alert-danger');
                                 $('.returnInfo').show();
                             }
