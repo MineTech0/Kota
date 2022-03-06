@@ -22,7 +22,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet"> 
     @yield('head')
-    @stack('scripts')
 </head>
 <body>
 <x-Header/>
@@ -35,5 +34,6 @@
     </div>
 </div>
 @yield('script')
+@stack('scripts')
 </body>
 </html>
