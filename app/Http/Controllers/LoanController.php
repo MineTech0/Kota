@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\LoanStoreRequest;
 use App\Mail\LoanAccepted;
+use App\Mail\LoanRejected;
 use Illuminate\Support\Facades\Storage;
 
 class LoanController extends Controller
@@ -55,10 +56,16 @@ class LoanController extends Controller
         
     }
     public function destroy(Loan $loan)
+    //Lainan palauttaminen
     {
         if($loan->user_id == Auth::id())
         {
             $loan->delete();
+            return response('Laina palautettu', 200);
+        }
+        else
+        {
+            return response('Lainan palauttaminen epäonnistui', 401);
         }
     }
     public function update(Loan $loan, Request $request)
@@ -69,10 +76,22 @@ class LoanController extends Controller
         }
         $state = $request['state'];// 0: partio tapahtumaan, 1: odottaa, 2: hyväksytty, 3: ei hyväksytty
         $loan->state = $state; 
-        $loan->save();
-
-        Mail::to($loan->user->email)->send(new LoanAccepted($loan));
-        return response('Lainan hyväksyminen onnistui', 200);
+        
+        $response = response('Lainan hyväksyminen epäonnistui', 400);
+        
+        switch ($state) {
+            case 2:
+                $loan->save();
+                Mail::to($loan->user->email)->send(new LoanAccepted($loan));
+                $response = response('Lainan hyväksyminen onnistui', 200);
+                break;
+            case 3:
+                $loan->save();
+                Mail::to($loan->user->email)->send(new LoanRejected($loan));
+                $response = response('Lainan hylkääminen onnistui', 200);
+                break;
+        return $response;
+        }
         
     }
     public function accept(Loan $loan)  
