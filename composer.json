@@ -1,12 +1,12 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Scout intranet",
     "keywords": [
         "framework",
         "laravel"
     ],
-    "license": "MIT",
+    "license": "GPL",
     "require": {
         "php": ">=7.2.5",
         "fideloper/proxy": "^4.2",
