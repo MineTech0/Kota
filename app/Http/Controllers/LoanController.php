@@ -47,11 +47,14 @@ class LoanController extends Controller
                 'state'=> $state,
                 ]);
             }
-        return redirect()->back()->with('message', $message);
+        return response()->json([
+            'message' => $message
+        ]);
     }
     public function show(Loan $loan)
     {
-        return view('components.modal_loan_info',['loan'=> $loan]);
+        $loan->load('equipment');
+        return $loan;
         
     }
     public function destroy(Loan $loan)

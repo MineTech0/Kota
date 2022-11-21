@@ -11,8 +11,19 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.ts('resources/js/app.ts', 'public/js')
+    .vue(
+        {
+          version: 3,
+            options: {
+              compilerOptions: {
+                isCustomElement: (tag) => ['loan-form-wrapper', 'own-loans'].includes(tag),
+              },
+            },
+          }
+    )
+    .sourceMaps()
+    .sass('resources/sass/app.scss', 'public/css')
 mix.styles([
     'resources/css/*'
 ], 'public/css/all.css');
