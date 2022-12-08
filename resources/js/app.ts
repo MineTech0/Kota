@@ -1,8 +1,11 @@
 require('./bootstrap');
 require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min');
 
+import { NButton } from 'naive-ui';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue'
+import CreateFileFormVue from './components/files/CreateFileForm.vue';
+import FileListVue from './components/files/FileList.vue';
 import LoanFormWrapper from './components/loan/LoanFormWrapper.vue'
 import OwnLoansVue from './components/loan/OwnLoans.vue';
 
@@ -11,6 +14,9 @@ const app = createApp({})
 
 app.component('loan-form-wrapper', LoanFormWrapper)
 app.component('own-loans', OwnLoansVue)
+app.component('file-list', FileListVue)
+app.component('create-file-form', CreateFileFormVue)
+app.component('n-button', NButton)
 
 app.use(pinia)
 

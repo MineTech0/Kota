@@ -17,7 +17,7 @@ mix.ts('resources/js/app.ts', 'public/js')
           version: 3,
             options: {
               compilerOptions: {
-                isCustomElement: (tag) => ['loan-form-wrapper', 'own-loans'].includes(tag),
+                isCustomElement: (tag) => ['loan-form-wrapper', 'own-loans', ''].includes(tag),
               },
             },
           }

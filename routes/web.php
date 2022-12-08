@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/files/create', 'FileController@create')->name('files.create')->middleware('can:access_management');
     Route::get('/files', 'FileController@index')->name('files');
     Route::get('/files/{file}/token/{token}', 'FileController@download');
 
@@ -87,6 +88,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/loan/accept/{loan}', 'LoanController@accept');
         Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
+
+        Route::post('/files', 'FileController@store')->name('files.store');
     
         
     });

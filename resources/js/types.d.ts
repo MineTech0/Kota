@@ -37,3 +37,13 @@ export interface Loan {
     state: number;
     equipment: Equipment
 }
+
+export interface FileI {
+    id: number;
+    name: string;
+    category: string;
+    path: string;
+    permission: string | null;
+    extension: string | null;
+    isUrl: boolean;
+}
