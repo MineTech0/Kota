@@ -16,10 +16,10 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('kategory')->default('muu');
+            $table->string('category');
             $table->string('path');
             $table->string('permission')->nullable();
-            $table->string('extension');
+            $table->boolean('isUrl');
             $table->timestamps();
         });
     }
