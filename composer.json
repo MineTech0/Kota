@@ -11,6 +11,7 @@
         "php": ">=7.2.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.12.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/telescope": "^4.0",
@@ -28,6 +29,7 @@
         "phpunit/phpunit": "^9.0"
     },
     "config": {
+        "process-timeout": 2000,
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
@@ -35,7 +37,10 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "google/apiclient-services": [
+            "Calendar"
+        ]
     },
     "autoload": {
         "psr-4": {
@@ -54,7 +59,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "Google\\Task\\Composer::cleanup"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
