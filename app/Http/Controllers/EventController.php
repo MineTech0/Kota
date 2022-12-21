@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Google_Client;
-use Google_Service_Calendar;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use Google\Service\Calendar as ServiceCalendar;
+use Google\Service\Calendar\Event as CalendarEvent;
 use Illuminate\Support\Facades\Http;
 
 class EventController extends Controller
@@ -95,19 +95,18 @@ class EventController extends Controller
    * @param Request $request
    * @return \Google_Service_Calendar_Event
    */
-  public function createEvent(Event $event)
+  public function createCalendarEvent(Event $event)
   {
     // Set up the Google API client
     $client = new Google_Client();
     $client->setApplicationName('Kota');
-    $client->setAuthConfig(storage_path('app/google-calendar-api-key.json'));
-    $client->setScopes(ServiceCalendar::CALENDAR);
+    $client->setDeveloperKey(env('GOOGLE_CALENDAR_API_KEY'));
 
     // Authenticate and authorize the client
     $service = new ServiceCalendar($client);
 
     // Create a new event
-    $calendarEvent = new ServiceCalendar([
+    $calendarEvent = new CalendarEvent([
       'summary' => $event['title'],
       'start' => [
         'dateTime' => $event['start_time'],
@@ -122,7 +121,7 @@ class EventController extends Controller
     ]);
 
     // Save the event to the calendar
-    $calendarId = 'primary';
+    $calendarId = config('kota.events.googleCalendarId');
     $calendarEvent = $service->events->insert($calendarId, $calendarEvent);
 
     // Return the event details
@@ -136,7 +135,7 @@ class EventController extends Controller
   {
     $response = Http::withHeaders([
       'Content-Type' => 'application/json',
-    ])->post(config('kota.websiteUrl') . '/wp-json/wp/v2/tapahtumat', [
+    ])->post(config('kota.website.url') . '/wp-json/wp/v2/events', [
       'title' => 'My Custom Post',
       'content' => '<p>This is the <strong>content</strong> of my custom post</p>',
       'status' => 'publish'
