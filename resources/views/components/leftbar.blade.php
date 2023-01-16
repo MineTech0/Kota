@@ -14,6 +14,8 @@
     <li><a href="{{route('create.loan')}}"><i class="fas fa-box-open fa-fw"></i> &nbsp;Lainaus</a>
     </li>
     @can('access_management')
+    <li><a href="{{route('expenses.index')}}"><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>    
+    </li>
     <li><a href="{{route('management')}}"><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>    
     </li>
     @endcan
