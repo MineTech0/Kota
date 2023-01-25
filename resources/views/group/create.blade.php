@@ -63,7 +63,11 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Ikäryhmä:<span style="color:red">*</span></label>
                             <div class="col-md-4">
-                            <input type="text" class="form-control" name="age">
+                                <select class="form-control" id="ageSelect" name="age">
+                                    @foreach($age as $ageGroups)
+                                        <option value="{{ $age }}">{{ $age }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

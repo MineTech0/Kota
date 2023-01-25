@@ -28,7 +28,11 @@ class GroupController extends Controller
     }
     public function edit(Group $group)
     {
-        return view('group.edit', ['group' => $group, 'weekDays' => ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su']]);
+        return view('group.edit', [
+            'group' => $group, 
+            'weekDays' => ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
+            'ageGroups' => collect(config('kota.groups.ageGroups'))
+        ]);
     }
 
     public function update(Group $group, GroupRequest $request)
