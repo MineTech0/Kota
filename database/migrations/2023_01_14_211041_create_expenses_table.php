@@ -19,6 +19,7 @@ class CreateExpensesTable extends Migration
             $table->string('description');
             $table->integer('amount');
             $table->date('expense_date');
+            $table->foreignId('acceptor')->constrained('user');
             $table->timestamps();
         });
     }

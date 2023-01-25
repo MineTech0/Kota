@@ -47,3 +47,17 @@ export interface FileI {
     extension: string | null;
     isUrl: boolean;
 }
+
+export interface Group {
+    id: number;
+    name: string;
+    leaders: string;
+    day: string;
+    time:string;
+    repeat: string
+}
+
+export interface ExpenseInfos {
+    group: string[]
+    budget: string[]
+}

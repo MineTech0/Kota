@@ -1,5 +1,6 @@
 {
-    "name": "laravel/laravel",
+    "name": "minetech0/kota",
+    "version": "1.0.0-dev",
     "type": "project",
     "description": "Scout intranet",
     "keywords": [

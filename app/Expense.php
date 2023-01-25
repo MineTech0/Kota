@@ -9,5 +9,5 @@ class Expense extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['group','description','amount','expense_date'];
+    protected $fillable = ['group','description','amount','expense_date', 'acceptor'];
 }

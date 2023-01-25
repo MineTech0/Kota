@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\Group;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -18,13 +19,16 @@ class ExpenseController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show form for creating new expenses
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('expenses.create-expenses', [
+            'groups' => Group::all(),
+            'expenseInfos' => collect(config('kota.expenses.infos'))
+        ]);
     }
 
     /**
