@@ -93,6 +93,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/expenses', 'ExpenseController@index')->name('expenses.index');
         Route::get('/expenses/create', 'ExpenseController@create')->name('expenses.create');
+        Route::post('/expenses/group', 'ExpenseController@storeGroup')->name('expenses.storeGroup');
     
         
     });

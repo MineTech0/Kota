@@ -61,3 +61,10 @@ export interface ExpenseInfos {
     group: string[]
     budget: string[]
 }
+
+interface GroupExpense {
+    groupId: number | null;
+    amount: number;
+    expense_date: number;
+    description: string;
+}

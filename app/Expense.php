@@ -9,5 +9,10 @@ class Expense extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['group','description','amount','expense_date', 'acceptor'];
+    protected $fillable = ['group_id','description','amount','expense_date', 'acceptor'];
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

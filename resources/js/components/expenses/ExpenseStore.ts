@@ -1,11 +1,5 @@
 import { defineStore } from "pinia";
-
-interface GroupExpense {
-    groupId: number | null;
-    amount: number;
-    expense_date: number;
-    description: string;
-}
+import { GroupExpense } from "../../types";
 
 interface State {
     groupExpenses: GroupExpense[]

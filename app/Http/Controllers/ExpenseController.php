@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use App\Group;
+use App\Http\Requests\StoreGroupExpenseRequest;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -32,14 +33,18 @@ class ExpenseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Storese new group expense
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreGroupExpenseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeGroup(StoreGroupExpenseRequest $request)
     {
-        //
+        Expense::create($request->validated()->safe());
+
+        return response()->json([
+            'message' => 'Kulujen lisääminen onnitui'
+        ]);
     }
 
     /**
