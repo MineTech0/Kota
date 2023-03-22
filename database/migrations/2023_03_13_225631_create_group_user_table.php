@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAgeToGroupsTable extends Migration
+class CreateGroupUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddAgeToGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->string('age')->after('repeat');
+        Schema::create('group_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('group_id')->constrained('groups');
+            $table->foreignId('user_id')->constrained('users');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddAgeToGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->dropColumn('age');
-        });
+        Schema::dropIfExists('group_user');
     }
 }
