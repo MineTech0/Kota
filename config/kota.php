@@ -13,8 +13,10 @@ return [
     'files' => [
         'categories' => array(
             'Ohje', 'Mallipohja', 'Asiakirja'
-    )
+        )
     ],
+
+    'weekDays' => ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
 
     'groups' => [
         'ageGroups' => [
@@ -40,7 +42,50 @@ return [
                 'Pienin mahdollinen kulu on 0.10€',
             ]
         ]
-    ]
-
+    ],
+    //All roles
+    'roles' => [
+        'management' => [
+            'access_management',
+            'see_equipment',
+            'accept_loan',
+            'return_loan',
+            'add_edit_delete_equipment',
+            'see_group_expenses',
+            'add_group_expense',
+            'delete_edit_group_expense',
+            'delete_user',
+        ],
+        'signatory' => [],
+        'leader' => [
+            'return_own_loan',
+            'see_own_group_expenses',
+            'add_own_group_expense',
+            'delete_edit_own_group_expense',
+        ],
+        'logistics' => [
+            'return_loan',
+            'accept_loan',
+            'add_edit_delete_equipment',
+            'see_equipment',
+        ],
+    ],
+    //All permissions
+    'permissions' => [
+        'access_management',
+        'see_equipment',
+        'accept_loan',
+        'return_loan',
+        'add_edit_delete_equipment',
+        'see_group_expenses',
+        'add_group_expense',
+        'delete_edit_group_expense',
+        'delete_user',
+        'assing_delete_user_role',
+        'return_own_loan',
+        'see_own_group_expenses',
+        'add_own_group_expense',
+        'delete_edit_own_group_expense',
+    ],
 
 ];

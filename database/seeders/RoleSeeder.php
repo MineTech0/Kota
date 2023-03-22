@@ -20,13 +20,18 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'access_management']);
+        collect(config('kota.permissions'))
+            ->each(function (string $permissionName) {
+                Permission::create(['name' => $permissionName]);
+            });
 
 
         // create roles and assign created permissions
-
-        $role = Role::create(['name' => 'management'])
-            ->givePermissionTo(['access_management']);
+        collect(config('kota.roles'))
+            ->each(function (array $permissions, string $roleName) {
+                Role::create(['name' => $roleName])
+                    ->givePermissionTo($permissions);
+            });
 
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
