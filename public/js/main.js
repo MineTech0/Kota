@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	 
- 	$(".ts-sidebar-menu li a").each(function () {
+ 	$(".ts-sidebar-menu li").children().each(function () {
  		if ($(this).next().length > 0) {
  			$(this).addClass("parent");
  		};
