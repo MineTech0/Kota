@@ -18,7 +18,7 @@ import {
 } from "naive-ui";
 import { computed, reactive, ref } from "vue";
 import { Group } from "../../types";
-import { useExpensesStore } from "./ExpenseStore";
+import { useCreateExpensesStore } from "./CreateExpenseStore";
 import { storeToRefs } from "pinia";
 
 const props = defineProps<{
@@ -35,16 +35,19 @@ const disableFuture = (date) => {
     return  date > Date.now() || firstDayOfTheYear > date
 };
 
-const expenseStore = useExpensesStore()
+const expenseStore = useCreateExpensesStore()
 const { groupExpenses } = storeToRefs(expenseStore)
 
 const formData = reactive({
     expenses: groupExpenses
 });
 
-const messages = reactive({
-    error: null,
-    success: null,
+const messages = reactive<{
+    error?: string;
+    success?: string
+}>({
+    error: undefined,
+    success: undefined,
 });
 
 const groupOptions = computed(() =>
@@ -59,7 +62,12 @@ const handleSubmit = (e: MouseEvent) => {
     formRef.value?.validate(
         (errors: Array<FormValidationError> | undefined) => {
             if (!errors) {
-                console.log(groupExpenses);
+                expenseStore.storeGroupExpenses().then(expenses => {
+                    messages.success = expenses[0].message
+                })
+                .catch(error => {
+                    messages.error = error.toString()
+                })
             }
         }
     );
@@ -206,7 +214,7 @@ const handleSubmit = (e: MouseEvent) => {
                 </n-form-item>
             </n-form>
             <n-alert v-if="messages.success" title="Onnistui" type="success">
-                Kulujen lisääminen onnistui
+                {{ messages.success }}
             </n-alert>
             <n-alert v-if="messages.error" title="Virhe" type="error">
                 {{ messages.error }}

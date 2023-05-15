@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreGroupExpenseRequest extends FormRequest
@@ -17,6 +18,19 @@ class StoreGroupExpenseRequest extends FormRequest
     }
 
     /**
+ * Prepare the data for validation.
+ *
+ * @return void
+ */
+protected function prepareForValidation()
+{
+    $this->merge([
+        'expense_date' => Carbon::createFromTimestampMs($this->expense_date),
+        'group_id' => $this->groupId
+    ]);
+}
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,9 +38,9 @@ class StoreGroupExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            'groupId' => 'required|exists:groups,id',
-            'amount' => 'required|decimal:2|min:0.1',
-            'expense_date' => 'required|date|before_or_equal:Today',
+            'group_id' => 'required|exists:groups,id',
+            'amount' => 'required|numeric|min:0.1',
+            'expense_date' => 'required|date|after:Yesterday',
             'description' => 'required|string|max:255'
         ];
     }

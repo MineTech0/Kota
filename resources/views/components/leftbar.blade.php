@@ -8,7 +8,12 @@
         </li>
         <li><a href="{{ route('files') }}"><i class="fas fa-file fa-fw"></i> &nbsp;Tiedostot</a>
         </li>
-        <li><a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
+        <li>
+            <a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
+            <div class="content">
+                <a href="{{ route('groups') }}">&nbsp;Kaikki ryhmät</a>
+                <a href="{{ route('groups') }}">&nbsp;Omat ryhmät</a>
+            </div>
         </li>
         </li>
         <li><a href="{{ route('create.loan') }}"><i class="fas fa-box-open fa-fw"></i> &nbsp;Lainaus</a>

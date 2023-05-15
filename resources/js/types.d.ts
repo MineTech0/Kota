@@ -62,9 +62,26 @@ export interface ExpenseInfos {
     budget: string[]
 }
 
-interface GroupExpense {
+interface NewGroupExpense {
     groupId: number | null;
     amount: number;
     expense_date: number;
     description: string;
+}
+
+interface GroupExpense {
+    id: number;
+    groupId: number | null;
+    amount: number;
+    expense_date: string;
+    description: string;
+    acceptor_id: number | null;
+}
+
+export interface GroupWithExpenses  extends Group {
+    expenses: GroupExpense[]
+}
+export interface AgeGroupExpenses {
+    age: string;
+    expenses: GroupWithExpenses[]
 }

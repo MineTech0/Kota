@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
+use App\Queries\GroupExpenses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +18,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        return view('expenses.index-expenses' , [
+            'expensesByAgeGroup' => GroupExpenses::getAllExpensesByAge()
+        ]);
     }
 
     /**
@@ -40,7 +44,9 @@ class ExpenseController extends Controller
      */
     public function storeGroup(StoreGroupExpenseRequest $request)
     {
-        Expense::create($request->validated()->safe());
+        $validated = $request->validated();
+        $validated['acceptor_id'] = Auth::id();
+        Expense::create($validated);
 
         return response()->json([
             'message' => 'Kulujen lisääminen onnitui'

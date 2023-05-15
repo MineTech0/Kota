@@ -1,7 +1,11 @@
 import axios from "axios"
-import { GroupExpense } from "../types"
+import { NewGroupExpense } from "../types"
 
-const storeGroupExpenses = async (expenses:GroupExpense[]) => {
+interface StoreResponse {
+    message: string
+}
+
+const storeGroupExpenses = async (expenses:NewGroupExpense[]) : Promise<StoreResponse[]> =>  {
     const requests = expenses.map(expense => axios.post('/expenses/group',expense))
     const responses = await Promise.all(requests)
     return responses.map(res => res.data)

@@ -16,7 +16,13 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return view('group.index', ['groups' => Group::all()]);
+        $groups = Group::all()->map(function ($group) {
+            $group->leaders = $group->leaders->map(function ($leader) {
+                return $leader->name;
+            })->implode(', ');
+            return $group;
+        });
+        return view('group.index', ['groups' => $groups]);
     }
 
     public function contact($id)
@@ -30,7 +36,7 @@ class GroupController extends Controller
     {
         return view('group.edit', [
             'group' => $group, 
-            'weekDays' => ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'],
+            'weekDays' => collect(config('kota.weekDays')),
             'ageGroups' => collect(config('kota.groups.ageGroups'))
         ]);
     }
@@ -57,7 +63,7 @@ class GroupController extends Controller
     }
     public function create()
     {
-        return view('group.create', ['weekDays' => ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su']]);
+        return view('group.create', ['weekDays' => collect(config('kota.weekDays'))]);
     }
     public function store(GroupRequest $request)
     {
