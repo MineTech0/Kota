@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class GroupTest extends TestCase
 {
-    use RefreshTable;
+    use RefreshDatabase;
 
     public function groupFormData()
     {
@@ -29,7 +29,6 @@ class GroupTest extends TestCase
 
     public function test_group_create_form_with_invalid_name_return_error()
     {
-        $this->RefreshTable('groups');
         $user = User::factory()->create();
         $user->givePermissionTo('access_management');
 

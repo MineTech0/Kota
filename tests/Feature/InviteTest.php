@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InviteTest extends TestCase
 {
-    use RefreshTable;
+    use RefreshDatabase;
     
     /**
      * A basic feature test example.
@@ -21,7 +21,6 @@ class InviteTest extends TestCase
      */
     public function test_new_invitation()
     {
-        $this->RefreshTable('invites');
         Mail::fake();
 
         $user = User::factory()->create();

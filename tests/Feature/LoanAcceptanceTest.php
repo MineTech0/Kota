@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 class LoanAcceptanceTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
    
     public function createOwnLoan()
     {
