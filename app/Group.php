@@ -7,14 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $fillable = ['name','day','time','repeat','leaders','age'];
+    protected $fillable = ['name','day','time','repeat','age'];
     use HasFactory;
+
     public function contact()
     {
         return $this->hasOne(Contact::class);
     }
+
     public function getTimeAttribute($value)
     {
         return str_replace('.',':',$value);
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function leaders()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

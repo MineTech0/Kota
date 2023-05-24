@@ -14,18 +14,11 @@ use Illuminate\Support\Facades\Session;
 
 class InviteController extends Controller
 {
-
-    public function index()
-    {
-        //
-    }
-
-
     public function create()
     {
         
         return view('invite.create',[
-            'invites' => Invite::whereNotIn('email', DB::table('users')->pluck('email'))->get()
+            'invites' => Invite::all()
         ]);
     }
 

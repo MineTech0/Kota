@@ -2,7 +2,7 @@
 const props = defineProps(["header"]);
 </script>
 <template>
-    <div class="card" style="margin-top: 1rem">
+    <div class="card" style="margin-bottom: 1rem">
         <div class="card-header">{{ props.header }}</div>
         <div class="card-body">
             <div class="card-text">

@@ -3,13 +3,16 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response as HttpResponse;
 use RoleSeeder;
 use Tests\TestCase;
 
 class EquipmentTest extends TestCase
 {
-   
+    use RefreshDatabase;
+
     public function test_equipment_routes_when_user_has_management_permission()
     {
 
@@ -17,22 +20,20 @@ class EquipmentTest extends TestCase
         $user->givePermissionTo('access_management');
 
         $response = $this->actingAs($user)
-                         ->get('/equipment');
+            ->get('/equipment');
 
-        $response->assertStatus(200);
-        $user->delete();
+        $response->assertStatus(HttpResponse::HTTP_OK);
     }
     public function test_equipment_route_when_user_has_not_management_permission()
     {
-        
+
         $user = User::factory()->create();
-        
-        
+
+
         $response = $this->actingAs($user)
-                         ->get('/equipment');
-        
+            ->get('/equipment');
+
         $response->assertStatus(HttpResponse::HTTP_FORBIDDEN);
-        $user->delete();
     }
     public function test_equipment_create_route()
     {
@@ -41,10 +42,8 @@ class EquipmentTest extends TestCase
         $user->givePermissionTo('access_management');
 
         $response = $this->actingAs($user)
-                         ->get('/equipment/create');
+            ->get('/equipment/create');
 
-        $response->assertStatus(200);
-        $user->delete();
+        $response->assertStatus(HttpResponse::HTTP_OK);
     }
-
 }

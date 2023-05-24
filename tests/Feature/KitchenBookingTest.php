@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class KitchenBookingTest extends TestCase
 {
-    use RefreshTable;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -20,8 +20,7 @@ class KitchenBookingTest extends TestCase
      */
     public function test_new_booking_returns_success()
     {
-        $this->RefreshTable('kitchen_bookings');
-        $user = User::find(1);
+        $user = User::factory()->create();
 
         $response = $this
                     ->actingAs($user)
@@ -39,8 +38,7 @@ class KitchenBookingTest extends TestCase
     }
     public function test_error_when_end_time_is_before_start_time()
     {
-        $this->RefreshTable('kitchen_bookings');
-        $user = User::find(1);
+        $user = User::factory()->create();
 
         $response = $this
                     ->actingAs($user)
@@ -56,8 +54,7 @@ class KitchenBookingTest extends TestCase
     }
     public function test_error_when_group_name_is_empty()
     {
-        $this->RefreshTable('kitchen_bookings');
-        $user = User::find(1);
+        $user = User::factory()->create();
 
         $response = $this
                     ->actingAs($user)
@@ -73,13 +70,12 @@ class KitchenBookingTest extends TestCase
     }
     public function test_error_when_time_is_not_free()
     {
-        $this->RefreshTable('kitchen_bookings');
-        $user = User::find(1);
+        $user = User::factory()->create();
 
         //Create mock data
         $startTime = Carbon::now();
         $endTime = now()->addHour();
-        $bookings = KitchenBooking::factory()->create([
+        KitchenBooking::factory()->create([
             'start_time' => $startTime->format('Y-m-d\TH:i'),
             'end_time' => $endTime->format('Y-m-d\TH:i'),
         ]);

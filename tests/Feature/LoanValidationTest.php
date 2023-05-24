@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LoanValidationTest extends TestCase
 {
-  use DatabaseTransactions;
+  use RefreshDatabase;
 
   protected function setUp(): void
   {

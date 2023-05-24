@@ -5,5 +5,13 @@
     "spellright.documentTypes": [
         "markdown",
         "latex"
-    ]
+    ],
+    "cSpell.words": [
+        "kota"
+    ],
+    "spellright.parserByClass": {
+        "blade": {
+            "parser": "code"
+        }
+    }
 }

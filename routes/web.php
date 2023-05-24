@@ -90,6 +90,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/loan/{loan}', 'LoanController@update')->name('update.loan');
 
         Route::post('/files', 'FileController@store')->name('files.store');
+
+        Route::get('/expenses', 'ExpenseController@index')->name('expenses.index');
+        Route::get('/expenses/create', 'ExpenseController@create')->name('expenses.create');
+        Route::post('/expenses/group', 'ExpenseController@storeGroup')->name('expenses.storeGroup');
     
         
     });

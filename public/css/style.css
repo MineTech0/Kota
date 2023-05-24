@@ -706,15 +706,20 @@ li {
 .ts-sidebar-menu .open > ul {
   max-height: 2000px;
 }
-.ts-sidebar-menu .open > a {
-  background: rgba(51, 56, 62, 0.35);
-}
-.ts-sidebar-menu > .open > a {
+.ts-sidebar-menu > .open  .parent {
   background: #33383e;
   border-left: 3px solid #37a6c4;
 }
 .ts-sidebar-menu .open > .more i {
   transform: rotate(180deg);
+}
+.ts-sidebar-menu .content {
+  display: none;
+}
+.ts-sidebar-menu .open > .content {
+  display: block;
+  background: #33383e;
+  border-left: 3px solid #37a6c4;
 }
 .more i {
   color: #fff;
