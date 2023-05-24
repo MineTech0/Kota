@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Invite;
 use App\User;
 use Tests\TestCase;
-use Tests\RefreshTable;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,32 +13,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class InviteTest extends TestCase
 {
     use RefreshDatabase;
-    
-    public function createInvite()
-    {
-        $this->RefreshTable('invites');
-        Mail::fake();
-
-        $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
-
-        $email = 'test@email.com';
-        $response = $this
-            ->actingAs($user)
-            ->call(
-                'POST',
-                route('store.invite'),
-                [
-                    "emails" => [
-                        0 => $email,
-                    ]
-                ]
-            );
-        $response->assertSessionDoesntHaveErrors();
-        $user->delete();
-
-        return Invite::where('email', $email)->first();
-    }
     
     /**
      * A basic feature test example.
@@ -76,10 +49,11 @@ class InviteTest extends TestCase
 
     public function test_invited_user_can_register()
     {
-        $invite = $this->createInvite();
+        $invite = Invite::factory()->create();
 
         $response = $this->get($invite->url);
         $response->assertStatus(200);
+
 
         $response = $this->post(route('register'), [
             'name' => 'Testi',
@@ -88,7 +62,8 @@ class InviteTest extends TestCase
             'password_confirmation' => 'password',
             'token' => $invite->token,
         ]);
-
+        
+        $this->assertAuthenticated();
         $response->assertRedirect(route('home'));
 
         $this->assertDatabaseHas('users', [
@@ -109,8 +84,37 @@ class InviteTest extends TestCase
             'password_confirmation' => 'password',
             'token' => 'invalid',
         ]);
+        $response->assertSessionHasErrors(['token']);
 
-        $response->assertStatus(403);
+        $this->assertDatabaseMissing('users', [
+            'email' => 'test@email.com'
+        ]);
 
+    }
+
+    public function test_invite_can_only_be_used_once()
+    {
+        $invite = Invite::factory()->create();
+
+        $response = $this->get($invite->url);
+        $response->assertStatus(200);
+
+        $response = $this->post(route('register'), [
+            'name' => 'Testi',
+            'email' => $invite->email,
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'token' => $invite->token,
+        ]);
+        
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('home'));
+
+        $this->assertDatabaseHas('users', [
+            'email' => $invite->email,
+        ]);
+
+        $response = $this->get($invite->url);
+        $response->assertStatus(404);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Invite;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -26,10 +27,11 @@ class UserController extends Controller
      */
     public function create($token)
     {
-        if (!$invite = Invite::where('token', $token)->first()) {
-            abort('401');
-        }
         $invite = Invite::where('token', $token)->first();
+        
+        if (!$invite) {
+            abort(Response::HTTP_NOT_FOUND);
+        }
 
         return view('auth.register', ['invite'=> $invite]);
     }
