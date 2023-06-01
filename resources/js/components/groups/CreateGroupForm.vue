@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, reactive, ref } from "vue";
 import {
     NForm,
     NGrid,
@@ -12,39 +12,52 @@ import {
     NAutoComplete,
     AutoCompleteInst,
 FormRules,
+FormInst,
+FormValidationError,
 } from "naive-ui";
 import { watch } from "vue";
+import Message from "../Message.vue";
+import GroupService from "../../services/GroupService";
+import { User } from "../../types";
+import { format } from "date-fns";
 
 interface NewGroup {
     name: string;
     meetingDay: string;
-    meetingStart: string | null;
-    meetingEnd: string | null;
+    meetingStart: number;
+    meetingEnd: number;
     repeat: string;
     age: string;
     leaders: {
         label: string;
-        value: number;
+        value: User;
     }[];
 }
 
 const props = defineProps<{
     ageGroups: string[];
     weekDays: string[];
-    users: {
-        id: number;
-        name: string;
-    }[];
+    users: User[];
 }>();
 
-const newGroup = ref<NewGroup>({
+const newGroup = reactive<NewGroup>({
     name: "",
     meetingDay: props.weekDays[0],
-    meetingStart: null,
-    meetingEnd: null,
+    meetingStart: 54000000,
+    meetingEnd: 57600000,
     repeat: "",
     age: props.ageGroups[0],
     leaders: [],
+});
+
+const formRef = ref<FormInst | null>(null);
+
+const messages = reactive<{
+    error?: string;
+    success?: string
+}>({
+    error: undefined,
+    success: undefined,
 });
 
 const ageGroupOptions = computed(() =>
@@ -58,12 +71,14 @@ const formRules: FormRules  = {
     name: [
         {
             required: true,
+            trigger: ['blur', 'input'],
             message: 'Nimi vaaditaan'
         }
     ],
     meetingDay: [
         {
             required: true,
+            trigger: ['blur', 'change'],
             validator(_rule, day: string){
                 if(!props.weekDays.includes(day)){
                     return Error('Viikonpäivä ei ole oikea')
@@ -74,17 +89,86 @@ const formRules: FormRules  = {
     meetingStart: [
         {
             required: true,
-            validator(_rule, value: string){
+            trigger: ['blur', 'change'],
+            validator(_rule, value: number){
                 //before meetingEnd
+                if(value && newGroup.meetingEnd && value >= newGroup.meetingEnd){
+                    return Error('Kokous alkaa ennen kuin se loppuu')
+                }
                 
             }
 
         }
+    ],
+    meetingEnd: [
+        {
+            required: true,
+            trigger: ['blur', 'change'],
+            validator(_rule, value: number){
+                //after meetingStart
+                if(value && newGroup.meetingStart && value <= newGroup.meetingStart){
+                    return Error('Kokous loppuu ennen kuin se alkaa')
+                }
+            }
+        }
+    ],
+    repeat: [
+        {
+            required: true,
+            trigger: ['blur', 'change'],
+            message: 'Kokoontumis aika vaaditaan'
+        }
+    ],
+    age: [
+        {
+            required: true,
+            trigger: ['blur', 'change'],
+            message: 'Ikäryhmä vaaditaan',
+            validator(_rule, value: string){
+                if(!props.ageGroups.includes(value)){
+                    return Error('Ikäryhmä ei ole oikea')
+                }
+            }
+        }
+    ],
+    leaders: [
+        {
+            required: true,
+            trigger: ['blur', 'change'],
+            message: 'Vähintään yksi johtaja vaaditaan',
+            validator(_rule, value: {label: string; value: number}[]){
+                if(value.length < 1){
+                    return Error('Vähintään yksi johtaja vaaditaan')
+                }
+            }
+        }
     ]
 }
 
-const onSubmit = () => {
-    console.log(newGroup.value);
+const onSubmit = (e: MouseEvent) => {
+    e.preventDefault();
+    formRef.value?.validate(
+        (errors: Array<FormValidationError> | undefined) => {
+            if (!errors) {
+                const newGroupObject = {
+                    name: newGroup.name,
+                    meeting_day: newGroup.meetingDay,
+                    meeting_start: format(newGroup.meetingStart, "H:mm"),
+                    meeting_end: format(newGroup.meetingEnd, "H:mm"),
+                    repeat: newGroup.repeat,
+                    age: newGroup.age,
+                    leaders: newGroup.leaders.map((leader) => leader.value),
+                };
+                GroupService.storeGroup(newGroupObject).then(expenses => {
+                    messages.success = expenses[0].message
+                })
+                .catch(error => {
+                    console.log(error)
+                    messages.error = error.response.data.message
+                })
+            }
+        }
+    );
 };
 
 const autoCompleteInstRef = ref<AutoCompleteInst | null>(null);
@@ -101,8 +185,8 @@ const leaderOptions = computed(() => {
                 user.name
                     .toLowerCase()
                     .includes(leaderInput.value.toLowerCase()) &&
-                !newGroup.value.leaders.find(
-                    (leader) => leader.value === user.id
+                !newGroup.leaders.find(
+                    (leader) => leader.value.id === user.id
                 )
         )
         .map((user) => ({
@@ -120,6 +204,10 @@ const created = (id) => {
         };
     }
 };
+
+const updated = (event) => { 
+    console.log(event)
+ }
 </script>
 <template>
     <n-space vertical>
@@ -128,9 +216,11 @@ const created = (id) => {
             :style="{
                 maxWidth: '640px',
             }"
+            :rules="formRules"
+            ref="formRef"
         >
             <n-grid :span="24" :x-gap="6">
-                <n-form-item-gi span="24" label="Ryhmän nimi" path="name">
+                <n-form-item-gi span="24" label="Nimi" path="name">
                     <n-input v-model:value="newGroup.name" placeholder="Nimi" />
                 </n-form-item-gi>
 
@@ -151,8 +241,8 @@ const created = (id) => {
                             width: '100%',
                         }"
                         placeholder="Valitse aika"
-                        format="h:mm"
-                        v-model:formatted-value="newGroup.meetingStart"
+                        format="H:mm"
+                        v-model:value="newGroup.meetingStart"
                     />
                 </n-form-item-gi>
                 <n-form-item-gi
@@ -165,8 +255,8 @@ const created = (id) => {
                             width: '100%',
                         }"
                         placeholder="Valitse aika"
-                        format="h:mm"
-                        v-model:formatted-value="newGroup.meetingEnd"
+                        format="H:mm"
+                        v-model:value="newGroup.meetingEnd"
                     />
                 </n-form-item-gi>
 
@@ -186,6 +276,7 @@ const created = (id) => {
                     <n-dynamic-tags
                         v-model:value="newGroup.leaders"
                         @create="created"
+                        @update:value="updated"
                     >
                         <template #input="{ submit, deactivate }">
                             <n-auto-complete
@@ -224,5 +315,6 @@ const created = (id) => {
                 </n-form-item-gi>
             </n-grid>
         </n-form>
+        <message :messages="messages"/>
     </n-space>
 </template>

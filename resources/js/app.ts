@@ -24,6 +24,7 @@ app.component('create-expenses-page', CreateExpensesPage)
 app.component('index-expenses-page',  IndexExpensesPage)
 app.component('n-button', NButton)
 app.component('create-group-form', CreateGroupForm)
+app.component('app', App)
 
 app.use(pinia)
 

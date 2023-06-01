@@ -1,3 +1,8 @@
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+}
 export interface LoanForm {
     loaner: string;
     items: LoanItem[]
@@ -64,6 +69,7 @@ export interface GroupForm {
     meeting_end: string;
     repeat: string;
     age: string;
+    leaders: User[]
 }
 
 export interface ExpenseInfos {

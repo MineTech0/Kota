@@ -23,7 +23,11 @@
         <x-leftbar />
         <div class="content-wrapper">
             <div class="container-fluid">
-                @yield('content')
+                <div id="app">
+                    <app>
+                        @yield('content')
+                    </app>
+                </div>
             </div>
         </div>
         <div id="modals"></div>
