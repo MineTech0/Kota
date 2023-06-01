@@ -57,6 +57,15 @@ export interface Group {
     repeat: string
 }
 
+export interface GroupForm {
+    name: string;
+    meeting_day: string;
+    meeting_start: string;
+    meeting_end: string;
+    repeat: string;
+    age: string;
+}
+
 export interface ExpenseInfos {
     group: string[]
     budget: string[]

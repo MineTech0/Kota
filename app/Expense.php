@@ -15,4 +15,9 @@ class Expense extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function acceptor()
+    {
+        return $this->hasOne(User::class);
+    }
 }

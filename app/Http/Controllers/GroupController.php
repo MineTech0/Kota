@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\Group;
 use App\Http\Requests\GroupRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -16,12 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all()->map(function ($group) {
-            $group->leaders = $group->leaders->map(function ($leader) {
-                return $leader->name;
-            })->implode(', ');
-            return $group;
-        });
+        $groups = Group::all();
         return view('group.index', ['groups' => $groups]);
     }
 
@@ -35,7 +31,7 @@ class GroupController extends Controller
     public function edit(Group $group)
     {
         return view('group.edit', [
-            'group' => $group, 
+            'group' => $group,
             'weekDays' => collect(config('kota.weekDays')),
             'ageGroups' => collect(config('kota.groups.ageGroups'))
         ]);
@@ -63,19 +59,19 @@ class GroupController extends Controller
     }
     public function create()
     {
-        return view('group.create', ['weekDays' => collect(config('kota.weekDays'))]);
+        return view('group.create', ['weekDays' => collect(config('kota.weekDays')), 'ageGroups' => collect(config('kota.groups.ageGroups')), 'users' => User::all()]);
     }
     public function store(GroupRequest $request)
     {
         $validated = $request->validated();
-    
+
         Group::create([
             'name' => $validated['group_name'],
             'day' => $validated['meeting_day'],
             'time' => $validated['meeting_start'] . '-' . $validated['meeting_end'],
             'repeat' => $validated['repeat'],
             'age' => $validated['age'],
-            'leaders' => implode(',',$validated['leader_list'])
+            'leaders' => implode(',', $validated['leader_list'])
         ]);
         return redirect()->route('groups')->with('message', 'Uusi ryhmä luotu');
     }

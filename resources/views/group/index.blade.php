@@ -33,7 +33,10 @@
                         @foreach($groups as $group)
                             <tr>
                                 <td>{{ $group->name }}</td>
-                                <td>{!! str_replace(',', '<br />', $group->leaders) !!}
+                                <td>
+                                    @foreach ( $group->leaders as $leader )
+                                        {{ $leader->name }}<br>
+                                    @endforeach
                                 </td>
                                 <td>{{ $group->day }}</td>
                                 <td>{{ $group->time }}</td>

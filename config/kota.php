@@ -81,7 +81,7 @@ return [
         'add_group_expense',
         'delete_edit_group_expense',
         'delete_user',
-        'assing_delete_user_role',
+        'assign_delete_user_role',
         'return_own_loan',
         'see_own_group_expenses',
         'add_own_group_expense',
