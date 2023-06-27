@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $fillable = ['name','day','time','repeat','age'];
+    protected $fillable = ['name','meeting_day', 'meeting_start','meeting_end','repeat','age'];
     use HasFactory;
 
     public function contact()

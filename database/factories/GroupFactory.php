@@ -18,8 +18,9 @@ class GroupFactory extends Factory
         $ages = config('kota.groups.ageGroups');
         return [
             'name' => $this->faker->firstName(),
-            'day' => $weekdays[array_rand($weekdays, 1)],
-            'time' => '18:00-19:00',
+            'meeting_day' => $weekdays[array_rand($weekdays, 1)],
+            'meeting_start' => '18:00',
+            'meeting_end' => '19:00',
             'repeat' => 'Viikoittain',
             'age' => $ages[array_rand($ages,1)],
         ];

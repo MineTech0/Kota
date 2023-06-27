@@ -24,13 +24,13 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'group_name' => 'required|string',
+            'name' => 'required|string',
             'meeting_day' => 'in:Ma,Ti,Ke,To,Pe,La,Su|required',
             'meeting_start' => 'required|date_format:H:i|before:meeting_end',
             'meeting_end' => 'required|date_format:H:i',
             'repeat' => 'string|required',
             'age' => 'string|required',
-            'leaders => array|required',
+            'leaders => array|min:1',
             'leaders.*.id' => 'exists:users,id'
 
         ];
@@ -44,7 +44,7 @@ class GroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'leaders.required' => 'Vähintään yksi johtaja vaaditaan',
+            'leaders.min' => 'Vähintään yksi johtaja vaaditaan',
         ];
     }
 }

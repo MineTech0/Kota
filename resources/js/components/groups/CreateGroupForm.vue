@@ -40,7 +40,7 @@ const props = defineProps<{
     users: User[];
 }>();
 
-const newGroup = reactive<NewGroup>({
+const DEFAULT_GROUP = {
     name: "",
     meetingDay: props.weekDays[0],
     meetingStart: 54000000,
@@ -48,7 +48,9 @@ const newGroup = reactive<NewGroup>({
     repeat: "",
     age: props.ageGroups[0],
     leaders: [],
-});
+}
+
+const newGroup = reactive<NewGroup>(DEFAULT_GROUP);
 
 const formRef = ref<FormInst | null>(null);
 
@@ -59,6 +61,8 @@ const messages = reactive<{
     error: undefined,
     success: undefined,
 });
+
+const loading = ref(false);
 
 const ageGroupOptions = computed(() =>
     props.ageGroups.map((v) => ({ label: v, value: v }))
@@ -150,6 +154,7 @@ const onSubmit = (e: MouseEvent) => {
     formRef.value?.validate(
         (errors: Array<FormValidationError> | undefined) => {
             if (!errors) {
+                loading.value = true;
                 const newGroupObject = {
                     name: newGroup.name,
                     meeting_day: newGroup.meetingDay,
@@ -159,12 +164,14 @@ const onSubmit = (e: MouseEvent) => {
                     age: newGroup.age,
                     leaders: newGroup.leaders.map((leader) => leader.value),
                 };
-                GroupService.storeGroup(newGroupObject).then(expenses => {
-                    messages.success = expenses[0].message
+                GroupService.storeGroup(newGroupObject).then(response => {
+                    messages.success = response.message
+                    loading.value = false;
                 })
                 .catch(error => {
                     console.log(error)
                     messages.error = error.response.data.message
+                    loading.value = false;
                 })
             }
         }
@@ -309,7 +316,7 @@ const updated = (event) => {
                     </n-dynamic-tags>
                 </n-form-item-gi>
                 <n-form-item-gi span="24">
-                    <n-button type="primary" @click="onSubmit"
+                    <n-button :loading="loading" type="primary" @click="onSubmit"
                         >Tallenna</n-button
                     >
                 </n-form-item-gi>

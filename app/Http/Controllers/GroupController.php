@@ -65,14 +65,13 @@ class GroupController extends Controller
     {
         $validated = $request->validated();
 
-        Group::create([
-            'name' => $validated['group_name'],
-            'day' => $validated['meeting_day'],
-            'time' => $validated['meeting_start'] . '-' . $validated['meeting_end'],
-            'repeat' => $validated['repeat'],
-            'age' => $validated['age'],
-            'leaders' => implode(',', $validated['leader_list'])
+        $group = Group::create($validated);
+        $group->leaders()->attach(collect($validated['leaders'])->map(function ($leader) {
+            return $leader['id'];
+        })->toArray());
+
+        return response()->json([
+            'message' => 'Uusi ryhmä luotu'
         ]);
-        return redirect()->route('groups')->with('message', 'Uusi ryhmä luotu');
     }
 }
