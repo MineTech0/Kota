@@ -12,6 +12,7 @@ import CreateExpensesPage from './components/expenses/CreateExpensesPage.vue';
 import IndexExpensesPage from './components/expenses/IndexExpensesPage.vue';
 import CreateGroupForm from './components/groups/CreateGroupForm.vue';
 import EditGroupForm from './components/groups/EditGroupForm.vue';
+import UserGroupsTable from './components/groups/UserGroupsTable.vue';
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -26,6 +27,7 @@ app.component('index-expenses-page',  IndexExpensesPage)
 app.component('n-button', NButton)
 app.component('create-group-form', CreateGroupForm)
 app.component('edit-group-form', EditGroupForm)
+app.component('user-group-table',UserGroupsTable )
 app.component('app', App)
 
 app.use(pinia)

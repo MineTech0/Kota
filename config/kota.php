@@ -33,7 +33,32 @@ return [
             'Vaeltajat, 2v',
             'Vaeltajat, 3v',
             'Vaeltajat, 4v',
-        ]
+        ],
+        'parentAgeGroups' => [
+            'Sudenpennut' => [
+                'Sudenpennut, 1v', 
+                'Sudenpennut, 2v'
+            ],
+            'Seikkailijat' => [
+                'Seikkailijat, 1v', 
+                'Seikkailijat, 2v'
+            ],
+            'Tarpojat' => [
+                'Tarpojat, 1v', 
+                'Tarpojat, 2v', 
+                'Tarpojat, 3v'
+            ],
+            'Samoajat' => [
+                'Samoajat, 1v', 
+                'Samoajat, 2v'
+            ],
+            'Vaeltajat' => [
+                'Vaeltajat, 1v', 
+                'Vaeltajat, 2v', 
+                'Vaeltajat, 3v', 
+                'Vaeltajat, 4v'
+            ],
+        ],
     ],
     'expenses' => [
         'infos' => [

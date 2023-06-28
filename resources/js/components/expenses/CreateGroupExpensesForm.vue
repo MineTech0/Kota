@@ -20,6 +20,7 @@ import { computed, reactive, ref } from "vue";
 import { Group } from "../../types";
 import { useCreateExpensesStore } from "./CreateExpenseStore";
 import { storeToRefs } from "pinia";
+import useRedirect from "../../composables/useRedirect";
 
 const props = defineProps<{
     groups: Group[];
@@ -61,9 +62,12 @@ const handleSubmit = (e: MouseEvent) => {
     e.preventDefault();
     formRef.value?.validate(
         (errors: Array<FormValidationError> | undefined) => {
+            loading.value = true;
             if (!errors) {
                 expenseStore.storeGroupExpenses().then(expenses => {
                     messages.success = expenses[0].message
+                    loading.value = false;
+                    expenseStore.resetGroupExpenses()
                 })
                 .catch(error => {
                     messages.error = error.toString()

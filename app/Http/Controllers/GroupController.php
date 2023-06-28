@@ -21,6 +21,13 @@ class GroupController extends Controller
         return view('group.index', ['groups' => $groups]);
     }
 
+    public function userGroups() {
+        $groups = auth()->user()->groups;
+        $groups->load('expenses');
+        return view('group.user-groups', ['groups' => $groups]);
+        
+    }
+
     public function contact($id)
     {
 
@@ -73,7 +80,7 @@ class GroupController extends Controller
         $validated = $request->validated();
 
         $group = Group::create($validated);
-        
+
         $group->leaders()->attach(collect($validated['leaders'])->map(function ($leader) {
             return $leader['id'];
         })->toArray());

@@ -1,26 +1,17 @@
 <script lang="ts" setup>
 import { DataTableColumns } from "naive-ui";
 import { AgeGroupExpenses, Group, GroupExpense, GroupWithExpenses } from "../../types";
-import Panel from "../Panel.vue";
 import {NDataTable } from "naive-ui";
 import { computed } from "vue";
 
 const props = defineProps<{
-    expensesByAgeGroup: AgeGroupExpenses[];
+    groups: GroupWithExpenses[];
 }>();
 
-const rowData = computed(() => props.expensesByAgeGroup.map((age, index) => ({
-    ...age,
-    name: age.age,
-    id: index,
-    children: age.expenses.map((group) => ({
-        ...group,
-        children: group.expenses.map((expense) => ({
-            ...expense,
-            name: expense.description,
-            id: expense.id,
-        }))
-    })),
+const rowData = computed(() => props.groups.map((group, index) => ({
+    ...group,
+    amount: group.expenses.reduce((acc, expense) => acc + expense.amount, 0),
+    children: group.expenses,
 })));
 
 const columns: DataTableColumns<GroupExpense> = [
@@ -41,18 +32,29 @@ const columns: DataTableColumns<GroupExpense> = [
         render: (row) => {
             if(row.expense_date)
             {
-                return new Date(row.expense_date).toLocaleDateString('fi-FI');
+                return new Date(row.expense_date).toLocaleDateString();
             }
         }
+    },
+    {
+        title: "Kuvaus",
+        key: "description",
     },
 ];
 </script>
 <template>
-    <Panel header="Ryhmien kulut">
         <n-data-table
+            class="table"
             :columns="columns"
             :data="rowData"
-            :row-key="(row: GroupExpense ) => row.id + row.name"
+            :row-key="(row) => row.id"
         />
-    </Panel>
 </template>
+<style scoped>
+
+@media (max-width: 600px) {
+  .table {
+    font-size: 12px;
+  }
+}
+</style>
