@@ -38,8 +38,8 @@
                                         {{ $leader->name }}<br>
                                     @endforeach
                                 </td>
-                                <td>{{ $group->day }}</td>
-                                <td>{{ $group->time }}</td>
+                                <td>{{ $group->meeting_day }}</td>
+                                <td>{{ $group->meeting_start }}-{{$group->meeting_end}}</td>
                                 <td>{{ $group->repeat }}</td>
                                 <td>{{ $group->age }}</td>
                                 <td>
