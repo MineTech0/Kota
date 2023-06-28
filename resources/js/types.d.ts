@@ -56,10 +56,12 @@ export interface FileI {
 export interface Group {
     id: number;
     name: string;
-    leaders: string;
-    day: string;
-    time:string;
-    repeat: string
+    meeting_day: string;
+    meeting_start: string;
+    meeting_end: string;
+    repeat: string;
+    age: string;
+    leaders: User[]
 }
 
 export interface GroupForm {

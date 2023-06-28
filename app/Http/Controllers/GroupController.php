@@ -30,10 +30,13 @@ class GroupController extends Controller
     }
     public function edit(Group $group)
     {
+        $group->load('leaders');
+
         return view('group.edit', [
             'group' => $group,
             'weekDays' => collect(config('kota.weekDays')),
-            'ageGroups' => collect(config('kota.groups.ageGroups'))
+            'ageGroups' => collect(config('kota.groups.ageGroups')),
+            'users' => User::all()
         ]);
     }
 
@@ -41,21 +44,25 @@ class GroupController extends Controller
     {
         $validated = $request->validated();
 
-        $group->name = $validated['group_name'];
-        $group->day = $validated['meeting_day'];
-        $group->time = $validated['meeting_start'] . '-' . $validated['meeting_end'];
-        $group->repeat = $validated['repeat'];
-        $group->age = $validated['age'];
-        $group->leaders = implode(',', $validated['leader_list']);
-        $group->save();
+        $group->update($validated);
 
-        return redirect()->route('groups')->with('message', 'Ryhmä tallennettu');
+        $group->leaders()->sync(collect($validated['leaders'])->map(function ($leader) {
+            return $leader['id'];
+        })->toArray());
+
+        return response()->json([
+            'message' => 'Ryhmä tallennettu'
+        ]);
     }
     public function destroy(Group $group)
     {
         $group->contact()->delete();
+        $group->leaders()->detach();
         $group->delete();
-        return redirect()->route('groups')->with('message', 'Ryhmä poistettu');
+
+        return response()->json([
+            'message' => 'Ryhmä poistettu'
+        ]);
     }
     public function create()
     {
@@ -66,6 +73,7 @@ class GroupController extends Controller
         $validated = $request->validated();
 
         $group = Group::create($validated);
+        
         $group->leaders()->attach(collect($validated['leaders'])->map(function ($leader) {
             return $leader['id'];
         })->toArray());

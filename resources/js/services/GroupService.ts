@@ -6,8 +6,20 @@ const storeGroup = async (newGroup: GroupForm) => {
     return response.data    
 }
 
+const updateGroup = async (id: number, newGroup: GroupForm) => {
+    const response = await axios.put(`/groups/${id}`,newGroup)
+    return response.data
+}
+
+const deleteGroup = async (id: number) => {
+    const response = await axios.delete(`/groups/${id}`)
+    return response.data
+}
+
 const GroupService = {
-    storeGroup
+    storeGroup,
+    updateGroup,
+    deleteGroup
 }
 
 export default GroupService;
