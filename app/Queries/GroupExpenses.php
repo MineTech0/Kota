@@ -13,7 +13,19 @@ class GroupExpenses
 
     public static function getAllExpensesByAge()
     {
-        return Group::with('expenses')->get()->groupBy('age')->map(function ($group, $key) {
+        return Group::with('expenses')
+        ->get()
+        ->groupBy(function ($group) {
+            // Map the parent age group to the corresponding key in the 'parentAgeGroups' array
+            foreach (config('kota.groups.parentAgeGroups') as $key => $ageGroups) {
+                if (in_array($group->age, $ageGroups)) {
+                    return $key;
+                }
+            }
+            // If no matching parent age group is found, use a default key (e.g., 'Other')
+            return 'Muut';
+        })
+        ->map(function ($group, $key) {
             $group = $group->map(function ($group) {
                 return [
                     'id' => $group->id,
@@ -25,13 +37,16 @@ class GroupExpenses
                 ];
             });
             return [
-                'age' => $key, 
-                'expenses' => $group, 
+                'age' => $key,
+                'expenses' => $group,
                 'amount' => $group->reduce(function ($carry, $group) {
-                        return $carry + $group['amount'];
-                    }, 0)
-                ];
-        })->values()->sortBy('age');
+                    return $carry + $group['amount'];
+                }, 0)
+            ];
+        })
+        ->sortBy('age')
+        ->values();
+    
     }
 
 }

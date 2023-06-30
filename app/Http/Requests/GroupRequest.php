@@ -24,29 +24,18 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'group_name' => 'required|string',
+            'name' => 'required|string',
             'meeting_day' => 'in:Ma,Ti,Ke,To,Pe,La,Su|required',
             'meeting_start' => 'required|date_format:H:i|before:meeting_end',
             'meeting_end' => 'required|date_format:H:i',
             'repeat' => 'string|required',
             'age' => 'string|required',
-            'leader_list' => 'required|array|min:1',
-            'leader_list.*' => 'string'
+            'leaders => array|min:1',
+            'leaders.*.id' => 'exists:users,id'
 
         ];
     }
-
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'leader_list' => array_filter($this->leader_list),
-        ]);
-    }
+    
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -55,7 +44,7 @@ class GroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'leader_list.required' => 'Vähintään yksi johtaja vaaditaan',
+            'leaders.min' => 'Vähintään yksi johtaja vaaditaan',
         ];
     }
 }

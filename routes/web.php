@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/groups', 'GroupController@index')->name('groups');
 
+    Route::get('/user/groups', 'GroupController@userGroups')->name('user.groups');
+
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
 

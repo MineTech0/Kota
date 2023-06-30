@@ -12,7 +12,7 @@
             <a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
             <div class="content">
                 <a href="{{ route('groups') }}">&nbsp;Kaikki ryhmät</a>
-                <a href="{{ route('groups') }}">&nbsp;Omat ryhmät</a>
+                <a href="{{ route('user.groups')}}">&nbsp;Omat ryhmät</a>
             </div>
         </li>
         </li>
@@ -22,12 +22,16 @@
         <li>
             <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Huolto</a>
             <div class="content">
-                <a href="{{ route('index.equipment') }}"></i>&nbsp;Varusteet</a>
+                <a href="{{ route('index.equipment') }}">&nbsp;Varusteet</a>
             </div>
         </li>
         @endcan
         @can('access_management')
-            <li><a href="{{ route('expenses.index') }}"><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
+            <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
+                <div class="content">
+                    <a href="{{ route('expenses.index') }}">&nbsp;Kaikki kulut</a>
+                    <a href="{{ route('expenses.create') }}">&nbsp;Lisää kuluja</a>
+                </div>
             </li>
             <li>
                     <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>
