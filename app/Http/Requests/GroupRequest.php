@@ -30,7 +30,7 @@ class GroupRequest extends FormRequest
             'meeting_end' => 'required|date_format:H:i',
             'repeat' => 'string|required',
             'age' => 'string|required',
-            'leaders => array|min:1',
+            'leaders => required|array|min:1',
             'leaders.*.id' => 'exists:users,id'
 
         ];

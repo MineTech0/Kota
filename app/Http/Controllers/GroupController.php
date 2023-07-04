@@ -87,6 +87,6 @@ class GroupController extends Controller
 
         return response()->json([
             'message' => 'Uusi ryhmä luotu'
-        ]);
+        ], 201);
     }
 }

@@ -5,41 +5,78 @@ namespace Tests\Feature;
 use App\Group;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
-use Tests\RefreshTable;
 use Tests\TestCase;
 
 class GroupTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function groupFormData()
-    {
-        return [
-            'group_name' => 'Testiryhmä',
-            'meeting_day' => 'Ma',
-            'meeting_start' => '19:00',
-            'meeting_end' => '20:00',
-            'repeat' => 'Viikoittain',
-            'age' => 'Sudenpennut, 1v',
-            'leader_list' => ['Johtaja1','Johtaja2']
-        ];
-    }
-
-    public function test_group_create_form_with_invalid_name_return_error()
+    public function test_create_group()
     {
         $user = User::factory()->create();
         $user->givePermissionTo('access_management');
+        $group = Group::factory()->make();
+        $group['leaders'] = [User::factory()->create()->toArray()];
+        $response = $this->actingAs($user)
+            ->post('/groups', $group->toArray());
+        $response->assertStatus(Response::HTTP_CREATED);
+        $createdGroup = Group::where('name', $group->name)->first();
+        $this->assertNotNull($createdGroup);
+        $this->assertEquals($group->leaders[0]['id'], $createdGroup->leaders()->first()->toArray()['id']);
+    }
 
-        $group = $this->groupFormData();
-        $group['group_name'] = 6;
-        $response = $this
-                    ->actingAs($user)
-                    ->call('POST', 
-                    route('store.group'), $group);
-        $response->assertSessionHasErrors(['group_name']);
-        
+    public function test_create_group_without_permission()
+    {
+        $user = User::factory()->create();
+        $group = Group::factory()->make();
+        $group['leaders'] = [User::factory()->create()->toArray()];
+        $response = $this->actingAs($user)
+            ->post('/groups', $group->toArray());
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_delete_group()
+    {
+        $user = User::factory()->create();
+        $user->givePermissionTo('access_management');
+        $group = Group::factory()->create();
+        $response = $this->actingAs($user)
+            ->delete('/groups/' . $group->id);
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertNull(Group::find($group->id));
+    }
+
+    public function test_delete_group_without_permission()
+    {
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $response = $this->actingAs($user)
+            ->delete('/groups/' . $group->id);
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    public function test_update_group(){
+        $user = User::factory()->create();
+        $user->givePermissionTo('access_management');
+        $group = Group::factory()->create();
+        $group->load('leaders');
+        $group->name = 'new name';
+        $group->leaders->push(User::factory()->create()->toArray());
+        $response = $this->actingAs($user)
+            ->put('/groups/' . $group->id, $group->toArray());
+        $response->assertStatus(Response::HTTP_OK);
+        $updatedGroup = Group::find($group->id);
+        $this->assertEquals($group->name, $updatedGroup->name);
+    }
+
+    public function test_update_group_without_permission(){
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $group->name = 'new name';
+        $response = $this->actingAs($user)
+            ->put('/groups/' . $group->id, $group->toArray());
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
 }
