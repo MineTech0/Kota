@@ -103,49 +103,8 @@
         </div>
     </div>
 </div>
-<!-- Käyttäjät rivi -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-6">
-                <x-panel header='Käyttäjät'>
-                    <div class="table-responsive">
-                    <table id='clist' class="display table table-striped table-bordered table-hover" cellspacing="0"
-                    width="100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nimi</th>
-                            <th>Sähköposti</th>
-                            <th>Rooli</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $index => $user)
-                        <tr>
-                                
-                            
-                            <td>{{$index +1}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>@foreach ($user->roles as $role)
-                                {{ucfirst($role->name)}}<br>
-                            @endforeach</td>
-                            <td><button data-id='{{ $user->id }}' class="btn btn-primary btn-sm roleBtn">Muokkaa</button></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-                </x-panel>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="loanModal" aria-hidden="true"></div>
 <div class="modal fade" id="FeedbackModal" aria-hidden="true"></div>
-<div class="modal fade" id="roleModal" aria-hidden="true"></div>
 @endsection
 @section('script')
 <script>
@@ -160,13 +119,6 @@
     $('.loanBtn').on('click', function (e) {
             $('#loanModal').load('/loan/accept/' + $(e.target).data("id"), function () {
                 $('#loanModal').modal({
-                    show: true
-                });
-            });
-        });
-    $('.roleBtn').on('click', function (e) {
-            $('#roleModal').load('/user/' + $(e.target).data("id"), function () {
-                $('#roleModal').modal({
                     show: true
                 });
             });
@@ -197,34 +149,6 @@
                                 $('.returnInfo').html(xhr.responseText);
                                 $('.returnInfo').addClass('alert-danger');
                                 $('.returnInfo').show();
-                            }
-                        });
-                    });
-        $(document).on('click', '.delBtn', function (e) {
-                    let id = $(this).data('id');
-                    let role = $(this).data('role');
-
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                        $.ajax({
-                            url: '/user/' + id+'/role/'+role,
-                            type: 'DELETE',
-                            success: function (result) {
-                                $('.roleInfo').html('Poistettu');
-                                $('.roleInfo').addClass('alert-success');
-                                $('.roleInfo').show();
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 2000);
-                            },
-                            error: function (xhr, Status, error) {
-                                const json = JSON.parse(xhr.responseText);
-                                $('.roleInfo').html(json.error);
-                                $('.roleInfo').addClass('alert-danger');
-                                $('.roleInfo').show();
                             }
                         });
                     });

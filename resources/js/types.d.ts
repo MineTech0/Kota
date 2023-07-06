@@ -3,6 +3,14 @@ export interface User {
     name: string;
     email: string;
 }
+
+export interface Role {
+    id: number;
+    name: string;
+}
+export interface UserWithRoles extends User {
+    roles: Role[]
+}
 export interface LoanForm {
     loaner: string;
     items: LoanItem[]

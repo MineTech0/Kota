@@ -14,7 +14,12 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noImplicitAny": false,          // Bypass raising errors on `any` type
-      "sourceMap": true       // Bypass raising errors on `any` type
+      "sourceMap": true,       // Bypass raising errors on `any` type
+      "paths": {
+        "@/*": ["resources/js/*"]
+      },
+      "outDir": "public/js",
+      "baseUrl": "."
     },
     "include": [
       "resources/js/**/*",  

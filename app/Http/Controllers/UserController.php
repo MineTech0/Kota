@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\User;
 use App\Invite;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('management.index-users', ['users' => User::all()->load('roles'), 'roles' => Role::all()]);
     }
 
     /**
@@ -55,10 +56,7 @@ class UserController extends Controller
      */
     public function show($user)
     {
-        $user = User::findOrFail($user);   
-        $roles = Role::all();   
-
-        return view('components.modal_user', ['user'=> $user, 'roles'=>$roles ]);
+        //
     }
 
     /**
@@ -75,54 +73,53 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user, UserRequest $request)
     {
-        $user = User::find($id);
-        $role = Role::find($request['roleSelect']);
+        $validated = $request->validated();
+        //TODO
+    }
+
+    /**
+     * Update user roles
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRoles(User $user, Request $request)
+    {
         
-        if($user->hasRole($role->name))
+        if($user->hasRole('super-admin'))
         {
-            return redirect()->back()->withErrors('Käyttäjällä on jo tämä rooli');
+            return response()->json(['message' => 'Super-adminia ei voi muokata'], 403);
         }
-        elseif($user->hasRole('super-admin'))
-        {
-            return redirect()->back()->withErrors('Super-adminia ei voi muokata');
-        }
-        elseif($role->name == 'super-admin')
-        {
-            return redirect()->back()->withErrors('Super-admin roolia ei voi lisätä');
-        }
-        else
-        {
-            $user->assignRole($role->name);
-            return redirect()->back()->with('message', 'Rooli lisätty');
-        }
+
+        $roles = $request->roles;
+
+        //remove super-admin
+        $superAdmin = Role::where('name', 'super-admin')->first();
+        $roles = array_diff($roles, [$superAdmin->id]);
+
+        //sync roles
+        $user->syncRoles($roles);
+
+        return response()->json(['message' => 'Roolit päivitetty']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyRole(User $user, Role $role)
+    public function destroy(User $user)
     {
-        if($role->name == 'super-admin')
+        if($user->hasRole('super-admin'))
         {
-            return response()->json(['success' => false, 'error' => 'Super-admin roolia ei voi poistaa'], 400);
-            
+            return response()->json(['message' => 'Super-adminia ei voi poistaa'], 403);
         }
-        elseif($user->hasRole($role->name))
-        {
-            $user->removeRole($role->name);
-        }
-        else
-        {
-            return response()->json(['error' => 'Käyttäjällä ei ole tätä roolia'], 400);
-        }
+        $user->groups()->detach();
+        $user->delete();
+
+        return response()->json(['message' => 'Käyttäjä poistettu']);
     }
 }
