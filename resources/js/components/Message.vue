@@ -14,6 +14,6 @@ const props = defineProps<{
         {{ props.messages.success }}
     </n-alert>
     <n-alert v-if="props.messages.error" title="Virhe" type="error">
-        {{ props.messages.error }}
+        {{ messages.error }}
     </n-alert>
 </template>

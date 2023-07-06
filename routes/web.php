@@ -66,9 +66,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/feedback/{feedback}/attachment', 'FeedbackController@attachment');
         Route::get('/feedback/{feedback}', 'FeedbackController@show');
 
-        Route::get('/user/{user}', 'UserController@show')->name('show.user');
-        Route::delete('/user/{user}/role/{role}', 'UserController@destroyRole')->name('deleteRole.user');
-        Route::patch('/user/{id}', 'UserController@update')->name('update.user');
+        Route::patch('/users/{user}/roles', 'UserController@updateRoles')->name('update.user.roles');
+        Route::get('users', 'UserController@index')->name('index.users');
+        Route::delete('/users/{user}', 'UserController@destroy')->name('destroy.user');
 
         Route::get('/equipment', 'EquipmentController@index')->name('index.equipment');
         Route::get('/equipment/create', 'EquipmentController@create')->name('create.equipment');
