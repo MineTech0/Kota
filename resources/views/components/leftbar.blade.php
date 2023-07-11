@@ -23,6 +23,7 @@
             <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Huolto</a>
             <div class="content">
                 <a href="{{ route('index.equipment') }}">&nbsp;Varusteet</a>
+                <a href="{{ route('create.equipment') }}">&nbsp;Lisää varuste</a>
             </div>
         </li>
         @endcan

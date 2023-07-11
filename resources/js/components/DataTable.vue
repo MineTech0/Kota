@@ -1,0 +1,54 @@
+<script lang="ts" setup>
+import {
+    DataTableColumns,
+    NDataTable,
+    NSpace,
+    NInput,
+    NInputGroupLabel,
+    NInputGroup,
+DataTableCreateSummary,
+} from "naive-ui";
+import { h, ref } from "vue";
+
+const props = defineProps<{
+    data: any;
+    columns: DataTableColumns<any>;
+    search?: boolean;
+}>();
+const filteredData = ref<any>(props.data);
+
+const handleSearch = (value: string) => {
+    filteredData.value = props.data.filter((user: any) => {
+        return user.name.toLowerCase().includes(value.toLowerCase());
+    });
+};
+
+</script>
+<template>
+    <n-space justify="end" v-if="search">
+        <n-input-group class="mb-3">
+            <n-input-group-label>Etsi: </n-input-group-label>
+            <n-input :placeholder="''" @input="handleSearch" />
+        </n-input-group>
+    </n-space>
+    <n-data-table
+        v-bind="$attrs"
+        class="table"
+        :columns="columns"
+        :data="filteredData"
+        :row-key="(row) => row.id"
+        :pagination="{
+            pageSize: 10,
+        }"
+        scroll-x="100%"
+    />
+</template>
+<style scoped>
+@media (max-width: 600px) {
+    .table {
+        font-size: 12px;
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+</style>

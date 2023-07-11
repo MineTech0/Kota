@@ -115,4 +115,14 @@ return [
         'delete_edit_own_group_expense',
     ],
 
+    'equipment' => [
+        'formOptions' => [
+            'Uusi',
+            'Hyvä',
+            'Kulunut',
+            'Huono',
+            'Rikki',
+        ]
+    ]
+
 ];

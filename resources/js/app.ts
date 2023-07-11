@@ -15,6 +15,7 @@ import EditGroupForm from './components/groups/EditGroupForm.vue';
 import UserGroupsTable from './components/groups/UserGroupsTable.vue';
 import UsersTable from './components/users/UsersTable.vue';
 import Message from './components/Message.vue';
+import EquipmentTable from './components/equipment/EquipmentTable.vue';
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -31,6 +32,7 @@ app.component('create-group-form', CreateGroupForm)
 app.component('edit-group-form', EditGroupForm)
 app.component('user-group-table',UserGroupsTable )
 app.component('users-table', UsersTable)
+app.component('equipment-table', EquipmentTable)
 app.component('message', Message)
 app.component('app', App)
 

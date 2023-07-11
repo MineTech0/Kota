@@ -1,6 +1,13 @@
 <script lang="ts" setup>
-import { Role, UserWithRoles } from "@types";
-import { DataTableColumns, NButton, NCard, NDataTable, NModal, NTag } from "naive-ui";
+import DataTable from "@/components/DataTable.vue";
+import { Role, UserWithRoles } from "@/types";
+import {
+DataTableColumns,
+NButton,
+NCard,
+NModal,
+NTag
+} from "naive-ui";
 import { h, ref } from "vue";
 import UserEditForm from "./UserEditForm.vue";
 
@@ -10,6 +17,7 @@ const props = defineProps<{
 }>();
 
 const showModal = ref(false);
+const filteredUsers = ref<UserWithRoles[]>(props.users)
 
 const editingUser = ref<UserWithRoles>(props.users[0]);
 
@@ -17,6 +25,7 @@ const editUser = (user: UserWithRoles) => {
     editingUser.value = user;
     showModal.value = true;
 };
+
 
 const columns: DataTableColumns<UserWithRoles> = [
     {
@@ -65,7 +74,9 @@ const columns: DataTableColumns<UserWithRoles> = [
                     strong: true,
                     tertiary: true,
                     size: "small",
-                    disabled: row.roles.some((role) => role.name === "super-admin"),
+                    disabled: row.roles.some(
+                        (role) => role.name === "super-admin"
+                    ),
                     onClick: () => {
                         editUser(row);
                     },
@@ -73,16 +84,15 @@ const columns: DataTableColumns<UserWithRoles> = [
                 { default: () => "Muokkaa" }
             );
         },
-    }
+    },
 ];
 </script>
 <template>
-    <n-data-table
-        class="table"
+    <DataTable
         :columns="columns"
-        :data="props.users"
+        :data="filteredUsers"
         :row-key="(row) => row.id"
-        scroll-x="100%"
+        search
     />
     <n-modal v-model:show="showModal">
         <n-card
@@ -98,11 +108,4 @@ const columns: DataTableColumns<UserWithRoles> = [
     </n-modal>
 </template>
 <style scoped>
-@media (max-width: 600px) {
-    .table {
-        font-size: 12px;
-        width: 100%;
-        overflow-x: auto;
-    }
-}
 </style>

@@ -30,13 +30,13 @@ export interface Equipment {
     id: number;
     name: string;
     weight: number;
-    form: string | null;
+    form: string;
     location: string;
     quantity: number;
     loan_time: number;
-    info: string | null;
-    serial: string | null;
-    picture: string | null;
+    info: string;
+    serial: string
+    picture: string;
     loaned?: boolean;
 }
 

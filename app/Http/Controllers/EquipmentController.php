@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Queries\AvailableLoans;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreEquipment;
+use App\Enums\LoanStateEnum;
 
 class EquipmentController extends Controller
 {
@@ -21,13 +22,17 @@ class EquipmentController extends Controller
             'id' => $equipment->id,
             'loan_time' => $equipment->loan_time,
             'quantity' => $equipment->quantity
-        ]); 
+        ]);
     }
     public function index()
     {
-        return view('equipment.index',[
-            'equipment'=> Equipment::all(),
-            'loans'=>Loan::with('equipment')->where('state','=',0)->orWhere('state','=',2)->get()
+        return view('equipment.index', [
+            'equipment' => Equipment::all(),
+            'loans' => Loan::with('equipment')
+                ->where('state', '=', LoanStateEnum::SCOUT_EVENT)
+                ->orWhere('state', '=', LoanStateEnum::ACCEPTED)
+                ->get(),
+            'formOptions' => collect(config('kota.equipment.formOptions'))
         ]);
     }
     public function create()
@@ -44,17 +49,16 @@ class EquipmentController extends Controller
     }
     public function edit(Equipment $equipment)
     {
-        return view('equipment.edit',['equipment' => $equipment]);
+        return view('equipment.edit', ['equipment' => $equipment]);
     }
-    public function update(StoreEquipment $request, Equipment $equipment )
+    public function update(StoreEquipment $request, Equipment $equipment)
     {
         $validated = $request->validated();
-        if($request->hasFile('picture')){
+        if ($request->hasFile('picture')) {
             $validated['picture'] =  $request->file('picture')->store('equipment', ['disk' => 'public']);
             File::delete($equipment->picture);
-        }
-        else {
-            $validated['picture']= null;
+        } else {
+            $validated['picture'] = null;
         }
 
         $equipment->update($validated);

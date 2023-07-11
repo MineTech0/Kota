@@ -10,6 +10,7 @@ class Loan extends Model
     protected $fillable = ['desc','user_id','equipment_id','loan_date','return_date','reason','quantity','state'];
     protected $casts = [
         'options' => 'array',
+        'state' => LoanStateEnum::class,
     ];
 
     public function user()
