@@ -10,6 +10,8 @@ return [
     |
     */
 
+    'lippukunta' => 'Piikkiön tammipartio',
+
     'files' => [
         'categories' => array(
             'Ohje', 'Mallipohja', 'Asiakirja'
