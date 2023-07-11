@@ -28,6 +28,12 @@ mix.ts('resources/js/app.ts', 'public/js')
   })
     .sourceMaps()
     .sass('resources/sass/app.scss', 'public/css')
+    .webpackConfig({
+      devServer: {
+          host: "0.0.0.0"
+      }
+  })
+
 mix.styles([
     'resources/css/*'
 ], 'public/css/all.css');
