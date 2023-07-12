@@ -12,6 +12,13 @@ return [
 
     'lippukunta' => 'Piikkiön tammipartio',
 
+    /**
+     * Mitkä ominaisuudet ovat käytössä
+     */
+    'show' => [
+        'loans' => true,
+    ],
+
     'files' => [
         'categories' => array(
             'Ohje', 'Mallipohja', 'Asiakirja'

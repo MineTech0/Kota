@@ -4,9 +4,15 @@ export interface User {
     email: string;
 }
 
+export interface Permission {
+    id: number;
+    name: string;
+}
+
 export interface Role {
     id: number;
     name: string;
+    permissions: Permission[]
 }
 export interface UserWithRoles extends User {
     roles: Role[]

@@ -14,7 +14,7 @@ class StoreEquipment extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('access_management');
+        return $this->user()->can('add_edit_delete_equipment');
     }
 
     /**

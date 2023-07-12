@@ -34,7 +34,7 @@ class LoanAcceptanceTest extends TestCase
     public function test_accepting_own_loan_gives_error()
     {
         $loan = $this->createOwnLoan();
-        $this->user->givePermissionTo('access_management');
+        $this->user->givePermissionTo('accept_loan');
 
         $response = $this
         ->actingAs($this->user)

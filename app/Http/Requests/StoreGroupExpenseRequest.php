@@ -14,7 +14,7 @@ class StoreGroupExpenseRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('access_management');
+        return $this->user()->can('add_group_expense');
     }
 
     /**

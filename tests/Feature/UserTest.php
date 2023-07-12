@@ -19,7 +19,7 @@ class UserTest extends TestCase
     public function test_user_roles_can_be_added()
     {
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo(['assign_delete_user_role', 'access_management']);
 
         $editableUser = User::factory()->create();
 
@@ -54,7 +54,7 @@ class UserTest extends TestCase
     public function test_user_roles_can_be_deleted()
     {
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo(['assign_delete_user_role', 'access_management']);
 
         $editableUser = User::factory()->create();
 
@@ -94,7 +94,7 @@ class UserTest extends TestCase
     function test_super_admin_cannot_be_edited()
     {
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo(['assign_delete_user_role', 'access_management']);
 
         $editableUser = User::factory()->create();
         $editableUser->assignRole('super-admin');
@@ -114,7 +114,7 @@ class UserTest extends TestCase
     function test_user_can_be_deleted()
     {
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo(['delete_user', 'access_management']);
 
         $editableUser = User::factory()->create();
 

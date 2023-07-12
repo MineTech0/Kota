@@ -7,6 +7,7 @@
         </x-panel>
     </div>
 </div>
+@if (config('kota.show.loans'))
 <div class="row">
     <div class="col-md-12">
         <x-panel header="Lainassa">
@@ -47,5 +48,6 @@
         </x-panel>
     </div>
 </div>
+@endif
 
 @endsection

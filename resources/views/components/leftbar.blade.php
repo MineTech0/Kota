@@ -12,20 +12,24 @@
             <a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
             <div class="content">
                 <a href="{{ route('groups') }}">&nbsp;Kaikki ryhmät</a>
-                <a href="{{ route('user.groups')}}">&nbsp;Omat ryhmät</a>
+                <a href="{{ route('user.groups') }}">&nbsp;Omat ryhmät</a>
             </div>
         </li>
         </li>
-        <li><a href="{{ route('create.loan') }}"><i class="fas fa-box-open fa-fw"></i> &nbsp;Lainaus</a>
+        @if (config('kota.show.loans'))
+            <li><a href="{{ route('create.loan') }}"><i class="fas fa-box-open fa-fw"></i> &nbsp;Lainaus</a>
+        @endif
         </li>
         @can('see_equipment')
-        <li>
-            <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Huolto</a>
-            <div class="content">
-                <a href="{{ route('index.equipment') }}">&nbsp;Varusteet</a>
-                <a href="{{ route('create.equipment') }}">&nbsp;Lisää varuste</a>
-            </div>
-        </li>
+            <li>
+                <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Huolto</a>
+                <div class="content">
+                    <a href="{{ route('index.equipment') }}">&nbsp;Varusteet</a>
+                    @can('add_edit_delete_equipment')
+                        <a href="{{ route('create.equipment') }}">&nbsp;Lisää varuste</a>
+                    @endcan
+                </div>
+            </li>
         @endcan
         @can('access_management')
             <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
@@ -35,11 +39,11 @@
                 </div>
             </li>
             <li>
-                    <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>
-                    <div class="content">
-                        <a href="{{ route('management') }}"></i> &nbsp;Työkalut</a>
-                        <a href="{{ route('index.users') }}"></i> &nbsp;Käyttäjät</a>
-                    </div>
+                <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>
+                <div class="content">
+                    <a href="{{ route('management') }}"></i> &nbsp;Työkalut</a>
+                    <a href="{{ route('index.users') }}"></i> &nbsp;Käyttäjät</a>
+                </div>
             </li>
         @endcan
     </ul>

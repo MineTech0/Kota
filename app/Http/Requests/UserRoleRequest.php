@@ -15,7 +15,7 @@ class UserRoleRequest extends FormRequest
     {
         return $this
             ->user()
-            ->can('access_management');
+            ->can('assign_delete_user_role');
     }
 
     /**

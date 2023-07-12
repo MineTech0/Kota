@@ -16,6 +16,7 @@ import UserGroupsTable from './components/groups/UserGroupsTable.vue';
 import UsersTable from './components/users/UsersTable.vue';
 import Message from './components/Message.vue';
 import EquipmentTable from './components/equipment/EquipmentTable.vue';
+import RolesPermissionsTable from './components/users/RolesPermissionsTable.vue';
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -34,6 +35,7 @@ app.component('user-group-table',UserGroupsTable )
 app.component('users-table', UsersTable)
 app.component('equipment-table', EquipmentTable)
 app.component('message', Message)
+app.component('roles-permissions-table', RolesPermissionsTable)
 app.component('app', App)
 
 app.use(pinia)

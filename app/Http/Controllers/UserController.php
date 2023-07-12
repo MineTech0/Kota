@@ -7,6 +7,7 @@ use App\User;
 use App\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('management.index-users', ['users' => User::all()->load('roles'), 'roles' => Role::all()]);
+        return view('management.index-users', ['users' => User::all()->load('roles'), 'roles' => Role::all()->load('permissions'), 'permissions' => Permission::all()]);
     }
 
     /**
@@ -29,12 +30,12 @@ class UserController extends Controller
     public function create($token)
     {
         $invite = Invite::where('token', $token)->first();
-        
+
         if (!$invite) {
             abort(Response::HTTP_NOT_FOUND);
         }
 
-        return view('auth.register', ['invite'=> $invite]);
+        return view('auth.register', ['invite' => $invite]);
     }
 
     /**
@@ -88,9 +89,8 @@ class UserController extends Controller
      */
     public function updateRoles(User $user, Request $request)
     {
-        
-        if($user->hasRole('super-admin'))
-        {
+
+        if ($user->hasRole('super-admin')) {
             return response()->json(['message' => 'Super-adminia ei voi muokata'], 403);
         }
 
@@ -113,8 +113,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->hasRole('super-admin'))
-        {
+        if ($user->hasRole('super-admin')) {
             return response()->json(['message' => 'Super-adminia ei voi poistaa'], 403);
         }
         $user->groups()->detach();

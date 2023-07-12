@@ -13,18 +13,18 @@ class EquipmentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_equipment_routes_when_user_has_management_permission()
+    public function test_equipment_routes_when_user_permission()
     {
 
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo('see_equipment');
 
         $response = $this->actingAs($user)
             ->get('/equipment');
 
         $response->assertStatus(HttpResponse::HTTP_OK);
     }
-    public function test_equipment_route_when_user_has_not_management_permission()
+    public function test_equipment_route_when_user_has_not_permission()
     {
 
         $user = User::factory()->create();
@@ -39,7 +39,7 @@ class EquipmentTest extends TestCase
     {
 
         $user = User::factory()->create();
-        $user->givePermissionTo('access_management');
+        $user->givePermissionTo('add_edit_delete_equipment');
 
         $response = $this->actingAs($user)
             ->get('/equipment/create');

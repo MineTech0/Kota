@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\LoanStateEnum;
 
 class Loan extends Model
 {
