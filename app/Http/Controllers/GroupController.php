@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
 use App\Group;
 use App\Http\Requests\GroupRequest;
 use App\User;
@@ -28,13 +27,6 @@ class GroupController extends Controller
         
     }
 
-    public function contact($id)
-    {
-
-        return view('components.modal_contact', [
-            'contact' => Contact::where('group_id', $id)->firstOrFail()
-        ]);
-    }
     public function edit(Group $group)
     {
         $group->load('leaders');
@@ -63,7 +55,6 @@ class GroupController extends Controller
     }
     public function destroy(Group $group)
     {
-        $group->contact()->delete();
         $group->leaders()->detach();
         $group->delete();
 
