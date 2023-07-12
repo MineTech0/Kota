@@ -17,7 +17,7 @@ class GroupSeeder extends Seeder
     public function run()
     {
         $user = User::find(1);
-        Group::factory()->count(10)->hasContact(1)->create();
+        Group::factory()->count(10)->create();
 
         $groups = Group::factory()->count(2)->create();
 

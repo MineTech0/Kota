@@ -42,11 +42,6 @@
                                 <td>{{ $group->meeting_start }}-{{$group->meeting_end}}</td>
                                 <td>{{ $group->repeat }}</td>
                                 <td>{{ $group->age }}</td>
-                                <td>
-                                    @if ($group->contact)
-                                    <button data-id='{{$group->id}}' class="btn btn-primary btn-sm contactBtn">Ota yhteyttä</button>
-                                    @endif
-                                </td>
                                 @can('access_management')
                                 <td>
                                     <button class="btn btn-primary btn-sm editBtn">
@@ -64,20 +59,4 @@
         </x-panel>
     </div>
 </div>
-<div class="modal fade" id="contactModal" aria-hidden="true"></div>
-@endsection
-@section('script')
-    <script>
-       $(document).on('click', '.contactBtn', function (e) {
-        $('#contactModal').load('/contact/group/'+$(this).data("id")
-        ,function (responseText, textStatus, req) {
-            if(textStatus != 'error'){
-                $('#contactModal').modal({
-                    show: true
-                });
-            }
-        });
-    });
-    </script>
-    
 @endsection

@@ -10,11 +10,6 @@ class Group extends Model
     protected $fillable = ['name','meeting_day', 'meeting_start','meeting_end','repeat','age'];
     use HasFactory;
 
-    public function contact()
-    {
-        return $this->hasOne(Contact::class);
-    }
-
     public function getTimeAttribute($value)
     {
         return str_replace('.',':',$value);

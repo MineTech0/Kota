@@ -50,8 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/loan', 'LoanController@store')->name('store.loan');
     Route::delete('/loan/{loan}', 'LoanController@destroy')->name('delete.loan');
 
-    Route::get('/contact/group/{group}', 'GroupController@contact')->name('group.contact');
-
     Route::post('/kitchenBooking', 'KitchenBookingController@store')->name('kitchenBooking.store');
 
     //managenent routes
