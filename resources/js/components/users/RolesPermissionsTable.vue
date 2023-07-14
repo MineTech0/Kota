@@ -16,7 +16,7 @@ function hasPermission(role: Role, permission: Permission) {
 <n-table :bordered="false" :single-line="false">
   <thead>
     <tr>
-        <th></th>
+        <th>Roolit/Oikeudet</th>
       <th v-for="role in roles" :key="role.id">{{ role.name }}</th>
     </tr>
   </thead>
