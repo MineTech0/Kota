@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { DataTableColumns } from "naive-ui";
-import { AgeGroupExpenses, Group, GroupExpense, GroupWithExpenses } from "../../types";
-import {NDataTable } from "naive-ui";
+import { DataTableColumns, NDataTable } from "naive-ui";
 import { computed } from "vue";
+import { GroupExpense, GroupWithExpenses } from "../../types";
 
 const props = defineProps<{
     groups: GroupWithExpenses[];
@@ -32,7 +31,7 @@ const columns: DataTableColumns<GroupExpense> = [
         render: (row) => {
             if(row.expense_date)
             {
-                return new Date(row.expense_date).toLocaleDateString();
+                return new Date(row.expense_date).toLocaleDateString('fi-FI');
             }
         }
     },

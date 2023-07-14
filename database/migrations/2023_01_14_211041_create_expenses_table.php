@@ -19,6 +19,8 @@ class CreateExpensesTable extends Migration
             $table->string('description');
             $table->float('amount', 8, 2);
             $table->date('expense_date');
+            $table->string('original_age_group');
+            $table->string('original_group_name');
             $table->foreignId('acceptor_id')->constrained('users');
             $table->timestamps();
         });

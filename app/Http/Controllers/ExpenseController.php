@@ -6,6 +6,8 @@ use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
 use App\Queries\GroupExpenses;
+use App\Utils\SeasonUtil;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +20,12 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expenses.index-expenses' , [
-            'expensesByAgeGroup' => GroupExpenses::getAllExpensesByAge()
+        $seasonDates = SeasonUtil::getCurrentSeasonDates(Carbon::now());
+
+        return view('expenses.index-expenses', [
+            'currentSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['currentSeasonDates']['start'], $seasonDates['currentSeasonDates']['end']),
+            'previousSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['previousSeasonDates']['start'], $seasonDates['previousSeasonDates']['end']),
+            'seasons' => collect([ $seasonDates['previousSeasonDates']['name'], $seasonDates['currentSeasonDates']['name']])
         ]);
     }
 
@@ -37,7 +43,7 @@ class ExpenseController extends Controller
     }
 
     /**
-     * Storese new group expense
+     * Stores new group expense
      *
      * @param  \Illuminate\Http\StoreGroupExpenseRequest  $request
      * @return \Illuminate\Http\Response
@@ -46,6 +52,12 @@ class ExpenseController extends Controller
     {
         $validated = $request->validated();
         $validated['acceptor_id'] = Auth::id();
+
+        // Save original age group and group name
+        $group = Group::find($validated['group_id']);
+        $validated['original_age_group'] = $group->age;
+        $validated['original_group_name'] = $group->name;
+
         Expense::create($validated);
 
         return response()->json([

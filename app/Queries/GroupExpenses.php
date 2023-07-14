@@ -1,6 +1,7 @@
 <?php
 namespace App\Queries;
 
+use App\Expense;
 use App\Group;
 
 class GroupExpenses
@@ -11,44 +12,52 @@ class GroupExpenses
         
     }
 
-    public static function getAllExpensesByAge()
+    /**
+     * Return group with expenses between given dates
+     */
+    public static function getExpensesBetweenDates($startDate, $endDate)
     {
-        return Group::with('expenses')
-        ->get()
-        ->groupBy(function ($group) {
-            // Map the parent age group to the corresponding key in the 'parentAgeGroups' array
-            foreach (config('kota.groups.parentAgeGroups') as $key => $ageGroups) {
-                if (in_array($group->age, $ageGroups)) {
-                    return $key;
+        
+        return Expense::whereBetween('expense_date', [$startDate, $endDate])
+            ->get()
+            ->groupBy(function ($expense) {
+                // Map the parent age group to the corresponding key in the 'parentAgeGroups' array
+                foreach (config('kota.groups.parentAgeGroups') as $key => $ageGroups) {
+                    if (in_array($expense->original_age_group, $ageGroups)) {
+                        return $key;
+                    }
                 }
-            }
-            // If no matching parent age group is found, use a default key (e.g., 'Other')
-            return 'Muut';
-        })
-        ->map(function ($group, $key) {
-            $group = $group->map(function ($group) {
+                // If no matching parent age group is found, use a default key (e.g., 'Other')
+                return 'Muut';
+            })
+            ->map(function ($expenses, $key) {
+                $expenses = $expenses
+                ->groupBy(function ($expense) {
+                    return $expense->original_group_name;
+                })
+                ->map(function ($expenses, $key) {
+                    return [
+                        'name' => $key,
+                        'amount' => $expenses->reduce(function ($carry, $expense) {
+                            return $carry + $expense->amount;
+                        }, 0),
+                        'expenses' => $expenses,
+                    ];
+                })
+                ->sortBy('name')
+                ->values();
                 return [
-                    'id' => $group->id,
-                    'name' => $group->name,
-                    'amount' => $group->expenses->reduce(function ($carry, $expense) {
-                        return $carry + $expense->amount;
-                    }, 0),
-                    'expenses' => $group->expenses,
+                    'age' => $key,
+                    'expenses' => $expenses,
+                    'amount' => $expenses->reduce(function ($carry, $group) {
+                        return $carry + $group['amount'];
+                    }, 0)
                 ];
-            });
-            return [
-                'age' => $key,
-                'expenses' => $group,
-                'amount' => $group->reduce(function ($carry, $group) {
-                    return $carry + $group['amount'];
-                }, 0)
-            ];
-        })
-        ->sortBy('age')
-        ->values();
-    
-    }
+            })
+            ->sortBy('age')
+            ->values();
 
+    }
 }
 
 

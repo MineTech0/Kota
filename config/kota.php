@@ -12,6 +12,12 @@ return [
 
     'lippukunta' => 'Piikkiön tammipartio',
 
+    //Kulujen kaudet
+    'seasons' => [
+       'kevät' => ['start' => '1.1.', 'end' => '31.5.'],
+       'syksy' => ['start' => '1.6.', 'end' => '31.12.']
+    ],
+
     /**
      * Mitkä ominaisuudet ovat käytössä
      */

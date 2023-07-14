@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\Http\Requests\GroupRequest;
 use App\User;
+use App\Utils\SeasonUtil;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -20,11 +22,22 @@ class GroupController extends Controller
         return view('group.index', ['groups' => $groups]);
     }
 
-    public function userGroups() {
+    public function userGroups()
+    {
         $groups = auth()->user()->groups;
         $groups->load('expenses');
-        return view('group.user-groups', ['groups' => $groups]);
+
+        //only show current season expenses
+        $currentSeason = SeasonUtil::getCurrentSeasonDates(Carbon::now())['currentSeasonDates'];
         
+        $groups->each(function ($group) use ($currentSeason) {
+            $group->expenses = $group->expenses->filter(function ($expense) use ($currentSeason) {
+                return $expense->expense_date->between($currentSeason['start'], $currentSeason['end']);
+            });
+        });
+
+
+        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name']]);
     }
 
     public function edit(Group $group)
@@ -42,6 +55,9 @@ class GroupController extends Controller
     public function update(Group $group, GroupRequest $request)
     {
         $validated = $request->validated();
+
+        //dont update age
+        unset($validated['age']);
 
         $group->update($validated);
 

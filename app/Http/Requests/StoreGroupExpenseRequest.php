@@ -40,7 +40,7 @@ protected function prepareForValidation()
         return [
             'group_id' => 'required|exists:groups,id',
             'amount' => 'required|numeric|min:0.1',
-            'expense_date' => 'required|date|after:Yesterday',
+            'expense_date' => 'required|date|after:first day of The Year|before:tomorrow',
             'description' => 'required|string|max:255'
         ];
     }
