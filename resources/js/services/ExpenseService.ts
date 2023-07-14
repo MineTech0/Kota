@@ -5,13 +5,13 @@ interface StoreResponse {
     message: string
 }
 
-const storeGroupExpenses = async (expenses:NewGroupExpense[]) : Promise<StoreResponse[]> =>  {
+const storeGroupExpenses = async (expenses:NewGroupExpense[]) =>  {
     const requests = expenses.map(expense => axios.post('/expenses/group',expense))
     const responses = await Promise.all(requests)
-    return responses.map(res => res.data)
+    console.log(responses)
+    return responses.map(res => res.data)[0]
 
 }
-
 const ExpenseService = {
     storeGroupExpenses,
 };

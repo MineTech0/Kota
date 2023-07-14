@@ -144,11 +144,6 @@ const formRules: FormRules = {
             required: true,
             trigger: ["blur", "change"],
             message: "Ikäryhmä vaaditaan",
-            validator(_rule, value: string) {
-                if (!props.ageGroups.includes(value)) {
-                    return Error("Ikäryhmä ei ole oikea");
-                }
-            },
         },
     ],
     leaders: [
@@ -320,6 +315,7 @@ const created = (id) => {
                 </n-form-item-gi>
                 <n-form-item-gi span="24" label="Ikäryhmä" path="age">
                     <n-select
+                        disabled
                         v-model:value="editableGroup.age"
                         :options="ageGroupOptions"
                     />

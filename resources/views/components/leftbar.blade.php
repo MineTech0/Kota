@@ -22,7 +22,7 @@
         </li>
         @can('see_equipment')
             <li>
-                <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Huolto</a>
+                <a><i class="fas fa-toolbox"></i> &nbsp;Huolto</a>
                 <div class="content">
                     <a href="{{ route('index.equipment') }}">&nbsp;Varusteet</a>
                     @can('add_edit_delete_equipment')

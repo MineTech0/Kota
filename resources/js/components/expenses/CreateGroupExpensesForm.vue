@@ -20,14 +20,14 @@ import { computed, reactive, ref } from "vue";
 import { Group } from "../../types";
 import { useCreateExpensesStore } from "./CreateExpenseStore";
 import { storeToRefs } from "pinia";
-import useRedirect from "../../composables/useRedirect";
+import Message from "../Message.vue";
+import useService from "@/composables/useService";
 
 const props = defineProps<{
     groups: Group[];
 }>();
 
 const formRef = ref<FormInst | null>(null);
-const loading = ref(false);
 
 const today = new Date().getTime();
 const firstDayOfTheYear = new Date(new Date().getFullYear(), 0, 1);
@@ -43,14 +43,6 @@ const formData = reactive({
     expenses: groupExpenses
 });
 
-const messages = reactive<{
-    error?: string;
-    success?: string
-}>({
-    error: undefined,
-    success: undefined,
-});
-
 const groupOptions = computed(() =>
     props.groups.map((g) => ({
         label: g.name,
@@ -58,19 +50,15 @@ const groupOptions = computed(() =>
     }))
 );
 
+const {fetch, messages, loading} = useService()
+
 const handleSubmit = (e: MouseEvent) => {
     e.preventDefault();
     formRef.value?.validate(
         (errors: Array<FormValidationError> | undefined) => {
-            loading.value = true;
             if (!errors) {
-                expenseStore.storeGroupExpenses().then(expenses => {
-                    messages.success = expenses[0].message
-                    loading.value = false;
+                fetch(expenseStore.storeGroupExpenses()).then(() => {
                     expenseStore.resetGroupExpenses()
-                })
-                .catch(error => {
-                    messages.error = error.toString()
                 })
             }
         }
@@ -204,24 +192,15 @@ const handleSubmit = (e: MouseEvent) => {
                 </n-button>
                 <n-form-item>
                     <n-space>
-                        <n-spin v-if="loading" size="small" />
-                        <template v-else>
-                            <n-button type="primary" @click="handleSubmit"
+                            <n-button :loading="loading" type="primary" @click="handleSubmit"
                                 >Lähetä kulut</n-button
                             >
-                            <n-button type="tertiary" @click="expenseStore.resetGroupExpenses"
+                            <n-button :disabled="loading" type="tertiary" @click="expenseStore.resetGroupExpenses"
                                 >Nollaa</n-button
                             >
-
-                        </template>
                     </n-space>
                 </n-form-item>
             </n-form>
-            <n-alert v-if="messages.success" title="Onnistui" type="success">
-                {{ messages.success }}
-            </n-alert>
-            <n-alert v-if="messages.error" title="Virhe" type="error">
-                {{ messages.error }}
-            </n-alert>
+            <Message :messages="messages"/>
         </n-space>
 </template>

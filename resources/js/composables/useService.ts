@@ -16,10 +16,12 @@ export default function useService() {
                 .then((response) => {
                     loading.value = false;
                     messages.success = response.message;
+                    messages.error = "";
                     resolve(response);
                 })
                 .catch((err: AxiosError<{ message: string }>) => {
                     loading.value = false;
+                    messages.success = "";
                     if (err.response) {
                         messages.error = err.response.data.message;
                     } else {
