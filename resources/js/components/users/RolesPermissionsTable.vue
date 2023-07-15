@@ -13,7 +13,7 @@ function hasPermission(role: Role, permission: Permission) {
 
 </script>
 <template>
-<n-table :bordered="false" :single-line="false">
+<n-table bordered :single-line="false" class="permission-table">
   <thead>
     <tr>
         <th>Roolit/Oikeudet</th>
@@ -34,3 +34,12 @@ function hasPermission(role: Role, permission: Permission) {
 </n-table>
 
 </template>
+<style scoped>
+@media (max-width: 600px) {
+    .permission-table {
+      display: block;
+        font-size: 12px;
+        overflow-x: auto;
+    }
+}
+</style>
