@@ -116,3 +116,12 @@ export interface AgeGroupExpenses {
     age: string;
     expenses: GroupWithExpenses[]
 }
+
+export interface Invite {
+    id: number;
+    email: string;
+    url: string;
+    token: string;
+    created_at: string;
+    updated_at: string;
+}

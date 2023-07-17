@@ -17,6 +17,9 @@ export default function useService() {
                     loading.value = false;
                     messages.success = response.message;
                     messages.error = "";
+                    setTimeout(() => {
+                        messages.success = "";
+                    }, 4000);
                     resolve(response);
                 })
                 .catch((err: AxiosError<{ message: string }>) => {

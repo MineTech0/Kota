@@ -17,6 +17,8 @@ import UsersTable from './components/users/UsersTable.vue';
 import Message from './components/Message.vue';
 import EquipmentTable from './components/equipment/EquipmentTable.vue';
 import RolesPermissionsTable from './components/users/RolesPermissionsTable.vue';
+import CreateInviteForm from './components/invites/CreateInviteForm.vue';
+import InvitesTable from './components/invites/InvitesTable.vue';
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -36,6 +38,8 @@ app.component('users-table', UsersTable)
 app.component('equipment-table', EquipmentTable)
 app.component('message', Message)
 app.component('roles-permissions-table', RolesPermissionsTable)
+app.component('create-invite-form',CreateInviteForm)
+app.component('invites-table', InvitesTable)
 app.component('app', App)
 
 app.use(pinia)

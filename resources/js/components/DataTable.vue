@@ -6,9 +6,8 @@ import {
     NInput,
     NInputGroupLabel,
     NInputGroup,
-DataTableCreateSummary,
 } from "naive-ui";
-import { h, ref } from "vue";
+import { watch, ref } from "vue";
 
 const props = defineProps<{
     data: any;
@@ -16,6 +15,13 @@ const props = defineProps<{
     search?: boolean;
 }>();
 const filteredData = ref<any>(props.data);
+
+watch(
+    () => props.data,
+    (data) => {
+        filteredData.value = data;
+    }
+);
 
 const handleSearch = (value: string) => {
     filteredData.value = props.data.filter((user: any) => {
@@ -37,6 +43,7 @@ const handleSearch = (value: string) => {
         :columns="columns"
         :data="filteredData"
         :row-key="(row) => row.id"
+        :paginate-single-page="false"
         :pagination="{
             pageSize: 10,
         }"

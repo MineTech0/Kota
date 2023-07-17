@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { GlobalThemeOverrides } from "naive-ui";
-import { NConfigProvider } from "naive-ui";
+import { NConfigProvider, NMessageProvider } from "naive-ui";
 
 const themeOverrides: GlobalThemeOverrides = {
     common: {
@@ -11,6 +11,8 @@ const themeOverrides: GlobalThemeOverrides = {
 </script>
 <template>
     <n-config-provider :theme-overrides="themeOverrides">
-        <slot></slot>
+        <n-message-provider>
+            <slot></slot>
+        </n-message-provider>
     </n-config-provider>
 </template>
