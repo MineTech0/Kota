@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Invite;
+use App\Mail\Invite as MailInvite;
 use App\User;
 use Tests\TestCase;
-use App\Mail\InviteCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,7 +40,7 @@ class InviteTest extends TestCase
         $user->delete();
 
         // Assert a message was sent to the given users...
-        Mail::assertSent(InviteCreated::class, function ($mail) use ($email) {
+        Mail::assertSent(MailInvite::class, function ($mail) use ($email) {
             return $mail->hasTo($email);
         });
     }
