@@ -34,6 +34,7 @@
                     <p class="text-muted">Vielä tyhjää</p>
                 </x-Panel>
             </div>
+            @if (config('kota.show.kitchen_booking'))    
             <div class="col-md-6">
                 <x-Panel header='Keittiön varauslista'>
                     @if($errors->any())
@@ -54,6 +55,7 @@
                     <x-kitchen-booking-form/>
                 </x-Panel>
             </div>
+            @endif
         </div>
     </div>
 </div>

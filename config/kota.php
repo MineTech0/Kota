@@ -23,6 +23,7 @@ return [
      */
     'show' => [
         'loans' => true,
+        'kitchen_booking' => true,
     ],
 
     'files' => [

@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class InviteTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /**
      * A basic feature test example.
      *
@@ -33,12 +33,10 @@ class InviteTest extends TestCase
                 'POST',
                 route('store.invite'),
                 [
-                    "emails" => [
-                        0 => $email,
-                    ]
+                    "email" => $email,
                 ]
             );
-        $response->assertSessionDoesntHaveErrors();
+        $response->assertCreated();
         $user->delete();
 
         // Assert a message was sent to the given users...
@@ -62,14 +60,13 @@ class InviteTest extends TestCase
             'password_confirmation' => 'password',
             'token' => $invite->token,
         ]);
-        
+
         $this->assertAuthenticated();
         $response->assertRedirect(route('home'));
 
         $this->assertDatabaseHas('users', [
             'email' => $invite->email,
         ]);
-
     }
 
     public function test_non_invited_user_cannot_register()
@@ -89,7 +86,6 @@ class InviteTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'email' => 'test@email.com'
         ]);
-
     }
 
     public function test_invite_can_only_be_used_once()
@@ -106,7 +102,7 @@ class InviteTest extends TestCase
             'password_confirmation' => 'password',
             'token' => $invite->token,
         ]);
-        
+
         $this->assertAuthenticated();
         $response->assertRedirect(route('home'));
 
