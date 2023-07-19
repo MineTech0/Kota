@@ -17,13 +17,6 @@ $(document).ready(function () {
  	$('.menu-btn').click(function () {
  		$('nav.ts-sidebar').toggleClass('menu-open');
  	});
-	 
-	 
-	 $('#zctb').DataTable({
-         "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Finnish.json"
-            }
-     });
      
      $('#clist').DataTable({
          searching: true,
@@ -37,14 +30,5 @@ $(document).ready(function () {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Finnish.json"
             }
      });
-     
-	 
-	 
-	 $("#input-43").fileinput({
-		showPreview: false,
-		allowedFileExtensions: ["zip", "rar", "gz", "tgz"],
-		elErrorContainer: "#errorBlock43"
-			// you can configure `msgErrorClass` and `msgInvalidFileExtension` as well
-	});
 
  });

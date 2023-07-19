@@ -1,5 +1,4 @@
 require('./bootstrap');
-require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min');
 
 import { NButton } from 'naive-ui';
 import { createPinia } from 'pinia';
