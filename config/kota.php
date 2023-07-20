@@ -137,6 +137,9 @@ return [
             'Huono',
             'Rikki',
         ]
-    ]
+        ],
+        'telescope_users' => [
+            'niilo.kurki@hotmail.fi',
+        ]
 
 ];

@@ -1,10 +1,8 @@
 #!/bin/sh
 set -e
  
-echo "Deploying application ..."
+echo "Setting up application ..."
  
-# Enter maintenance mode
-(php artisan down --message 'Sivustoa päivitetään. Yritä uudestaan hetken kuluttua') || true
     # Update codebase
     git fetch origin deploy
     git reset --hard origin/deploy
@@ -16,7 +14,16 @@ echo "Deploying application ..."
     php artisan migrate --force
  
     # Clear cache
-    php artisan optimize
+    php artisan config:cache
+
+    php artisan event:cache
+
+    php artisan route:cache
+
+    php artisan view:cache
+
+    #link storage
+    php artisan storage:link
  
 # Exit maintenance mode
 php artisan up

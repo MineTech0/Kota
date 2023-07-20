@@ -3,8 +3,8 @@ import { defineStore } from "pinia";
 
 export type Modal = {
     isOpen: boolean;
-    view: object;
-    props: object;
+    view: {};
+    props: {};
 };
 
 export const useModal = defineStore("modal", {
