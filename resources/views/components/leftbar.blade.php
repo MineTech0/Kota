@@ -43,6 +43,7 @@
                 <div class="content">
                     <a href="{{ route('management') }}"></i> &nbsp;Työkalut</a>
                     <a href="{{ route('index.users') }}"></i> &nbsp;Käyttäjät</a>
+                    <a href="{{ route('create.invite') }}"></i> &nbsp;Kutsut</a>
                 </div>
             </li>
         @endcan

@@ -1,12 +1,10 @@
 @extends('layouts.app')
-
+@section('title', 'Uusi palaute')
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
-
-                <h2>Anna palautetta</h2>
                 <x-panel header='Uusi palaute'>
                     @if($errors->any())
                         <div class="alert alert-danger">

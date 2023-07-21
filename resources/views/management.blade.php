@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Hallinta')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -23,8 +24,6 @@
                         <a style="color:white;" href="{{ route('notes.create') }}">Uusi tiedote</a></button>
                     <button type="button" class="btn btn-primary m-1">
                         <a style="color:white;" href="{{ route('notes.index') }}">Muokkaa tiedotteita</a></button>
-                    <button type="button" class="btn btn-primary m-1">
-                        <a style="color:white;" href="{{ route('create.invite') }}">Kutsu käyttäjiä</a></button>
                 </div>
             </x-panel>
         </div>

@@ -1,9 +1,5 @@
 @extends('layouts.app')
-@section('head')
-<script src="{{ asset('js/moment.min.js') }}"></script>
-<style>
-</style>
-@endsection
+@section('title', 'Lainaus')
 @section('content')
 @if($errors->any())
 <div class="alert alert-danger">
@@ -75,7 +71,6 @@
             </x-panel>
     </div>
 </div>
-    <div id="app">
         <loan-form-wrapper :equipment="{{ $equipment }}" user-name="{{ Auth::user()->name }}" ></loan-form-wrapper>
         {{-- omat lainat --}}
         <div class="row mt-5">
@@ -83,5 +78,4 @@
                 <own-loans :own-loans="{{ $own_loans }}"/>
                 </div>
             </div>
-    </div>
     @endsection

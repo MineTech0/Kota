@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Käyttäjät')
 @section('content')
     <!-- Käyttäjät rivi -->
     <div class="row">
