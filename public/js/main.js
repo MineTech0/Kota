@@ -17,18 +17,5 @@ $(document).ready(function () {
  	$('.menu-btn').click(function () {
  		$('nav.ts-sidebar').toggleClass('menu-open');
  	});
-     
-     $('#clist').DataTable({
-         searching: true,
-         "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Finnish.json"
-            }
-     });
-     $('#loanTable').DataTable({
-         searching: true,
-         "language": {
-                "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Finnish.json"
-            }
-     });
 
  });

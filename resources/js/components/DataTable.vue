@@ -28,7 +28,6 @@ const handleSearch = (value: string) => {
         return user.name.toLowerCase().includes(value.toLowerCase());
     });
 };
-
 </script>
 <template>
     <n-space justify="end" v-if="search">
@@ -39,7 +38,7 @@ const handleSearch = (value: string) => {
     </n-space>
     <n-data-table
         v-bind="$attrs"
-        class="table"
+        class="data-table"
         :columns="columns"
         :data="filteredData"
         :row-key="(row) => row.id"
@@ -51,11 +50,14 @@ const handleSearch = (value: string) => {
     />
 </template>
 <style scoped>
+.data-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
 @media (max-width: 600px) {
-    .table {
+    .data-table {
         font-size: 12px;
-        width: 100%;
-        overflow-x: auto;
     }
 }
 </style>

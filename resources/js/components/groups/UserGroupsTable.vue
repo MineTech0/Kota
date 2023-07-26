@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const rowData = computed(() => props.groups.map((group, index) => ({
     ...group,
-    amount: group.expenses.reduce((acc, expense) => acc + expense.amount, 0),
+    amount: group.expenses.reduce((acc, expense) => acc + Number(expense.amount), 0),
     children: group.expenses,
 })));
 

@@ -96,7 +96,7 @@ const columns: DataTableColumns<UserWithRoles> = [
     />
     <n-modal v-model:show="showModal">
         <n-card
-            style="width: 600px"
+            style="min-width: 600px"
             title="Muokkaa käyttäjää"
             :bordered="false"
             size="huge"

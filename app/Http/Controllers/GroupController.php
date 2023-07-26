@@ -8,6 +8,7 @@ use App\User;
 use App\Utils\SeasonUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -16,10 +17,12 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $groups = Group::all();
-        return view('group.index', ['groups' => $groups]);
+        $groups->load('leaders');
+        
+        return view('group.index', ['groups' => $groups, 'canEdit' => $request->user()->hasPermissionTo('access_management')]);
     }
 
     public function userGroups()
