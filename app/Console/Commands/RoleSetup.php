@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\Permission\Contracts\Role;
 
 class RoleSetup extends Command
 {

@@ -9,7 +9,7 @@
                 <x-panel header='Tiedostot'>
                     <file-list :files="{{ $files }}"  token="{{ $token }}" :categories="{{ $categories}}" ></file-list>
                     @can('access_management')
-                    <n-button tag="a" href="{{ route('files.create') }}">Lisää tiedosto</n-button>
+                    <n-button class="mt-3" tag="a" href="{{ route('files.create') }}" type="primary">Lisää tiedosto</n-button>
                     @endcan
                 </x-panel>
                 </div>

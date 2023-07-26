@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { h, computed, ref, reactive } from "vue";
-import { NButton, DataTableColumns, NDataTable,NSpace } from "naive-ui";
+import { NButton, DataTableColumns,NSpace } from "naive-ui";
+import DataTable from "@/components/DataTable.vue";
 import { FileI } from "../../types";
 
 const props = defineProps<{
@@ -51,7 +52,6 @@ const columns = computed((): DataTableColumns<FileI> => {
 });
 
 const pagination = reactive({ pageSize: 8 });
-const table = ref(null);
 
 const download = (row: FileI) => {
     //Avataan tiedosto selaimessa
@@ -69,13 +69,9 @@ const getLabel = (row: FileI) => {
 </script>
 
 <template>
-        <n-space vertical>
-            <n-data-table
-                ref="table"
+            <DataTable
                 :columns="columns"
                 :data="rows"
-                :bordered="false"
                 :pagination="pagination"
             />
-        </n-space>
 </template>

@@ -185,6 +185,8 @@ const onSubmit = (e: MouseEvent) => {
                     .then((response) => {
                         messages.success = response.message;
                         loading.value = false;
+                        redirect('/groups')
+                        
                     })
                     .catch((error) => {
                         console.log(error);

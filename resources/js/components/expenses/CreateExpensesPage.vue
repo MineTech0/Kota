@@ -19,9 +19,6 @@ const props = defineProps<{
                 <create-group-expenses-form :groups="props.groups" />
                 <expense-info-collapse :infos="props.infos.group"/>
             </n-tab-pane>
-            <n-tab-pane tab="Budjetti kulu" name="budgetExpenses">
-                Budjetti
-            </n-tab-pane>
         </n-tabs>
     </Panel>
 </template>
