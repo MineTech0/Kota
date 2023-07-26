@@ -29,4 +29,5 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         host: 'tammipartio.fi'
         key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
         script: 'cd demo-kota.tammipartio.fi && ./.scripts/deploy.sh'
