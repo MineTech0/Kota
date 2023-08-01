@@ -1,10 +1,10 @@
 @extends('layouts.frame')
-
+@section('title', 'Rekisteröidy')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="text-center text-bold mt-4x text-primary">PTP Johtajat</h1>
+            <h1 class="text-center text-bold mt-4x text-primary">Kota</h1>
             <div class="card">
                 <div class="card-header">Rekisteröidy</div>
 

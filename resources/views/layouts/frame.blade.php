@@ -13,11 +13,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Kota</title>
-
-    <!-- Scripts -->
-
-    <!-- Bootstrap datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
     <!-- App Styles -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet"> 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 

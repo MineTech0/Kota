@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'lippukunta' => 'Piikkiön tammipartio',
+    'lippukunta' => 'Piikkiön Tammipartio',
 
     //Kulujen kaudet
     'seasons' => [

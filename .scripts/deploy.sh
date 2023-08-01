@@ -4,7 +4,7 @@ set -e
 echo "Deploying application ..."
  
 # Enter maintenance mode
-(php artisan down --message 'Sivustoa päivitetään. Yritä uudestaan hetken kuluttua') || true
+(php artisan down) || true
     # Update codebase
     git fetch origin deploy
     git reset --hard origin/deploy
