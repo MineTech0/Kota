@@ -23,11 +23,3 @@ jobs:
         git add -f public/
         git commit -m "Build front-end assets"
         git push -f origin deploy
-    - name: Deploy to demo server
-      uses: appleboy/ssh-action@master
-      with:
-        username: ${{ secrets.SSH_USERNAME }}
-        host: 'tammipartio.fi'
-        key: ${{ secrets.SSH_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        script: 'cd demo-kota.tammipartio.fi && ./.scripts/deploy.sh'
