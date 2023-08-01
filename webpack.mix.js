@@ -26,7 +26,7 @@ mix.ts('resources/js/app.ts', 'public/js')
     .alias({
       '@': path.join(__dirname, 'resources/js')
   })
-    .sourceMaps()
+    .sourceMaps(false)
     .sass('resources/sass/app.scss', 'public/css')
     .webpackConfig({
       devServer: {
