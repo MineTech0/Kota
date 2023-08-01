@@ -16,7 +16,13 @@ echo "Deploying application ..."
     php artisan migrate --force
  
     # Clear cache
-    php artisan optimize
+    php artisan config:cache
+
+    php artisan event:cache
+
+    php artisan route:cache
+
+    php artisan view:cache
  
 # Exit maintenance mode
 php artisan up
