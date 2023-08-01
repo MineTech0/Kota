@@ -10,20 +10,20 @@ return [
     |
     */
 
-    'lippukunta' => 'Piikkiön Tammipartio',
+    'lippukunta' => env('KOTA_LIPPUKUNTA', ''),
 
     //Kulujen kaudet
     'seasons' => [
-       'kevät' => ['start' => '1.1.', 'end' => '31.5.'],
-       'syksy' => ['start' => '1.6.', 'end' => '31.12.']
+       'kevät' => ['start' => '1.1.', 'end' => '31.7.'],
+       'syksy' => ['start' => '1.8.', 'end' => '31.12.']
     ],
 
     /**
      * Mitkä ominaisuudet ovat käytössä
      */
     'show' => [
-        'loans' => true,
-        'kitchen_booking' => true,
+        'loans' => env('SHOW_LOANS', false),
+        'kitchen_booking' => env('SHOW_KITCHEN_BOOKING', false),
     ],
 
     'files' => [
