@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { NModal, NCard } from "naive-ui";
 
-defineProps<{
+const props = defineProps<{
     modelValue: boolean;
     title: string;
 }>();
@@ -11,7 +11,7 @@ defineEmits<{
 }>();
 </script>
 <template>
-        <n-modal v-model:show="modelValue" :on-update:show=" (value) => $emit('update:modelValue', value)">
+        <n-modal v-model:show="props.modelValue" :on-update:show=" (value) => $emit('update:modelValue', value)">
         <n-card
             class="dialog-card"
             :title="title"
