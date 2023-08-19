@@ -51,13 +51,14 @@ const handleSearch = (value: string) => {
 </template>
 <style scoped>
 .data-table {
-    display: block;
-    width: 100%;
     overflow-x: auto;
+    word-break: normal;
+    white-space: nowrap;
 }
 @media (max-width: 600px) {
     .data-table {
         font-size: 12px;
+        
     }
 }
 </style>
