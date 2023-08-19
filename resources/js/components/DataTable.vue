@@ -45,6 +45,7 @@ const handleSearch = (value: string) => {
         :paginate-single-page="false"
         :pagination="{
             pageSize: 10,
+            pageSlot:3,
         }"
         scroll-x="100%"
     />

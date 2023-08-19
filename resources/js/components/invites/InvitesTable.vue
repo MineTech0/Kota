@@ -2,11 +2,10 @@
 import DataTable from "@/components/DataTable.vue";
 import InviteService from "@/services/InviteService";
 import { Invite } from "@/types";
-import { differenceInDays, formatDistance, intervalToDuration } from "date-fns";
+import { differenceInDays, formatDistance } from "date-fns";
 import { fi } from "date-fns/locale";
-import { DataTableColumns, NButton, useDialog, useMessage } from "naive-ui";
-import { ref } from "vue";
-import { h } from "vue";
+import { DataTableColumns, NButton, useMessage } from "naive-ui";
+import { h, ref } from "vue";
 
 const props = defineProps<{
     invites: Invite[];

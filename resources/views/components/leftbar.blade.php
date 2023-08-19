@@ -12,7 +12,9 @@
             <a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
             <div class="content">
                 <a href="{{ route('groups') }}">&nbsp;Kaikki ryhmät</a>
-                <a href="{{ route('user.groups') }}">&nbsp;Omat ryhmät</a>
+                @can('see_own_group_expenses')
+                    <a href="{{ route('user.groups') }}">&nbsp;Omat ryhmät</a>
+                @endcan
             </div>
         </li>
         </li>

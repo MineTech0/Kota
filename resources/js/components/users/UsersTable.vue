@@ -1,14 +1,9 @@
 <script lang="ts" setup>
 import DataTable from "@/components/DataTable.vue";
 import { Role, UserWithRoles } from "@/types";
-import {
-DataTableColumns,
-NButton,
-NCard,
-NModal,
-NTag
-} from "naive-ui";
+import { DataTableColumns, NButton, NTag } from "naive-ui";
 import { h, ref } from "vue";
+import Dialog from "../Dialog.vue";
 import UserEditForm from "./UserEditForm.vue";
 
 const props = defineProps<{
@@ -17,7 +12,7 @@ const props = defineProps<{
 }>();
 
 const showModal = ref(false);
-const filteredUsers = ref<UserWithRoles[]>(props.users)
+const filteredUsers = ref<UserWithRoles[]>(props.users);
 
 const editingUser = ref<UserWithRoles>(props.users[0]);
 
@@ -25,7 +20,6 @@ const editUser = (user: UserWithRoles) => {
     editingUser.value = user;
     showModal.value = true;
 };
-
 
 const columns: DataTableColumns<UserWithRoles> = [
     {
@@ -94,18 +88,13 @@ const columns: DataTableColumns<UserWithRoles> = [
         :row-key="(row) => row.id"
         search
     />
-    <n-modal v-model:show="showModal">
-        <n-card
-            style="min-width: 600px"
-            title="Muokkaa käyttäjää"
-            :bordered="false"
-            size="huge"
-            role="dialog"
-            aria-modal="true"
-        >
-            <user-edit-form :user="editingUser" :roles="roles" />
-        </n-card>
-    </n-modal>
+    <Dialog v-model="showModal" title="Muokkaa käyttäjää">
+        <user-edit-form :user="editingUser" :roles="roles" />
+    </Dialog>
 </template>
 <style scoped>
+.user-card {
+    min-width: 600px;
+    max-width: 800px;
+}
 </style>

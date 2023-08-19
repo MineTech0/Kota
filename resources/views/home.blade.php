@@ -22,13 +22,13 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md">
             <x-Panel header='Ohjeet'>
                 <p class="text-muted">Vielä tyhjää</p>
             </x-Panel>
         </div>
         @if (config('kota.show.kitchen_booking'))
-            <div class="col-md-6">
+            <div class="col-md">
                 <x-Panel header='Keittiön varauslista'>
                     @if ($errors->any())
                         <div class="alert alert-danger">
