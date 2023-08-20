@@ -50,7 +50,7 @@
                                         <tr>
                                             <td>{{ $item->user_id != null ? $item->user->name : 'Anonyymi' }}</td>
                                             <td><a class="open" data-id="{{ $item->id }}"
-                                                    style="cursor:pointer;color:#37a6c4"">{{ $item->heading }}</a></td>
+                                                    style="cursor:pointer;color:#37a6c4">{{ $item->heading }}</a></td>
                                             <td>
                                                 @if ($item->attachment != null)
                                                     <a class="btn btn-primary btn-sm" target="_blank"
