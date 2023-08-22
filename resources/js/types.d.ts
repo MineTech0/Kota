@@ -110,11 +110,13 @@ interface GroupExpense {
 }
 
 export interface GroupWithExpenses  extends Group {
+    amount: number;
     expenses: GroupExpense[]
 }
 export interface AgeGroupExpenses {
     age: string;
     expenses: GroupWithExpenses[]
+    amount: number;
 }
 
 export interface Invite {

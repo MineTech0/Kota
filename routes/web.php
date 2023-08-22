@@ -95,5 +95,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/expenses', 'ExpenseController@index')->name('expenses.index')->middleware('permission:see_group_expenses');
         Route::get('/expenses/create', 'ExpenseController@create')->name('expenses.create')->middleware('permission:add_group_expense');
         Route::post('/expenses/group', 'ExpenseController@storeGroup')->name('expenses.storeGroup')->middleware('permission:add_group_expense');
+        Route::delete('/expenses/{expense}', 'ExpenseController@destroy')->name('expenses.destroy')->middleware('permission:delete_edit_group_expense');
     });
 });

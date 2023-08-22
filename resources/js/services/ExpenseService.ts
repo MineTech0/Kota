@@ -12,8 +12,14 @@ const storeGroupExpenses = async (expenses:NewGroupExpense[]) =>  {
     return responses.map(res => res.data)[0]
 
 }
+
+const deleteExpense = async (id:number) => {
+    const response = await axios.delete(`/expenses/${id}`)
+    return response.data
+}
 const ExpenseService = {
     storeGroupExpenses,
+    deleteExpense
 };
 
 export default ExpenseService

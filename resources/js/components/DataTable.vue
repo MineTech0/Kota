@@ -6,14 +6,17 @@ import {
     NInput,
     NInputGroupLabel,
     NInputGroup,
+DataTableProps,
 } from "naive-ui";
 import { watch, ref } from "vue";
 
-const props = defineProps<{
+interface Props extends DataTableProps {
     data: any;
     columns: DataTableColumns<any>;
     search?: boolean;
-}>();
+}
+
+const props = defineProps<Props>();
 const filteredData = ref<any>(props.data);
 
 watch(
@@ -45,7 +48,6 @@ const handleSearch = (value: string) => {
         :paginate-single-page="false"
         :pagination="{
             pageSize: 10,
-            pageSlot:3,
         }"
         scroll-x="100%"
     />
@@ -59,7 +61,6 @@ const handleSearch = (value: string) => {
 @media (max-width: 600px) {
     .data-table {
         font-size: 12px;
-        
     }
 }
 </style>

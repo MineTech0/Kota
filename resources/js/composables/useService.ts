@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { reactive, ref } from "vue";
 
-export default function useService() {
+export default function useService({ reload = false } = {}) {
     const loading = ref(false);
     const messages = reactive({
         success: "",
@@ -19,6 +19,9 @@ export default function useService() {
                     messages.error = "";
                     setTimeout(() => {
                         messages.success = "";
+                        if (reload) {
+                            location.reload();
+                        }
                     }, 4000);
                     resolve(response);
                 })
@@ -33,7 +36,7 @@ export default function useService() {
                     reject(err.response);
                 });
         });
-    };
+    }
 
     return {
         loading,

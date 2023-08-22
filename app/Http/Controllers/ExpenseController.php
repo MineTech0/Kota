@@ -18,14 +18,15 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
         $seasonDates = SeasonUtil::getCurrentSeasonDates(Carbon::now());
 
         return view('expenses.index-expenses', [
             'currentSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['currentSeasonDates']['start'], $seasonDates['currentSeasonDates']['end']),
             'previousSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['previousSeasonDates']['start'], $seasonDates['previousSeasonDates']['end']),
-            'seasons' => collect([ $seasonDates['previousSeasonDates']['name'], $seasonDates['currentSeasonDates']['name']])
+            'seasons' => collect([ $seasonDates['previousSeasonDates']['name'], $seasonDates['currentSeasonDates']['name']]),
+            'canDelete' => $request->user()->hasPermissionTo('delete_edit_group_expense')
         ]);
     }
 
@@ -107,6 +108,10 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+        
+        return response()->json([
+            'message' => 'Kulun poistaminen onnistui'
+        ]);
     }
 }
