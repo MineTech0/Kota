@@ -88,6 +88,7 @@ const columns: DataTableColumns<GroupExpense> = [
                     secondary: true,
                     circle: true,
                     type: "error",
+                    title: "Poista",
                     onClick: () => {
                         deleteExpense(row.id);
                     },

@@ -8,7 +8,6 @@ interface StoreResponse {
 const storeGroupExpenses = async (expenses:NewGroupExpense[]) =>  {
     const requests = expenses.map(expense => axios.post('/expenses/group',expense))
     const responses = await Promise.all(requests)
-    console.log(responses)
     return responses.map(res => res.data)[0]
 
 }
