@@ -14,19 +14,19 @@ class FileController extends Controller
     /**
      * Tiedostojen listaus näkymä
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        session(['token' => Str::uuid()]);
         return view('files.index', [
             'files' => File::all(),
             'token' => session('token'),
-            'categories' => collect(config('kota.files.categories'))
+            'categories' => collect(config('kota.files.categories')),
+            'canDelete' => $request->user()->hasPermissionTo('access_management')
         ]);
     }
 
     /**
-     * Tiedoston lautaus
+     * Tiedoston lataus
      */
     public function download(File $file, $token)
     {
@@ -97,5 +97,23 @@ class FileController extends Controller
                 'message' => 'Tallennus epäonnistui'
             ],500);
         }
+    }
+
+    /**
+     * Deletes file from storage and database
+     */
+    public function destroy(File $file)
+    {
+        
+        if(!$file->isUrl)
+        {
+            Storage::delete($file->path);
+        }
+
+        $file->delete();
+
+        return response()->json([
+            'message' => 'Tiedosto poistettu'
+        ]);
     }
 }

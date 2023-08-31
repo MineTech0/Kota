@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/notes', 'NoteController@store')->name('notes.store');
 
         Route::post('/files', 'FileController@store')->name('files.store');
+        Route::delete('/files/{file}', 'FileController@destroy')->name('files.destroy');
 
         Route::get('/expenses', 'ExpenseController@index')->name('expenses.index')->middleware('permission:see_group_expenses');
         Route::get('/expenses/create', 'ExpenseController@create')->name('expenses.create')->middleware('permission:add_group_expense');
