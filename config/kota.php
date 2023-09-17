@@ -38,6 +38,7 @@ return [
         'ageGroups' => [
             'Sudenpennut, 1v',
             'Sudenpennut, 2v',
+            'Sudenpennut, 3v',
             'Seikkailijat, 1v',
             'Seikkailijat, 2v',
             'Tarpojat, 1v',
@@ -53,7 +54,8 @@ return [
         'parentAgeGroups' => [
             'Sudenpennut' => [
                 'Sudenpennut, 1v', 
-                'Sudenpennut, 2v'
+                'Sudenpennut, 2v',
+                'Sudenpennut, 3v',
             ],
             'Seikkailijat' => [
                 'Seikkailijat, 1v', 
@@ -96,6 +98,7 @@ return [
             'add_group_expense',
             'delete_edit_group_expense',
             'delete_user',
+            'assign_delete_user_role',
         ],
         'signatory' => [],
         'leader' => [
