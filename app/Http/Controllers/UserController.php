@@ -79,7 +79,10 @@ class UserController extends Controller
     public function update(User $user, UserRequest $request)
     {
         $validated = $request->validated();
-        //TODO
+        $user->update($validated);
+
+        return response()->json(['message' => 'Käyttäjä päivitetty']);
+
     }
 
     /**
@@ -98,7 +101,9 @@ class UserController extends Controller
 
         //remove super-admin
         $superAdmin = Role::where('name', 'super-admin')->first();
-        $roles = array_diff($roles, [$superAdmin->id]);
+        if ($superAdmin) {
+            $roles = array_diff($roles, [$superAdmin->id]);
+        }
 
         //sync roles
         $user->syncRoles($roles);

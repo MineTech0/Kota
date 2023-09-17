@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { reactive, ref } from "vue";
 
 export default function useService({ reload = false } = {}) {
@@ -8,34 +7,37 @@ export default function useService({ reload = false } = {}) {
         error: "",
     });
 
-    function fetch<T>(service: Promise<any>): Promise<T> {
-        return new Promise((resolve, reject) => {
-            loading.value = true;
+    async function fetch<T>(...services: Promise<any>[]): Promise<T[]> {
+        if (services.length === 0) {
+            return Promise.resolve([]);
+        }
 
-            service
-                .then((response) => {
-                    loading.value = false;
-                    messages.success = response.message;
-                    messages.error = "";
-                    setTimeout(() => {
-                        messages.success = "";
-                        if (reload) {
-                            location.reload();
-                        }
-                    }, 4000);
-                    resolve(response);
-                })
-                .catch((err: AxiosError<{ message: string }>) => {
-                    loading.value = false;
-                    messages.success = "";
-                    if (err.response) {
-                        messages.error = err.response.data.message;
-                    } else {
-                        messages.error = err.message;
-                    }
-                    reject(err.response);
-                });
-        });
+        loading.value = true;
+
+        try {
+            const responses = await Promise.all(services);
+            console.log(responses);
+            loading.value = false;
+            messages.success = responses.map((response) => response.message).join(", ");
+            messages.error = "";
+            setTimeout(() => {
+                messages.success = "";
+                if (reload) {
+                    location.reload();
+                }
+            }, 4000);
+
+            return responses;
+        } catch (error: any) {
+            loading.value = false;
+            messages.success = "";
+            if (error.response) {
+                messages.error = error.response.data.message;
+            } else {
+                messages.error = error.message;
+            }
+            throw error.response;
+        }
     }
 
     return {
@@ -44,3 +46,4 @@ export default function useService({ reload = false } = {}) {
         fetch,
     };
 }
+

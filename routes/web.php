@@ -75,8 +75,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/feedback/{feedback}', 'FeedbackController@show');
 
         Route::patch('/users/{user}/roles', 'UserController@updateRoles')->name('update.user.roles')->middleware('permission:assign_delete_user_role');
+        Route::patch('/users/{user}', 'UserController@update')->name('update.user')->middleware('permission:edit_delete_user');
         Route::get('users', 'UserController@index')->name('index.users');
-        Route::delete('/users/{user}', 'UserController@destroy')->name('destroy.user')->middleware('permission:delete_user');
+        Route::delete('/users/{user}', 'UserController@destroy')->name('destroy.user')->middleware('permission:edit_delete_user');
 
         Route::post('/groups', 'GroupController@store')->name('store.group');
         Route::get('/groups/create', 'GroupController@create')->name('create.group');

@@ -13,6 +13,7 @@ const props = defineProps<{
 }>();
 
 const userRoles = ref(props.user.roles.map((role) => role.id));
+const editableUser = ref(props.user);
 
 const { fetch, messages, loading } = useService();
 
@@ -40,18 +41,19 @@ const roles = computed(() => {
  * Saves the user roles
  */
 const onSave = () => {
-    fetch(UserService.updateUserRoles(props.user.id, userRoles.value)).then(
-        () => {
-            redirect("/users");
-        }
-    );
+    fetch(
+        UserService.updateUser(editableUser.value.id, editableUser.value),
+        UserService.updateUserRoles(props.user.id, userRoles.value)
+    ).then(() => {
+        redirect("/users");
+    });
 };
 
 /**
  * Deletes the user
  */
 const onDelete = () => {
-    if(!confirm("Haluatko varmasti poistaa käyttäjän?")) return;
+    if (!confirm("Haluatko varmasti poistaa käyttäjän?")) return;
     fetch(UserService.deleteUser(props.user.id)).then(() => {
         redirect("/users");
     });
@@ -60,10 +62,10 @@ const onDelete = () => {
 <template>
     <n-grid :span="24" :x-gap="6">
         <n-form-item-gi span="24" label="Nimi" path="name">
-            <n-input v-model:value="user.name"  disabled />
+            <n-input v-model:value="editableUser.name" />
         </n-form-item-gi>
         <n-form-item-gi span="24" label="Sähköposti" path="name">
-            <n-input v-model:value="user.email"  disabled />
+            <n-input v-model:value="editableUser.email" />
         </n-form-item-gi>
 
         <n-form-item-gi span="24" label="Roolit" path="roles">

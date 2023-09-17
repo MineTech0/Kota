@@ -114,7 +114,7 @@ class UserTest extends TestCase
     function test_user_can_be_deleted()
     {
         $user = User::factory()->create();
-        $user->givePermissionTo(['delete_user', 'access_management']);
+        $user->givePermissionTo(['edit_delete_user', 'access_management']);
 
         $editableUser = User::factory()->create();
 
