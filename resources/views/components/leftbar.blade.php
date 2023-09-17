@@ -33,13 +33,20 @@
                 </div>
             </li>
         @endcan
+        <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
+            <div class="content">
+                @can('see_group_expenses')
+                <a href="{{ route('expenses.index') }}">&nbsp;Kaikki kulut</a>
+                @endcan
+                @can('see_own_group_expenses')
+                <a href="{{ route('expenses.index') }}">&nbsp;Omien ryhmien kulut</a>
+                @endcan
+                @canany(['add_own_group_expense', 'add_group_expense'])
+                <a href="{{ route('expenses.create') }}">&nbsp;Lisää kuluja</a>
+                @endcanany('add_group_expense')
+            </div>
+        </li>
         @can('access_management')
-            <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
-                <div class="content">
-                    <a href="{{ route('expenses.index') }}">&nbsp;Kaikki kulut</a>
-                    <a href="{{ route('expenses.create') }}">&nbsp;Lisää kuluja</a>
-                </div>
-            </li>
             <li>
                 <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>
                 <div class="content">
