@@ -21,8 +21,8 @@ class GroupController extends Controller
     {
         $groups = Group::all();
         $groups->load('leaders');
-        
-        return view('group.index', ['groups' => $groups, 'canEdit' => $request->user()->hasPermissionTo('access_management')]);
+
+        return view('group.index', ['groups' => $groups, 'canEdit' => $request->user()->hasPermissionTo('access_management'), 'ageGroups' => collect(config('kota.groups.ageGroups'))]);
     }
 
     public function userGroups()
@@ -32,7 +32,7 @@ class GroupController extends Controller
 
         //only show current season expenses
         $currentSeason = SeasonUtil::getCurrentSeasonDates(Carbon::now())['currentSeasonDates'];
-        
+
         $groups->each(function ($group) use ($currentSeason) {
             $group->expenses = $group->expenses->filter(function ($expense) use ($currentSeason) {
                 return $expense->expense_date->between($currentSeason['start'], $currentSeason['end']);

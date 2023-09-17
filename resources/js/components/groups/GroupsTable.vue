@@ -8,6 +8,7 @@ import { h } from "vue";
 const props = defineProps<{
     groups: Group[];
     canEdit: boolean;
+    ageGroups: string[];
 }>();
 
 const columns = computed((): DataTableColumns<Group> => {
@@ -70,7 +71,11 @@ const columns = computed((): DataTableColumns<Group> => {
             title: "Ikäkausi",
             key: "age",
             minWidth: 120,
-            sorter: "default",
+            sorter: (a, b) => {
+                const aIndex = props.ageGroups.indexOf(a.age);
+                const bIndex = props.ageGroups.indexOf(b.age);
+                return aIndex - bIndex;
+            },
         },
     ];
     if (props.canEdit) {
