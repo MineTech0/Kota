@@ -14,7 +14,19 @@ class StoreGroupExpenseRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add_group_expense');
+        if($this->user()->can('add_group_expense'))
+        {
+            return true;
+        }
+        else if($this->user()->can('add_own_group_expense'))
+        {
+            return $this->user()->groups->contains('id', $this->groupId);
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
     /**

@@ -38,7 +38,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/groups', 'GroupController@index')->name('groups');
 
-    Route::get('/user/groups', 'GroupController@userGroups')->name('user.groups')->middleware('permission:see_own_group_expenses');
+    Route::get('/groups/expenses', 'GroupExpenseController@index')->name('group.expenses')->middleware('permission:see_own_group_expenses');
+    Route::get('/expenses/create', 'GroupExpenseController@create')->name('group.expenses.create')->middleware('permission:add_group_expense|add_own_group_expense');
+    Route::post('/expenses/group', 'GroupExpenseController@store')->name('group.expenses.store')->middleware('permission:add_group_expense|add_own_group_expense');
 
     Route::get('/feedback', 'FeedbackController@create')->name('feedback');
     Route::post('/feedback', 'FeedbackController@store');
@@ -95,8 +97,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/files/{file}', 'FileController@destroy')->name('files.destroy');
 
         Route::get('/expenses', 'ExpenseController@index')->name('expenses.index')->middleware('permission:see_group_expenses');
-        Route::get('/expenses/create', 'ExpenseController@create')->name('expenses.create')->middleware('permission:add_group_expense');
-        Route::post('/expenses/group', 'ExpenseController@storeGroup')->name('expenses.storeGroup')->middleware('permission:add_group_expense');
         Route::delete('/expenses/{expense}', 'ExpenseController@destroy')->name('expenses.destroy')->middleware('permission:delete_edit_group_expense');
     });
 });
