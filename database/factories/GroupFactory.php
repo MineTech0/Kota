@@ -23,6 +23,7 @@ class GroupFactory extends Factory
             'meeting_end' => '19:00',
             'repeat' => 'Viikoittain',
             'age' => $ages[array_rand($ages,1)],
+            'member_count' => $this->faker->numberBetween(1, 20),
         ];
     }
 }
