@@ -1,15 +1,14 @@
 <script lang="ts" setup>
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { ArcElement, Chart as ChartJS, Legend, LinearScale, Tooltip } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { computed } from "vue";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import { Doughnut } from "vue-chartjs";
 const props = defineProps<{
     amount: number;
     maxAmount: number;
 }>();
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, LinearScale);
 
 const data = computed(() => ({
     labels: ["Käytetty", "Jäljellä"],
