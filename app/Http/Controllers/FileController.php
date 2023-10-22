@@ -16,6 +16,7 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
+        session(['token' => Str::random(40)]);
 
         return view('files.index', [
             'files' => File::all(),
@@ -34,9 +35,14 @@ class FileController extends Controller
 
             $extension = pathinfo(storage_path('files/' . $file->path), PATHINFO_EXTENSION);
 
+            //check if file exists
+            if (!Storage::exists($file->path)) {
+                return abort(404, 'Tiedostoa ei löydy');
+            }
+
             return Storage::download($file->path, str_replace(' ', '_', $file->name) . "." . $extension);
         } else {
-            return abort(404);
+            return abort(400, 'Token ei täsmää');
         }
     }
 
