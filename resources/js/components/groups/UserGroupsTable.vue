@@ -5,15 +5,61 @@ import { GroupExpense, GroupWithExpenses } from "../../types";
 
 const props = defineProps<{
     groups: GroupWithExpenses[];
+    modelValue: GroupWithExpenses;
 }>();
 
-const rowData = computed(() => props.groups.map((group, index) => ({
-    ...group,
-    amount: group.expenses.reduce((acc, expense) => acc + Number(expense.amount), 0),
-    children: group.expenses,
-})));
+const rowData = computed(() =>
+    props.groups.map((group, index) => ({
+        ...group,
+        amount: group.expenses.reduce(
+            (acc, expense) => acc + Number(expense.amount),
+            0
+        ),
+        header: true,
+        children: group.expenses.map((expense, i) => ({
+            ...expense,
+            header: false,
+        })),
+    }))
+);
 
-const columns: DataTableColumns<GroupExpense> = [
+const emit = defineEmits<{
+    (event: "update:modelValue", group: GroupWithExpenses): void;
+}>();
+
+const selectGroup = computed({
+    get() {
+        return [props.modelValue.id];
+    },
+    set(group: number[]) {
+        emit("update:modelValue", props.groups.find((g) => g.id === group[0])!);
+    },
+});
+
+const columns: DataTableColumns<{
+    id: number;
+    name: string;
+    amount: number;
+    expense_date: string;
+    description: string;
+    header: boolean;
+    children: GroupExpense[];
+}> = [
+    {
+        type: "selection",
+        multiple: false,
+        disabled: (row) => !row.header,
+        cellProps: (row) => {
+            if (!row.header) {
+                return {
+                    style: {
+                        visibility: "hidden",
+                    },
+                };
+            }
+            return {}
+        },
+    },
     {
         title: "Nimi",
         key: "name",
@@ -23,17 +69,16 @@ const columns: DataTableColumns<GroupExpense> = [
         key: "amount",
         render: (row) => {
             return row.amount + " €";
-        }
+        },
     },
     {
         title: "Kulupäivä",
         key: "expense_date",
         render: (row) => {
-            if(row.expense_date)
-            {
-                return new Date(row.expense_date).toLocaleDateString('fi-FI');
+            if (row.expense_date) {
+                return new Date(row.expense_date).toLocaleDateString("fi-FI");
             }
-        }
+        },
     },
     {
         title: "Kuvaus",
@@ -42,18 +87,21 @@ const columns: DataTableColumns<GroupExpense> = [
 ];
 </script>
 <template>
-        <n-data-table
-            class="table"
-            :columns="columns"
-            :data="rowData"
-            :row-key="(row) => row.id"
-        />
+    <n-data-table
+        class="table"
+        :columns="columns"
+        :data="rowData"
+        :row-key="(row) => row.id"
+        v-model:checked-row-keys="selectGroup"
+    />
 </template>
 <style scoped>
-
 @media (max-width: 600px) {
-  .table {
-    font-size: 12px;
-  }
+    .table {
+        font-size: 12px;
+    }
+}
+:deep(td) {
+    vertical-align: baseline;
 }
 </style>

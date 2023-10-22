@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ClubMoney;
 use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
@@ -32,8 +33,18 @@ class GroupExpenseController extends Controller
             });
         });
 
+        //add parent age group to group properties
+        $parentAgeGroups = collect(config('kota.groups.parentAgeGroups'));
+        $groups->each(function ($group) use ($parentAgeGroups) {
+            $parentAgeGroups->each(function ($parentAgeGroup, $key) use ($group) {
+                if (in_array($group->age, $parentAgeGroup)) {
+                    $group->parentAgeGroup = $key;
+                }
+            });
+        });
 
-        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name']]);
+
+        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name'], 'clubMoney' => ClubMoney::all()]);
     }
 
     /**

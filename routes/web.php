@@ -98,5 +98,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/expenses', 'ExpenseController@index')->name('expenses.index')->middleware('permission:see_group_expenses');
         Route::delete('/expenses/{expense}', 'ExpenseController@destroy')->name('expenses.destroy')->middleware('permission:delete_edit_group_expense');
+
+        Route::get('/budget', 'ClubMoneyController@index')->name('budget.index')->middleware('permission:see_budget');
+        Route::post('/budget/clubMoney', 'ClubMoneyController@store')->name('budget.store')->middleware('permission:edit_budget');
     });
 });

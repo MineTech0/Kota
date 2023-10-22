@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $fillable = ['name','meeting_day', 'meeting_start','meeting_end','repeat','age'];
+    protected $fillable = ['name','meeting_day', 'meeting_start','meeting_end','repeat','age','member_count'];
     use HasFactory;
 
     public function getTimeAttribute($value)

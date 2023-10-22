@@ -14,6 +14,7 @@ import {
 FormRules,
 FormInst,
 FormValidationError,
+NInputNumber,
 } from "naive-ui";
 import { watch } from "vue";
 import Message from "../Message.vue";
@@ -33,6 +34,7 @@ interface NewGroup {
         label: string;
         value: User;
     }[];
+    member_count: number;
 }
 
 const props = defineProps<{
@@ -49,6 +51,7 @@ const DEFAULT_GROUP = {
     repeat: "",
     age: props.ageGroups[0],
     leaders: [],
+    member_count: 1,
 }
 
 const newGroup = reactive<NewGroup>(DEFAULT_GROUP);
@@ -149,6 +152,18 @@ const formRules: FormRules  = {
                 }
             }
         }
+    ],
+    member_count: [
+        {
+            required: true,
+            trigger: ['blur', 'change'],
+            message: 'Jäsenmäärä vaaditaan',
+            validator(_rule, value: number){
+                if(value < 1){
+                    return Error('Jäsenmäärä ei voi olla pienempi kuin 1')
+                }
+            }
+        }
     ]
 }
 
@@ -166,6 +181,7 @@ const onSubmit = (e: MouseEvent) => {
                     repeat: newGroup.repeat,
                     age: newGroup.age,
                     leaders: newGroup.leaders.map((leader) => leader.value),
+                    member_count: newGroup.member_count,
                 };
                 GroupService.storeGroup(newGroupObject).then(response => {
                     messages.success = response.message
@@ -271,6 +287,11 @@ const created = (id) => {
                     <n-input
                         v-model:value="newGroup.repeat"
                         placeholder="Viikottain..."
+                    />
+                </n-form-item-gi>
+                <n-form-item-gi span="24" label="Jäsenmäärä" path="member_count">
+                    <n-input-number
+                        v-model:value="newGroup.member_count"
                     />
                 </n-form-item-gi>
                 <n-form-item-gi span="24" label="Ikäryhmä" path="age">

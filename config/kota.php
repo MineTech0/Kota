@@ -44,12 +44,15 @@ return [
             'Tarpojat, 1v',
             'Tarpojat, 2v',
             'Tarpojat, 3v',
+            'Samoajat',
             'Samoajat, 1v',
             'Samoajat, 2v',
+            'Vaeltajat',
             'Vaeltajat, 1v',
             'Vaeltajat, 2v',
             'Vaeltajat, 3v',
             'Vaeltajat, 4v',
+            'Aikuiset',
         ],
         'parentAgeGroups' => [
             'Sudenpennut' => [
@@ -67,15 +70,20 @@ return [
                 'Tarpojat, 3v'
             ],
             'Samoajat' => [
+                'Samoajat', 
                 'Samoajat, 1v', 
                 'Samoajat, 2v'
             ],
             'Vaeltajat' => [
+                'Vaeltajat', 
                 'Vaeltajat, 1v', 
                 'Vaeltajat, 2v', 
                 'Vaeltajat, 3v', 
                 'Vaeltajat, 4v'
             ],
+            'Aikuiset' => [
+                'Aikuiset'
+            ]
         ],
     ],
     'expenses' => [
@@ -99,6 +107,8 @@ return [
             'delete_edit_group_expense',
             'edit_delete_user',
             'assign_delete_user_role',
+            'see_budget',
+            'edit_budget',
         ],
         'signatory' => [],
         'leader' => [
@@ -130,6 +140,8 @@ return [
         'see_own_group_expenses',
         'add_own_group_expense',
         'delete_edit_own_group_expense',
+        'see_budget',
+        'edit_budget',
     ],
 
     'equipment' => [
@@ -140,9 +152,22 @@ return [
             'Huono',
             'Rikki',
         ]
-        ],
-        'telescope_users' => [
-            'niilo.kurki@hotmail.fi',
+    ],
+    'telescope_users' => [
+        'niilo.kurki@hotmail.fi',
+    ],
+    'budget' => [
+        'clubMoney' => [
+            'categories' => [
+                'Sudenpennut',
+                'Seikkailijat',
+                'Tarpojat',
+                'Samoajat',
+                'Vaeltajat',
+                'Aikuiset',
+            ]
         ]
+    ]
+    
 
 ];
