@@ -1,5 +1,11 @@
 <script lang="ts" setup>
-import { ArcElement, Chart as ChartJS, Legend, LinearScale, Tooltip } from "chart.js";
+import {
+    ArcElement,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    Tooltip,
+} from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { computed, reactive } from "vue";
 import { Doughnut } from "vue-chartjs";
@@ -10,11 +16,18 @@ const props = defineProps<{
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, LinearScale);
 
+const moneyLeft = computed(() => {
+    if (props.maxAmount > 0) {
+        return props.maxAmount - props.amount;
+    }
+    return 0;
+});
+
 const data = computed(() => ({
     labels: ["Käytetty", "Jäljellä"],
     datasets: [
         {
-            data: [ props.amount, props.maxAmount - props.amount],
+            data: [props.amount, moneyLeft.value],
             backgroundColor: ["#c6c6c6", "#253765"],
             hoverBackgroundColor: ["#28a9e1", "#253765"],
         },
@@ -35,7 +48,10 @@ const options = reactive({
         },
         datalabels: {
             color: "#fff",
-            formatter: (value: number) => value ? `${value} €` : '',
+            display: (context) => {
+                return context.dataset.data[context.dataIndex] > 0;
+            },
+            formatter: (value: number) => (value ? `${value} €` : "0 €"),
             font: {
                 size: 20,
                 weight: "bold",
@@ -74,7 +90,7 @@ const options = reactive({
 });
 </script>
 <template>
-    <div class="chart-container" style="position: relative; height:180px;">
+    <div class="chart-container" style="position: relative; height: 180px">
         <Doughnut :data="data" :options="options" />
     </div>
 </template>

@@ -16,7 +16,7 @@ const props = defineProps<{
     clubMoneys: ClubMoney[];
 }>();
 
-const { fetch, loading, messages } = useService({ reload: false });
+const { fetch, loading, messages } = useService({ reload: true });
 
 const formValue = ref(
     props.clubMoneys.reduce((acc, clubMoney) => {

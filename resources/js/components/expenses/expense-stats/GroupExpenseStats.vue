@@ -14,6 +14,7 @@ import {
 } from "naive-ui";
 import UsageChart from "./UsageChart.vue";
 import { computed } from "vue";
+import AgeGroupTag from "@/components/AgeGroupTag.vue";
 
 const props = defineProps<{
     group: GroupWithExpenses;
@@ -26,20 +27,24 @@ const sum = computed(() =>
         0
     )
 );
-const budget = computed(() => props.clubMoney.amount * props.group.member_count);
+const budget = computed(
+    () => props.clubMoney.amount * props.group.member_count
+);
 
-const used = computed(() => (sum.value  == 0 ? 0 : sum.value / budget.value) * 100);
-
+const used = computed(() => {
+    if (budget.value > 0) {
+        return (sum.value / budget.value) * 100;
+    }
+    return 100;
+});
 </script>
 <template>
     <NGrid cols="1 400:2" x-gap="12" y-gap="12">
         <NGridItem class="grid-i">
             <NCard :title="group.name" class="chart">
                 <template #header-extra>
-                    <NTag type="info">
-                        {{ group.parentAgeGroup }}
-                    </NTag></template
-                >
+                    <AgeGroupTag :parentAgeGroup="group.parentAgeGroup" />
+                </template>
                 <NRow>
                     <NCol :span="12">
                         <NStatistic label="Käytetty" :value="sum">
@@ -56,21 +61,25 @@ const used = computed(() => (sum.value  == 0 ? 0 : sum.value / budget.value) * 1
                     <NCol :span="12">
                         <n-statistic>
                             <template #label>
-                                € / Jäsen
-                                <NPopover placement="bottom-end" style="width: 200px" trigger="hover">
+                               Kerhoraha
+                                <NPopover
+                                    placement="bottom-end"
+                                    style="width: 200px"
+                                    trigger="hover"
+                                >
                                     <template #trigger>
                                         <i class="fas fa-info-circle"></i>
                                     </template>
                                     <span
-                                        >Kerhorahan määrä riippu ryhmän jäsenten määrästä</span
+                                        >Kerhorahan määrä on kirjattu lippukunnan budjettiin.</span
                                     >
                                 </NPopover>
                             </template>
-                            {{ clubMoney.amount }} €
+                            {{ clubMoney.amount }} € / Jäsen
                         </n-statistic>
                     </NCol>
                     <NCol :span="12">
-                        <n-statistic label="Jäseniä">
+                        <n-statistic label="Ryhmän jäseniä">
                             {{ group.member_count || 0 }}
                         </n-statistic>
                     </NCol>
