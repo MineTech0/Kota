@@ -14,7 +14,7 @@ const data = computed(() => ({
     labels: ["Käytetty", "Jäljellä"],
     datasets: [
         {
-            data: [ props.maxAmount - props.amount, props.amount],
+            data: [ props.amount, props.maxAmount - props.amount],
             backgroundColor: ["#c6c6c6", "#253765"],
             hoverBackgroundColor: ["#28a9e1", "#253765"],
         },
@@ -27,7 +27,8 @@ const options = reactive({
     cutout: "40%",
     plugins: {
         legend: {
-            display: false,
+            display: true,
+            reverse: true,
         },
         tooltip: {
             enabled: false,
@@ -36,22 +37,24 @@ const options = reactive({
             color: "#fff",
             formatter: (value: number) => value ? `${value} €` : '',
             font: {
-                size: 18,
+                size: 20,
                 weight: "bold",
             },
+            backgroundColor: "#28a9e1",
+            borderRadius: 10,
         },
         doughnutInteriorText: {
             beforeDraw: function (chart) {
-                var width = chart.chartArea.width,
+                const width = chart.chartArea.width,
                     height = chart.chartArea.height,
                     ctx = chart.ctx;
 
                 ctx.restore();
-                var fontSize = (height / 114).toFixed(2);
+                const fontSize = (height / 250).toFixed(2);
                 ctx.font = fontSize + "em sans-serif";
                 ctx.textBaseline = "middle";
 
-                var text = chart.data.datasets[0].data.reduce(
+                const text = chart.data.datasets[0].data.reduce(
                         (partialSum, a) => partialSum + a,
                         0
                     ),
@@ -71,7 +74,7 @@ const options = reactive({
 });
 </script>
 <template>
-    <div class="chart-container" style="position: relative; height:160px;">
+    <div class="chart-container" style="position: relative; height:180px;">
         <Doughnut :data="data" :options="options" />
     </div>
 </template>
