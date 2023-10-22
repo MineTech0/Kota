@@ -63,6 +63,7 @@ const columns: DataTableColumns<{
     {
         title: "Nimi",
         key: "name",
+        minWidth: 120,
     },
     {
         title: "Kulut",
@@ -70,6 +71,7 @@ const columns: DataTableColumns<{
         render: (row) => {
             return row.amount + " €";
         },
+        minWidth: 100,
     },
     {
         title: "Kulupäivä",
@@ -79,11 +81,14 @@ const columns: DataTableColumns<{
                 return new Date(row.expense_date).toLocaleDateString("fi-FI");
             }
         },
+        minWidth: 100,
     },
     {
         title: "Kuvaus",
         key: "description",
+        minWidth: 190,
     },
+    
 ];
 </script>
 <template>
