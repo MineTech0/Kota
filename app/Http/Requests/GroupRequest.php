@@ -31,7 +31,8 @@ class GroupRequest extends FormRequest
             'repeat' => 'string|required',
             'age' => 'string|required',
             'leaders => required|array|min:1',
-            'leaders.*.id' => 'exists:users,id'
+            'leaders.*.id' => 'exists:users,id',
+            'member_count' => 'integer|required'
 
         ];
     }

@@ -12,9 +12,6 @@
             <a href="{{ route('groups') }}"><i class="fas fa-users fa-fw"></i> &nbsp;Ryhmät</a>
             <div class="content">
                 <a href="{{ route('groups') }}">&nbsp;Kaikki ryhmät</a>
-                @can('see_own_group_expenses')
-                    <a href="{{ route('user.groups') }}">&nbsp;Omat ryhmät</a>
-                @endcan
             </div>
         </li>
         </li>
@@ -33,19 +30,29 @@
                 </div>
             </li>
         @endcan
+        @canany(['see_own_group_expenses', 'see_group_expenses', 'add_own_group_expense', 'add_group_expense'])
+        <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
+            <div class="content">
+                @can('see_group_expenses')
+                <a href="{{ route('expenses.index') }}">&nbsp;Kaikki kulut</a>
+                @endcan
+                @can('see_own_group_expenses')
+                <a href="{{ route('group.expenses') }}">&nbsp;Omien ryhmien kulut</a>
+                @endcan
+                @canany(['add_own_group_expense', 'add_group_expense'])
+                <a href="{{ route('group.expenses.create') }}">&nbsp;Lisää kuluja</a>
+                @endcanany
+            </div>
+        </li>
+        @endcanany
         @can('access_management')
-            <li><a><i class="fas fa-money-bill fa-fw"></i> &nbsp;Kulut</a>
-                <div class="content">
-                    <a href="{{ route('expenses.index') }}">&nbsp;Kaikki kulut</a>
-                    <a href="{{ route('expenses.create') }}">&nbsp;Lisää kuluja</a>
-                </div>
-            </li>
             <li>
                 <a><i class="fas fa-clipboard fa-fw"></i> &nbsp;Hallinto</a>
                 <div class="content">
                     <a href="{{ route('management') }}"></i> &nbsp;Työkalut</a>
                     <a href="{{ route('index.users') }}"></i> &nbsp;Käyttäjät</a>
                     <a href="{{ route('create.invite') }}"></i> &nbsp;Kutsut</a>
+                    <a href="{{ route('budget.index') }}"></i> &nbsp;Budjetti</a>
                 </div>
             </li>
         @endcan

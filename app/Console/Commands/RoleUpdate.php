@@ -41,6 +41,11 @@ class RoleUpdate extends Command
             return !in_array($role->name, array_keys(config('kota.roles')));
         });
 
+        // remove super-admin from roles to delete
+        $rolesToDelete = $rolesToDelete->filter(function ($role) {
+            return $role->name != 'super-admin';
+        });
+
         // Determine permissions to delete
         $permissionsToDelete = $existingPermissions->filter(function ($permission) {
             return !in_array($permission->name, config('kota.permissions'));
@@ -48,7 +53,10 @@ class RoleUpdate extends Command
 
         // Clear non-preserved roles and permissions
         Role::whereIn('id', $rolesToDelete->pluck('id'))->delete();
+        $this->info('Deleted roles: ' . $rolesToDelete->pluck('name')->implode(', '));
+
         Permission::whereIn('id', $permissionsToDelete->pluck('id'))->delete();
+        $this->info('Deleted permissions: ' . $permissionsToDelete->pluck('name')->implode(', '));
 
         // Create new permissions
         collect(config('kota.permissions'))
@@ -57,7 +65,12 @@ class RoleUpdate extends Command
             })
             ->each(function ($permissionName) {
                 Permission::create(['name' => $permissionName]);
+                $this->info('Created permission: ' . $permissionName);
             });
+
+        //update super-admin permissions
+        $superAdmin = Role::findByName('super-admin');
+        $superAdmin->syncPermissions(Permission::all());
 
         // Create new roles and assign permissions
         collect(config('kota.roles'))
@@ -68,6 +81,7 @@ class RoleUpdate extends Command
                 }
                 else {
                     $role = Role::create(['name' => $roleName]);
+                    $this->info('Created role: ' . $roleName);
                     $role->syncPermissions($permissions);
                 }
             });

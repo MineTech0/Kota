@@ -19,7 +19,7 @@ const defaultState = {
     ]
 }
 
-export const useCreateExpensesStore = defineStore('loan', {
+export const useCreateExpensesStore = defineStore('expense', {
     state: (): State => ({...defaultState}),
     actions: {
         /**

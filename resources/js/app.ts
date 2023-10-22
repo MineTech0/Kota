@@ -11,7 +11,6 @@ import CreateExpensesPage from './components/expenses/CreateExpensesPage.vue';
 import IndexExpensesPage from './components/expenses/IndexExpensesPage.vue';
 import CreateGroupForm from './components/groups/CreateGroupForm.vue';
 import EditGroupForm from './components/groups/EditGroupForm.vue';
-import UserGroupsTable from './components/groups/UserGroupsTable.vue';
 import UsersTable from './components/users/UsersTable.vue';
 import Message from './components/Message.vue';
 import EquipmentTable from './components/equipment/EquipmentTable.vue';
@@ -19,6 +18,8 @@ import RolesPermissionsTable from './components/users/RolesPermissionsTable.vue'
 import CreateInviteForm from './components/invites/CreateInviteForm.vue';
 import InvitesTable from './components/invites/InvitesTable.vue';
 import GroupsTable from './components/groups/GroupsTable.vue'
+import GroupExpensesPage from './components/expenses/GroupExpensesPage.vue'
+import ClubMoneyForm from './components/budget/ClubMoneyForm.vue'
 import App from './App.vue'
 
 const pinia = createPinia()
@@ -33,7 +34,6 @@ app.component('index-expenses-page',  IndexExpensesPage)
 app.component('n-button', NButton)
 app.component('create-group-form', CreateGroupForm)
 app.component('edit-group-form', EditGroupForm)
-app.component('user-group-table',UserGroupsTable )
 app.component('users-table', UsersTable)
 app.component('equipment-table', EquipmentTable)
 app.component('message', Message)
@@ -41,6 +41,8 @@ app.component('roles-permissions-table', RolesPermissionsTable)
 app.component('create-invite-form',CreateInviteForm)
 app.component('invites-table', InvitesTable)
 app.component('groups-table', GroupsTable)
+app.component('group-expenses-page', GroupExpensesPage)
+app.component('club-money-form', ClubMoneyForm)
 app.component('app', App)
 
 app.use(pinia)

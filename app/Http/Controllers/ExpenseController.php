@@ -37,33 +37,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses.create-expenses', [
-            'groups' => Group::all(),
-            'expenseInfos' => collect(config('kota.expenses.infos'))
-        ]);
-    }
-
-    /**
-     * Stores new group expense
-     *
-     * @param  \Illuminate\Http\StoreGroupExpenseRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeGroup(StoreGroupExpenseRequest $request)
-    {
-        $validated = $request->validated();
-        $validated['acceptor_id'] = Auth::id();
-
-        // Save original age group and group name
-        $group = Group::find($validated['group_id']);
-        $validated['original_age_group'] = $group->age;
-        $validated['original_group_name'] = $group->name;
-
-        Expense::create($validated);
-
-        return response()->json([
-            'message' => 'Kulujen lisääminen onnitui'
-        ]);
+        //
     }
 
     /**

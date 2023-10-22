@@ -16,7 +16,6 @@ export default function useService({ reload = false } = {}) {
 
         try {
             const responses = await Promise.all(services);
-            console.log(responses);
             loading.value = false;
             messages.success = responses.map((response) => response.message).join(", ");
             messages.error = "";
