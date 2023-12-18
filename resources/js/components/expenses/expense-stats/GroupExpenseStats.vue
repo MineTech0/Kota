@@ -28,7 +28,7 @@ const sum = computed(() =>
     )
 );
 const budget = computed(
-    () => props.clubMoney.amount * props.group.member_count
+    () => Number(props.clubMoney.amount) * props.group.member_count
 );
 
 const used = computed(() => {

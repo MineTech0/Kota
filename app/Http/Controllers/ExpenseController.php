@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\ClubMoney;
 use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
+use App\Queries\BudgetQuery;
 use App\Queries\GroupExpenses;
 use App\Utils\SeasonUtil;
 use Carbon\Carbon;
@@ -26,7 +28,8 @@ class ExpenseController extends Controller
             'currentSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['currentSeasonDates']['start'], $seasonDates['currentSeasonDates']['end']),
             'previousSeasonExpenses' => GroupExpenses::getExpensesBetweenDates($seasonDates['previousSeasonDates']['start'], $seasonDates['previousSeasonDates']['end']),
             'seasons' => collect([ $seasonDates['previousSeasonDates']['name'], $seasonDates['currentSeasonDates']['name']]),
-            'canDelete' => $request->user()->hasPermissionTo('delete_edit_group_expense')
+            'canDelete' => $request->user()->hasPermissionTo('delete_edit_group_expense'),
+            'ageGroupBudgets' => BudgetQuery::getClubMoneyForOneSeasonByAgeGroup(),
         ]);
     }
 

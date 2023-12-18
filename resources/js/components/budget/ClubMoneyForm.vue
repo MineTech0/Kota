@@ -28,9 +28,7 @@ const formValue = ref(
 const valueChanged = computed(() => {
     return Object.keys(formValue.value).some((age) => {
         return (
-            Number(formValue.value[age]) !=
-            props.clubMoneys.find((clubMoney) => clubMoney.age_group === age)
-                ?.amount
+            Number(formValue.value[age]) != Number(props.clubMoneys.find((clubMoney) => clubMoney.age_group === age)?.amount)
         );
     });
 });
@@ -40,9 +38,7 @@ const save = () => {
     Object.keys(formValue.value).forEach((age) => {
         //if changed
         if (
-            Number(formValue.value[age]) !=
-            props.clubMoneys.find((clubMoney) => clubMoney.age_group === age)
-                ?.amount
+            Number(formValue.value[age]) != Number(props.clubMoneys.find((clubMoney) => clubMoney.age_group === age)?.amount)
         ) {
             promises.push(
                 BudgetService.saveClubMoney({

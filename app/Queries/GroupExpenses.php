@@ -49,9 +49,9 @@ class GroupExpenses
                 return [
                     'age' => $key,
                     'expenses' => $expenses,
-                    'amount' => $expenses->reduce(function ($carry, $group) {
+                    'amount' => round($expenses->reduce(function ($carry, $group) {
                         return $carry + $group['amount'];
-                    }, 0)
+                    }, 0),2),
                 ];
             })
             ->sortBy('age')
