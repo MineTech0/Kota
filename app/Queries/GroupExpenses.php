@@ -20,6 +20,7 @@ class GroupExpenses
 
         return Expense::whereBetween('expense_date', [$startDate, $endDate])
             ->get()
+            ->load('group')
             ->groupBy(function ($expense) {
                 // Map the parent age group to the corresponding key in the 'parentAgeGroups' array
                 foreach (config('kota.groups.parentAgeGroups') as $key => $ageGroups) {
@@ -49,9 +50,9 @@ class GroupExpenses
                 return [
                     'age' => $key,
                     'expenses' => $expenses,
-                    'amount' => $expenses->reduce(function ($carry, $group) {
+                    'amount' => round($expenses->reduce(function ($carry, $group) {
                         return $carry + $group['amount'];
-                    }, 0)
+                    }, 0),2),
                 ];
             })
             ->sortBy('age')

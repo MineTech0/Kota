@@ -117,7 +117,11 @@ export interface GroupWithExpenses  extends Group {
 }
 export interface AgeGroupExpenses {
     age: string;
-    expenses: GroupWithExpenses[]
+    expenses: {
+        amount: number;
+        expenses: GroupExpense[]
+        name: string;
+    }[]
     amount: number;
 }
 
@@ -132,8 +136,13 @@ export interface Invite {
 
 export interface ClubMoney {
     id?: number;
-    amount: number;
+    amount: string;
     age_group: ParentAgeGroup;
 }
 
-export type ParentAgeGroup = 'Vaeltajat' | 'Sudenpennut' | 'Seikkailijat' | 'Tarpojat' | 'Aikuiset' | 'Muut';
+export interface AgeGroupBudget {
+    parentAgeGroup: ParentAgeGroup;
+    clubMoneyBudget: number;
+}
+
+export type ParentAgeGroup = 'Vaeltajat' | 'Sudenpennut' | 'Seikkailijat' | 'Tarpojat' | 'Aikuiset' | 'Perhepartio' | 'Muut';
