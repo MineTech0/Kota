@@ -30,6 +30,7 @@ class ExpenseController extends Controller
             'seasons' => collect([ $seasonDates['previousSeasonDates']['name'], $seasonDates['currentSeasonDates']['name']]),
             'canDelete' => $request->user()->hasPermissionTo('delete_edit_group_expense'),
             'ageGroupBudgets' => BudgetQuery::getClubMoneyForOneSeasonByAgeGroup(),
+            'clubMoney' => BudgetQuery::getThisSeasonClubMoney(),
         ]);
     }
 

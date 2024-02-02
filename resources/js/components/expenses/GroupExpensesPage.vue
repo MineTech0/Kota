@@ -26,6 +26,7 @@ const selectedClubMoney = computed(() => {
     <Panel :header="`Ryhmien kulut ${season}`">
         <UserGroupsTable
             :groups="groups"
+            :club-money="clubMoney"
             v-model="selectedGroup"
             />
     </Panel>

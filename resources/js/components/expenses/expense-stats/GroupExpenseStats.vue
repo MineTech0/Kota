@@ -28,7 +28,7 @@ const sum = computed(() =>
     )
 );
 const budget = computed(
-    () => Number(props.clubMoney.amount) * props.group.member_count
+    () => (Number(props.clubMoney.amount) * props.group.member_count)
 );
 
 const used = computed(() => {
@@ -46,19 +46,24 @@ const used = computed(() => {
                     <AgeGroupTag :parentAgeGroup="group.parentAgeGroup" />
                 </template>
                 <NRow>
-                    <NCol :span="12">
+                    <NCol :span="10">
                         <NStatistic label="Käytetty" :value="sum">
                             <template #suffix>€</template>
                         </NStatistic>
                     </NCol>
-                    <NCol :span="12">
+                    <NCol :span="8">
+                        <n-statistic label="Jäljellä">
+                            {{ budget - sum || 0 }} €
+                        </n-statistic>
+                    </NCol>
+                    <NCol :span="6">
                         <n-statistic label="Käytetty %">
                             {{ used.toFixed(0) }} %
                         </n-statistic>
                     </NCol>
                 </NRow>
                 <NRow>
-                    <NCol :span="12">
+                    <NCol :span="10">
                         <n-statistic>
                             <template #label>
                                Kerhoraha
@@ -78,7 +83,7 @@ const used = computed(() => {
                             {{ clubMoney.amount }} € / Jäsen
                         </n-statistic>
                     </NCol>
-                    <NCol :span="12">
+                    <NCol :span="8">
                         <n-statistic label="Ryhmän jäseniä">
                             {{ group.member_count || 0 }}
                         </n-statistic>

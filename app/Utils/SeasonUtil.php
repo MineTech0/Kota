@@ -16,8 +16,8 @@ class SeasonUtil
         // Determine the current season
         $currentSeason = '';
         foreach ($seasons as $season => $dates) {
-            $startDate = Carbon::createFromFormat('d.m.', $dates['start'])->year($currentDate->year);
-            $endDate = Carbon::createFromFormat('d.m.', $dates['end'])->year($currentDate->year);
+            $startDate = Carbon::createFromFormat('d.m.', $dates['start'],'Europe/Helsinki')->year($currentDate->year)->startOfDay();
+            $endDate = Carbon::createFromFormat('d.m.', $dates['end'], 'Europe/Helsinki')->year($currentDate->year)->endOfDay();
 
             if ($currentDate->between($startDate, $endDate)) {
                 $currentSeason = $season;

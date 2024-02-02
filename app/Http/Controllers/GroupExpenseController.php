@@ -6,6 +6,7 @@ use App\ClubMoney;
 use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
+use App\Queries\BudgetQuery;
 use App\Queries\GroupExpenses;
 use App\Utils\SeasonUtil;
 use Carbon\Carbon;
@@ -40,8 +41,9 @@ class GroupExpenseController extends Controller
             });
         });
 
+        $seasonClubMoney = BudgetQuery::getThisSeasonClubMoney();
 
-        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name'], 'clubMoney' => ClubMoney::all()]);
+        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name'], 'clubMoney' => $seasonClubMoney]);
     }
 
     /**

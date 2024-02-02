@@ -22,6 +22,7 @@ const props = defineProps<{
     seasons: string[];
     canDelete: boolean;
     ageGroupBudgets: AgeGroupBudget[]
+    clubMoney: ClubMoney[];
 }>();
 
 const expenses = ref<AgeGroupExpenses[]>(props.currentSeasonExpenses);
@@ -156,6 +157,11 @@ const deleteExpense = (id: number) => {
         },
     });
 };
+
+const getGroupBudget = (group: Gr) => {
+  props.clubMoney
+}
+
 </script>
 <template>
     <Panel header="Kulut ikäkausittain">

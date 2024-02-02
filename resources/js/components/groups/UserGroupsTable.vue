@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { DataTableColumns, NDataTable } from "naive-ui";
+import { DataTableColumns, NDataTable, NProgress } from "naive-ui";
 import { computed } from "vue";
-import { GroupExpense, GroupWithExpenses } from "../../types";
+import { ClubMoney, GroupExpense, GroupWithExpenses } from "../../types";
+import { h } from "vue";
 
 const props = defineProps<{
     groups: GroupWithExpenses[];
     modelValue: GroupWithExpenses;
+    clubMoney: ClubMoney[];
 }>();
 
 const rowData = computed(() =>
@@ -15,6 +17,10 @@ const rowData = computed(() =>
             (acc, expense) => acc + Number(expense.amount),
             0
         ),
+        budget:
+            Number(props.clubMoney.find((clubMoney) => {
+                return clubMoney.age_group === group.parentAgeGroup;
+            })?.amount ?? 0) * group.member_count,
         header: true,
         children: group.expenses.map((expense, i) => ({
             ...expense,
@@ -43,6 +49,7 @@ const columns: DataTableColumns<{
     expense_date: string;
     description: string;
     header: boolean;
+    budget: number | null;
     children: GroupExpense[];
 }> = [
     {
@@ -57,7 +64,7 @@ const columns: DataTableColumns<{
                     },
                 };
             }
-            return {}
+            return {};
         },
     },
     {
@@ -70,6 +77,29 @@ const columns: DataTableColumns<{
         key: "amount",
         render: (row) => {
             return row.amount + " €";
+        },
+        minWidth: 100,
+    },
+    {
+        title: "Käytetty",
+        key: "budget",
+        render: (row) => {
+            if (row.budget) {
+                const precentage = (row.amount / row.budget * 100).toFixed(0);
+                return h(NProgress, {
+                    showInfo: true,
+                    percentage: Number(precentage),
+                    status: "success",
+                    railColor:"#253765",
+                    color: "#c6c6c6",
+                    style: {
+                        width: "100px",
+                    },
+                }, {
+                    default: () => `${precentage}%`
+                }
+                );
+            }
         },
         minWidth: 100,
     },
@@ -88,7 +118,6 @@ const columns: DataTableColumns<{
         key: "description",
         minWidth: 190,
     },
-    
 ];
 </script>
 <template>

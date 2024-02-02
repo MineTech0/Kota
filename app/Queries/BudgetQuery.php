@@ -38,4 +38,16 @@ class BudgetQuery
             })
             ->values();
     }
+    /**
+     * Return club money for current season
+     */
+    public static function getThisSeasonClubMoney() {
+        $clubMoney = ClubMoney::all();
+        // Divide club money by 2 because it is for 2 seasons
+        $clubMoney->map(function ($clubMoney) {
+            $clubMoney->amount = $clubMoney->amount / 2;
+            return $clubMoney;
+        });
+        return $clubMoney;
+    }
 }
