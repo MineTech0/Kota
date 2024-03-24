@@ -158,10 +158,6 @@ const deleteExpense = (id: number) => {
     });
 };
 
-const getGroupBudget = (group: Gr) => {
-  props.clubMoney
-}
-
 </script>
 <template>
     <Panel header="Kulut ikäkausittain">
