@@ -645,7 +645,7 @@ li {
   transition: max-height 0.3s;
   overflow: hidden;
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   bottom: 0;
   top: 60px;

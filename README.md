@@ -22,10 +22,13 @@ Intranetti mahdollistaa turvallisen tiedonjaon lippukunnan johtajistolle. Siell�
 Ominaisuuksiin kuuluu:
 * Ryhmien tiedot
 * Yleiset tiedotteet
+* Tiedostojen tallentaminen ja jakaminen
 * Palautteen antaminen
 * Varusteiden lainaamisen ja lainojen hallinta järjestelmä
-* Kulu kuittien lähettäminen sähköisesti
+* Kulujen merkkaaminen ja seuraaminen
 * Lippukunnan varusteiden hallinnointi järjestelmä
+* Käyttäjät kutsuttava
+* Käyttäjillä eri rooleja
 
 
 ### Sisällyttäminen omille nettisivuille

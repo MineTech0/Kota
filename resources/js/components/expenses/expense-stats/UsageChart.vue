@@ -18,7 +18,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, LinearScale);
 
 const moneyLeft = computed(() => {
     if (props.maxAmount > 0) {
-        return props.maxAmount - props.amount;
+        return Math.max(0, props.maxAmount - props.amount);
     }
     return 0;
 });

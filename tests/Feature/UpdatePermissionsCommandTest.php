@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 
-class UpdateRolesCommandTest extends TestCase
+class UpdatePermissionsCommandTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -6,6 +6,8 @@ use App\ClubMoney;
 use App\Expense;
 use App\Group;
 use App\Http\Requests\StoreGroupExpenseRequest;
+use App\Queries\BudgetQuery;
+use App\Queries\GroupExpenses;
 use App\Utils\SeasonUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,11 +29,7 @@ class GroupExpenseController extends Controller
         //only show current season expenses
         $currentSeason = SeasonUtil::getCurrentSeasonDates(Carbon::now())['currentSeasonDates'];
 
-        $groups->each(function ($group) use ($currentSeason) {
-            $group->expenses = $group->expenses->filter(function ($expense) use ($currentSeason) {
-                return $expense->expense_date->between($currentSeason['start'], $currentSeason['end']);
-            });
-        });
+        $groups = GroupExpenses::getUserGroupsAndExpensesBetweenDates(auth()->user()['id'], $currentSeason['start'], $currentSeason['end']);
 
         //add parent age group to group properties
         $parentAgeGroups = collect(config('kota.groups.parentAgeGroups'));
@@ -43,8 +41,9 @@ class GroupExpenseController extends Controller
             });
         });
 
+        $seasonClubMoney = BudgetQuery::getThisSeasonClubMoney();
 
-        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name'], 'clubMoney' => ClubMoney::all()]);
+        return view('group.user-groups', ['groups' => $groups, 'season' => $currentSeason['name'], 'clubMoney' => $seasonClubMoney]);
     }
 
     /**

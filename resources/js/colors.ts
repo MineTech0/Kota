@@ -1,4 +1,4 @@
-export enum Color {
+export enum ScoutColor {
     PRIMARY = '#253764',
     SECONDARY = '#28aae1',
 }

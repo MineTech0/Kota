@@ -53,6 +53,7 @@ return [
             'Vaeltajat, 3v',
             'Vaeltajat, 4v',
             'Aikuiset',
+            'Perhepartio'
         ],
         'parentAgeGroups' => [
             'Sudenpennut' => [
@@ -83,7 +84,10 @@ return [
             ],
             'Aikuiset' => [
                 'Aikuiset'
-            ]
+            ],
+            'Perhepartio' => [
+                'Perhepartio'
+            ],
         ],
     ],
     'expenses' => [
@@ -165,6 +169,7 @@ return [
                 'Samoajat',
                 'Vaeltajat',
                 'Aikuiset',
+                'Perhepartio',
             ]
         ]
     ]
