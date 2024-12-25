@@ -44,7 +44,7 @@ class GroupController extends Controller
 
         try {
             // If the age group has been updated, create a new group with the updated age
-            if ($validated['new_age']) {
+            if (array_key_exists('new_age', $validated) && $validated['new_age']) {
                 $this->handleNewAge($group, $validated);
                 return response()->json(['message' => 'Ikäryhmä muutettu']);
             }

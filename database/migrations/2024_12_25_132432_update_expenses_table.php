@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::table('expenses', function (Blueprint $table) {
             // Drop foreign key constraint if it exists
-            $foreignKeys = Schema::getConnection()->getDoctrineSchemaManager()->listTableForeignKeys('expenses');
-            foreach ($foreignKeys as $foreignKey) {
-                if (in_array('group_id', $foreignKey->getLocalColumns())) {
-                    $table->dropForeign($foreignKey->getName());
+            if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+                $foreignKeys = Schema::getConnection()->getDoctrineSchemaManager()->listTableForeignKeys('expenses');
+                foreach ($foreignKeys as $foreignKey) {
+                    if (in_array('group_id', $foreignKey->getLocalColumns())) {
+                        $table->dropForeign($foreignKey->getName());
+                    }
                 }
             }
             $table->unsignedBigInteger('group_id')->nullable()->change();
