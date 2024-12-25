@@ -30,6 +30,7 @@ interface NewGroup {
     meetingEnd: number;
     repeat: string;
     age: string;
+    newAge: string | null;
     leaders: {
         label: string;
         value: User;
@@ -55,6 +56,7 @@ const editableGroup = reactive<NewGroup>({
     meetingEnd: parse(props.group.meeting_end, "H:mm", new Date()).getTime(),
     repeat: props.group.repeat,
     age: props.group.age,
+    newAge: null,
     leaders: props.group.leaders.map((leader) => ({
         label: leader.name,
         value: leader,
@@ -166,11 +168,11 @@ const formRules: FormRules = {
             required: true,
             trigger: ["blur", "change"],
             message: "Jäsenmäärä vaaditaan",
-            validator(_rule, value: number){
-                if(value < 1){
-                    return Error('Jäsenmäärä ei voi olla pienempi kuin 1')
+            validator(_rule, value: number) {
+                if (value < 1) {
+                    return Error("Jäsenmäärä ei voi olla pienempi kuin 1");
                 }
-            }
+            },
         },
     ],
 };
@@ -192,17 +194,17 @@ const onSubmit = (e: MouseEvent) => {
                     meeting_end: format(editableGroup.meetingEnd, "H:mm"),
                     repeat: editableGroup.repeat,
                     age: editableGroup.age,
+                    new_age: editableGroup.newAge,
                     leaders: editableGroup.leaders.map(
                         (leader) => leader.value
                     ),
-                    member_count: editableGroup.member_count
+                    member_count: editableGroup.member_count,
                 };
                 GroupService.updateGroup(props.group.id, updatedGroupObject)
                     .then((response) => {
                         messages.success = response.message;
                         loading.value = false;
-                        redirect('/groups')
-                        
+                        redirect("/groups");
                     })
                     .catch((error) => {
                         console.log(error);
@@ -331,18 +333,44 @@ const created = (id) => {
                         placeholder="Viikottain..."
                     />
                 </n-form-item-gi>
-                <n-form-item-gi span="24" label="Jäsenmäärä" path="member_count">
+                <n-form-item-gi
+                    span="24"
+                    label="Jäsenmäärä"
+                    path="member_count"
+                >
                     <n-input-number
                         v-model:value="editableGroup.member_count"
                     />
                 </n-form-item-gi>
-                <n-form-item-gi span="24" label="Ikäryhmä" path="age">
+                <n-form-item-gi span="12" label="Ikäryhmä" path="age">
                     <n-select
                         disabled
                         v-model:value="editableGroup.age"
                         :options="ageGroupOptions"
                     />
                 </n-form-item-gi>
+                <n-form-item-gi span="1">
+                    <span class="arrow-icon"
+                        ><i class="fa-solid fa-arrow-right fa-lg"></i></span>
+                </n-form-item-gi>
+                <n-form-item-gi
+                    span="11"
+                    label="Uusi Ikäryhmä"
+                    path="newAgeGroup"
+                    description="Valitse uusi ikäryhmä ryhmälle"
+                >
+                    <n-select
+                        v-model:value="editableGroup.newAge"
+                        :options="ageGroupOptions"
+                        placeholder="Valitse uusi ikäryhmä"
+                        clearable
+                    />
+                    <template #feedback>
+                        <i class="fa-solid fa-circle-info"></i>
+                        Ikäryhmän vaihtaminen poistaa vanhan ryhmän ja luo uuden.
+                    </template>
+                </n-form-item-gi>
+
                 <n-form-item-gi span="24" label="Johtajat" path="leaders">
                     <n-dynamic-tags
                         v-model:value="editableGroup.leaders"
