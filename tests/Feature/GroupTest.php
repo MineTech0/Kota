@@ -70,6 +70,25 @@ class GroupTest extends TestCase
         $this->assertEquals($group->name, $updatedGroup->name);
     }
 
+    public function test_new_age_test(){
+        $user = User::factory()->create();
+        $user->givePermissionTo('access_management');
+        $group = Group::factory()->create();
+        $group->load('leaders');
+        $group->name = 'new name';
+        $group->leaders->push(User::factory()->create()->toArray());
+        $group->new_age = 'new age';
+        $response = $this->actingAs($user)
+            ->put('/groups/' . $group->id, $group->toArray());
+        $response->assertStatus(Response::HTTP_OK);
+        //old group should be deleted
+        $this->assertNull(Group::find($group->id));
+        //new group should be created
+        $newGroup = Group::where('name', $group->name)->first();
+        $this->assertNotNull($newGroup);
+        $this->assertEquals($group->leaders[0]['id'], $newGroup->leaders()->first()->toArray()['id']);
+    }
+
     public function test_update_group_without_permission(){
         $user = User::factory()->create();
         $group = Group::factory()->create();
